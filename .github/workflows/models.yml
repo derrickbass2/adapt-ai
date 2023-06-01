@@ -1,0 +1,8 @@
+curl -O http://wednesday.csail.mit.edu/pretrained/model_e220_v-4.700.pth.tar
+
+cd models
+
+git add models
+git commit -m "Add Recipe1M+ model"
+git push origin main
+
