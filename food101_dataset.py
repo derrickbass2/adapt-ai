@@ -8,6 +8,4 @@ dataset = load_dataset("food101")
 # Save the modified dataset
 dataset.save_to_disk("food101_dataset")
 
-git add food101_dataset.py
-git commit -m "Add food101 dataset"
-git push origin main
+
