@@ -1,0 +1,13 @@
+
+numpy
+pandas
+scipy
+scikit-learn
+tensorflow
+torch
+nltk
+spacy
+en_core_web_base
+matplotlib
+seaborn
+plotly
