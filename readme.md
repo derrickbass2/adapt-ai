@@ -1,7 +1,12 @@
+# README
+
 ---
 annotations_creators:
+
 - crowdsourced
+
 language_creators:
+
 - crowdsourced
 language:
 - en
@@ -123,93 +128,114 @@ dataset_info:
           '93': steak
           '94': strawberry_shortcake
           '95': sushi
-          '96': tacos
-          '97': takoyaki
-          '98': tiramisu
-          '99': tuna_tartare
-          '100': waffles
-  splits:
-  - name: train
-    num_bytes: 3845865322
-    num_examples: 75750
-  - name: validation
-    num_bytes: 1276249954
-    num_examples: 25250
-  download_size: 4998236572
-  dataset_size: 5122115276
----
-
-# Dataset Card for Food-101
-
-## Table of Contents
-- [Table of Contents](#table-of-contents)
-- [Dataset Description](#dataset-description)
-  - [Dataset Summary](#dataset-summary)
-  - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
-  - [Languages](#languages)
-- [Dataset Structure](#dataset-structure)
-  - [Data Instances](#data-instances)
-  - [Data Fields](#data-fields)
-  - [Data Splits](#data-splits)
-- [Dataset Creation](#dataset-creation)
-  - [Curation Rationale](#curation-rationale)
-  - [Source Data](#source-data)
-  - [Annotations](#annotations)
-  - [Personal and Sensitive Information](#personal-and-sensitive-information)
-- [Considerations for Using the Data](#considerations-for-using-the-data)
-  - [Social Impact of Dataset](#social-impact-of-dataset)
-  - [Discussion of Biases](#discussion-of-biases)
-  - [Other Known Limitations](#other-known-limitations)
-- [Additional Information](#additional-information)
-  - [Dataset Curators](#dataset-curators)
-  - [Licensing Information](#licensing-information)
-  - [Citation Information](#citation-information)
-  - [Contributions](#contributions)
-
-## Dataset Description
-
-- **Homepage:** [Food-101 Dataset](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
-- **Repository:**
-- **Paper:** [Paper](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/static/bossard_eccv14_food-101.pdf)
-- **Leaderboard:**
-- **Point of Contact:**
-
-### Dataset Summary
-
-This dataset consists of 101 food categories, with 101'000 images. For each class, 250 manually reviewed test images are provided as well as 750 training images. On purpose, the training images were not cleaned, and thus still contain some amount of noise. This comes mostly in the form of intense colors and sometimes wrong labels. All images were rescaled to have a maximum side length of 512 pixels.
-
-### Supported Tasks and Leaderboards
-
-- `image-classification`: The goal of this task is to classify a given image of a dish into one of 101 classes. The leaderboard is available [here](https://paperswithcode.com/sota/fine-grained-image-classification-on-food-101).
-
-### Languages
-
-English
-
-## Dataset Structure
-
-### Data Instances
-
-A sample from the training set is provided below:
-
-```
-{
-  'image': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=384x512 at 0x276021C5EB8>,
-  'label': 23
-}
-```
-
-### Data Fields
-
-The data instances have the following fields:
-
-- `image`: A `PIL.Image.Image` object containing the image. Note that when accessing the image column: `dataset[0]["image"]` the image file is automatically decoded. Decoding of a large number of image files might take a significant amount of time. Thus it is important to first query the sample index before the `"image"` column, *i.e.* `dataset[0]["image"]` should **always** be preferred over `dataset["image"][0]`.
-- `label`: an `int` classification label.
+                    '96': tacos
+                    '97': takoyaki
+                    '98': tiramisu
+                    '99': tuna_tartare
+                    '100': waffles
+            splits:
+            - name: train
+              num_bytes: 3845865322
+                  num_examples: 75750
+                - name: validation
+                  num_bytes: 1276249954
+                  num_examples: 25250
+                download_size: 4998236572
+                dataset_size: 5122115276
+              ---
+              # Dataset Card for Food-101
+              ## Table of Contents
+                - [Table of Contents](#table-of-contents)
+                - [Dataset Description](#dataset-description)
+                - [Dataset Summary](#dataset-summary)
+                - [Supported Tasks and Leaderboards](#supported-tasks-and-leaderboards)
+                - [Languages](#languages)
+                - [Dataset Structure](#dataset-structure)
+                - [Data Instances](#data-instances)
+                - [Data Fields](#data-fields)
+                - [Data Splits](#data-splits)
+              - [Dataset Creation](#dataset-creation)
+                - [Curation Rationale](#curation-rationale)
+                - [Source Data](#source-data)
+                - [Annotations](#annotations)
+                - [Personal and Sensitive Information](#personal-and-sensitive-information)
+              - [Considerations for Using the Data](#considerations-for-using-the-data)
+                - [Social Impact of Dataset](#social-impact-of-dataset)
+                - [Discussion of Biases](#discussion-of-biases)
+                - [Other Known Limitations](#other-known-limitations)
+              - [Additional Information](#additional-information)
+                - [Dataset Curators](#dataset-curators)
+                - [Licensing Information](#licensing-information)
+                - [Citation Information](#citation-information)
+                - [Contributions](#contributions)
+              ## Dataset Description
+              - **Homepage:** [Food-101 Dataset](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
+              - **Repository:**
+              - **Paper:** [Paper](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/static/bossard_eccv14_food-101.pdf)
+              - **Leaderboard:**
+              - **Point of Contact:**
+              ### Dataset Summary
+              This dataset consists of 101 food categories, with 101'000 images. For each class, 250 manually reviewed test images are provided as well as 750 training images. On purpose, the training images were not cleaned, and thus still contain some amount of noise. This comes mostly in the form of intense colors and sometimes wrong labels. All images were rescaled to have a maximum side length of 512 pixels.
+              ### Supported Tasks and Leaderboards
+              - `image-classification`: The goal of this task is to classify a given image of a dish into one of 101 classes. The leaderboard is available [here](https://paperswithcode.com/sota/fine-grained-image-classification-on-food-101).
+              ### Languages
+              English
+              ## Dataset Structure
+              ### Data Instances
+              A sample from the training set is provided below:
+              {
+                'image': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=384x512 at 0x276021C5EB8>,
+                'label': 23
+              }
+              ## Data Fields
+              The data instances have the following fields:
+              - `image`: A `PIL.Image.Image` object containing the image. Note that when accessing the image column: `dataset[0]["image"]` the image file is automatically decoded. Decoding of a large number of image files might take a significant amount of time. Thus it is important to first query the sample index before the `"image"` column, *i.e.* `dataset[0]["image"]` should **always** be preferred over `dataset["image"][0]`.
+              - `label`: an `int` classification label.
 
 <details>
+<summary>Click to expand</summary>
+
+</details>
+
+  <details>
   <summary>Class Label Mappings</summary>
+  </details>
+    <details>
+    <summary>Class Label Mappings</summary>
+    </details>
+      <details>
+      <summary>Class Label Mappings</summary>
+      </details>
+    </details>
+  </details>
 
   ```json
+  {
+    "apple_pie": 0,
+    "baby_back_ribs": 1,
+    "baklava": 2,
+    "beef_carpaccio": 3,
+    "beef_tartare": 4,
+    "beet_salad": 5,
+    "beignets": 6,
+    "bibimbap": 7,
+    "bread_pudding": 8,
+    "breakfast_burrito": 9,
+    "bruschetta": 10,
+    "caesar_salad": 11,
+    "cannoli": 12,
+    "caprese_salad": 13,
+    "carrot_cake": 14,
+    "ceviche": 15,
+    "cheesecake": 16,
+    "cheese_plate": 17,
+    "chicken_curry": 18,
+    "chicken_quesadilla": 19,
+    "chicken_wings": 20,
+    "chocolate_cake": 21,
+    "chocolate_mousse": 22,
+    "churros": 23
+  }
   {
     "apple_pie": 0,
     "baby_back_ribs": 1,
@@ -314,16 +340,14 @@ The data instances have the following fields:
     "waffles": 100
   }
   ```
+
 </details>
 
+## Data Splits
 
-### Data Splits
-
- 
 |   |train|validation|
 |----------|----:|---------:|
 |# of examples|75750|25250|
-
 
 ## Dataset Creation
 
@@ -377,27 +401,52 @@ The data instances have the following fields:
 
 ### Licensing Information
 
-LICENSE AGREEMENT
+  "shrimp_and_grits": 89,
+  "spaghetti_bolognese": 90,
+  "spaghetti_carbonara": 91,
+  "spring_rolls": 92,
+  "steak": 93,
+  "strawberry_shortcake": 94,
+  "sushi": 95,
+  "tacos": 96,
+  "takoyaki": 97,
+  "tiramisu": 98,
+  "tuna_tartare": 99,
+  "waffles": 100
+}
+
+<!-- LICENSE AGREEMENT -->
+
 =================
- - The Food-101 data set consists of images from Foodspotting [1] which are not
+
+- The Food-101 data set consists of images from Foodspotting [1] which are not
    property of the Federal Institute of Technology Zurich (ETHZ). Any use beyond
    scientific fair use must be negociated with the respective picture owners
    according to the Foodspotting terms of use [2].
 
-[1] http://www.foodspotting.com/
-[2] http://www.foodspotting.com/terms/
+[1] <http://www.foodspotting.com/>
+[2] <http://www.foodspotting.com/terms/>
 
+## Citation Information
 
-### Citation Information
-
-```
  @inproceedings{bossard14,
   title = {Food-101 -- Mining Discriminative Components with Random Forests},
   author = {Bossard, Lukas and Guillaumin, Matthieu and Van Gool, Luc},
   booktitle = {European Conference on Computer Vision},
   year = {2014}
 }
-```
+
+  "spaghetti_carbonara": 91,
+  "spring_rolls": 92,
+  "steak": 93,
+  "strawberry_shortcake": 94,
+  "sushi": 95,
+  "tacos": 96,
+  "takoyaki": 97,
+  "tiramisu": 98,
+  "tuna_tartare": 99,
+  "waffles": 100
+}
 
 ### Contributions
 
