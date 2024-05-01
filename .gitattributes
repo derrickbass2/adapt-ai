@@ -1,7 +1,3 @@
-*.dylib filter=lfs diff=lfs merge=lfs -text
-*.jar filter=lfs diff=lfs merge=lfs -text
-.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-08-03,_5_37_PM_[Changes]/libclang.dylib filter=lfs diff=lfs merge=lfs -text
-mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/jars/rocksdbjni-8.3.2.jar filter=lfs diff=lfs merge=lfs -text
-.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-08-03,_5_37_PM_[Changes]/libtensorflow_cc.2[[:space:]]2.dylib filter=lfs diff=lfs merge=lfs -text
 *.tar !text !filter !merge !diff
 *.dylib !text !filter !merge !diff
+*.jar filter=lfs diff=lfs merge=lfs -text
