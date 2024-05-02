@@ -1,0 +1,6 @@
+setup.py
+src/user_service.egg-info/PKG-INFO
+src/user_service.egg-info/SOURCES.txt
+src/user_service.egg-info/dependency_links.txt
+src/user_service.egg-info/requires.txt
+src/user_service.egg-info/top_level.txt
