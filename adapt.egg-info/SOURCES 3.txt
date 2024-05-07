@@ -1,0 +1,10 @@
+LICENSE
+README.md
+setup.py
+nomad.egg-info/PKG-INFO
+nomad.egg-info/SOURCES.txt
+nomad.egg-info/dependency_links.txt
+nomad.egg-info/entry_points.txt
+nomad.egg-info/not-zip-safe
+nomad.egg-info/requires.txt
+nomad.egg-info/top_level.txt
