@@ -4,5 +4,6 @@ env/lib/python3.11/site-packages/clang/native/libclang.dylib filter=lfs diff=lfs
 user_service/myenv/lib/python3.12/site-packages/pyspark/jars/rocksdbjni-8.3.2.jar filter=lfs diff=lfs merge=lfs -text
 env/lib/python3.11/site-packages/tensorflow/libtensorflow_cc.2.dylib filter=lfs diff=lfs merge=lfs -text
 user_service/myenv/lib/python3.12/site-packages/tensorflow/libtensorflow_cc.2.dylib filter=lfs diff=lfs merge=lfs -text
+env/lib/python3.11/site-packages/tensorflow/libtensorflow_cc.2.2.dylib filter=lfs diff=lfs merge=lfs -text
 *.tar !text !filter !merge !diff
 *.dylib !text !filter !merge !diff
