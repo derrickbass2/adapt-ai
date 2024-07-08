@@ -1,0 +1,26 @@
+# mesop_apps/dashboard.py
+import mesop
+
+def load_html():
+    with open('path/to/dashboard.html', 'r') as file:
+        return file.read()
+
+def dashboard_view():
+    html_content = load_html()
+    return mesop.HTML(html_content)
+    # mesop_apps/main.py
+    import mesop
+    from dashboard import dashboard_view
+    from components import spark_engine_view, aa_genome_view, neurotech_network_view
+    
+    def main_view():
+        return mesop.View(
+            mesop.Text("AdaptAI Modular Learning System"),
+            mesop.Button("Dashboard", on_click=lambda: mesop.render(dashboard_view())),
+            mesop.Button("Spark Engine Module", on_click=lambda: mesop.render(spark_engine_view())),
+            mesop.Button("AA Genome Module", on_click=lambda: mesop.render(aa_genome_view())),
+            mesop.Button("Neurotech Network Module", on_click=lambda: mesop.render(neurotech_network_view()))
+        )
+    
+    mesop.run(main_view)
+    
