@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7eb16fa0-f0d3-49f9-97cb-661a410b805b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings 2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdStatsCountry-Series.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdStatsCountry.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdStatsSeries.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/EdStatsSeries.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_distutils_hack/__init__ 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_distutils_hack/override 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adapt.egg-info/PKG-INFO 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adapt.egg-info/SOURCES 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adapt.egg-info/dependency_links 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adapt.egg-info/entry_points 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adapt.egg-info/not-zip-safe 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adapt.egg-info/requires 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/adapt.egg-info/top_level 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Activate 2.ps1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/activate 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/activate 2.csh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/activate 2.fish" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/dotenv 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/flask 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/gunicorn 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/pip 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/pip3 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/pip3.11 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blinker/__init__ 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blinker/_saferef 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blinker/_utilities 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blinker/base 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blinker/py 2.typed" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/__init__ 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_cffi_errors 2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_cffi_errors.h" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/_cffi_errors.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_cffi_include 2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_cffi_include.h" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/_cffi_include.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_imp_emulation 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_imp_emulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/_imp_emulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_shimmed_dist_utils 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/_shimmed_dist_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/_shimmed_dist_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/backend_ctypes 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/backend_ctypes.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/backend_ctypes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/cffi_opcode 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/cffi_opcode.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/cffi_opcode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/error 2.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/error 2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/error.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/setuptools_ext 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/setuptools_ext.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/setuptools_ext.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/vengine_gen 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cffi/vengine_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-/cffi/vengine_gen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env/pyvenv 2.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/env/pyvenv 3.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/env/pyvenv 4.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modular_learning_system/cli 2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modular_learning_system/poetry 2.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modular_learning_system/pyproject 2.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_controller 3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/user_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/PKG-INFO 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/PKG-INFO 3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/PKG-INFO 4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/PKG-INFO 5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/SOURCES 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/SOURCES 3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/SOURCES 4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/SOURCES 5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/dependency_links 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/dependency_links 3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/dependency_links 4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/dependency_links 5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/requires 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/requires 3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/top_level 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user_service.egg-info/top_level 3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/myenv/pyvenv 2.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/myenv/pyvenv 3.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/myenv/pyvenv 4.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_service/myenv/pyvenv 5.cfg" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/mls/spark_engine">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/mls/spark_engine">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="spark_engine" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="spark_engine" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="spark_engine" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;derrickbass2&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/adaptivedatafusion/adapt-ai.git&quot;,
+    &quot;accountId&quot;: &quot;d6e78a90-2d42-49d9-9f44-5a4b3aa0c2e1&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2jLcCYm6yb3MEU6AlUwstk81qVR" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Gradle.spark_engine.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.adaptai.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/derrickbass/Public/adaptai&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-" />
+      <recent name="$PROJECT_DIR$/user_service" />
+      <recent name="$PROJECT_DIR$/datasets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Flask server.adaptai">
+    <configuration name="spark_engine" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mls/spark_engine" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="adaptai" type="PythonConfigurationType" factoryName="Python">
+      <module name="adaptai" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="adaptai" type="Python.FlaskServer">
+      <module name="adaptai" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7eb16fa0-f0d3-49f9-97cb-661a410b805b" name="Changes" comment="" />
+      <created>1721169671092</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721169671092</updated>
+      <workItem from="1721169672518" duration="2208000" />
+      <workItem from="1721183671563" duration="1365000" />
+      <workItem from="1721185357676" duration="94000" />
+      <workItem from="1721185458038" duration="2210000" />
+      <workItem from="1721187910182" duration="283000" />
+      <workItem from="1721188347977" duration="698000" />
+      <workItem from="1721189229641" duration="66000" />
+      <workItem from="1721461695181" duration="979000" />
+      <workItem from="1722110316248" duration="28000" />
+      <workItem from="1722110350459" duration="1222000" />
+      <workItem from="1722193071948" duration="971000" />
+      <workItem from="1722194051827" duration="386000" />
+      <workItem from="1722209644945" duration="8726000" />
+      <workItem from="1722219967320" duration="619000" />
+      <workItem from="1722254494806" duration="9618000" />
+      <workItem from="1722299273866" duration="5397000" />
+      <workItem from="1722304734812" duration="1865000" />
+      <workItem from="1722368431024" duration="677000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app.py</url>
+          <line>118</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/user_service/app.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/user_repository.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MyClass_java$adaptai.coverage" NAME="adaptai Coverage Results" MODIFIED="1722193128559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>
