@@ -43,4 +43,25 @@ def update_user(id: int):
 @api.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id: int):
     response = user_service.delete_user(id)
+<<<<<<< HEAD:src/user_controller 2.py
     return ResponseUtils.send_response(HTTPStatus.NO_CONTENT, None)
+=======
+# src/user_controller.py
+from user_repository import UserRepository
+
+class UserController:
+    def __init__(self):
+        self.repo = UserRepository()
+
+    def create_user(self, user_id, user_data):
+        self.repo.add_user(user_id, user_data)
+        return {"status": "success", "message": "User created"}
+
+    def fetch_user(self, user_id):
+        user = self.repo.get_user(user_id)
+        if user:
+            return {"status": "success", "data": user}
+        else:
+            return {"status": "error", "message": "User not found"}
+eturn ResponseUtils.send_response(HTTPStatus.NO_CONTENT, None)
+>>>>>>> c912b46a (cleaning up commits so that I can pull and clean out branches):src/user_controller.py
