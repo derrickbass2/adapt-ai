@@ -9,6 +9,7 @@ from pyspark.ml.feature import VectorAssembler
 from main import train_hospitality_model, test_hospitality_model
 from pyspark.ml.clustering import KMeansModel
 
+
 @pytest.fixture(scope="session")
 def spark_session():
     spark = SparkSession.builder \
@@ -20,6 +21,7 @@ def spark_session():
     yield spark
 
     spark.stop()
+
 
 def test_train_hospitality_model(spark_session):
     # Create test DataFrame

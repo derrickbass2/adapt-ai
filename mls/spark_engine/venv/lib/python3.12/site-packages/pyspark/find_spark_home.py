@@ -33,8 +33,8 @@ def _find_spark_home():
     def is_spark_home(path):
         """Takes a path and returns true if the provided path could be a reasonable SPARK_HOME"""
         return os.path.isfile(os.path.join(path, "bin/spark-submit")) and (
-            os.path.isdir(os.path.join(path, "jars"))
-            or os.path.isdir(os.path.join(path, "assembly"))
+                os.path.isdir(os.path.join(path, "jars"))
+                or os.path.isdir(os.path.join(path, "assembly"))
         )
 
     # Spark distribution can be downloaded when PYSPARK_HADOOP_VERSION environment variable is set.

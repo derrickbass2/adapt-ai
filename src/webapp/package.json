@@ -7,7 +7,10 @@
     "start": "node src/server.js",
     "build": "webpack"
   },
-  "keywords": ["ADAPT AI", "Web Application"],
+  "keywords": [
+    "ADAPT AI",
+    "Web Application"
+  ],
   "author": "Derrick Bass <derrick@adaptivedatafusion.com>",
   "license": "MIT",
   "dependencies": {
