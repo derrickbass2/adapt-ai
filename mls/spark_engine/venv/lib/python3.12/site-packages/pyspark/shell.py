@@ -45,7 +45,6 @@ if getattr(builtins, "__IPYTHON__", False):
         if parent_dir in sys.path:
             sys.path.remove(parent_dir)
 
-
 if is_remote():
     try:
         # Creates pyspark.sql.connect.SparkSession.

@@ -1,8 +1,8 @@
-
 from sqlalchemy.orm import Session
 
 from ..database import Base
 from ..schemas import UserSchema
+
 
 class UserRepository:
     def __init__(self, session: Session):
