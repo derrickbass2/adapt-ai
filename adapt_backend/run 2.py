@@ -17,5 +17,9 @@ def fetch_data_endpoint():
     return jsonify({'result': processed_data})
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1', 't']
     app.run(debug=debug_mode)
+=======
+    app.run(debug=True)
+>>>>>>> fc31345d (combining of autonomod and nomad to form the new adapt ai)

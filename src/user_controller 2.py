@@ -43,6 +43,7 @@ def update_user(id: int):
 @api.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id: int):
     response = user_service.delete_user(id)
+<<<<<<< HEAD
 <<<<<<< HEAD:src/user_controller 2.py
     return ResponseUtils.send_response(HTTPStatus.NO_CONTENT, None)
 =======
@@ -65,3 +66,6 @@ class UserController:
             return {"status": "error", "message": "User not found"}
 eturn ResponseUtils.send_response(HTTPStatus.NO_CONTENT, None)
 >>>>>>> c912b46a (cleaning up commits so that I can pull and clean out branches):src/user_controller.py
+=======
+    return ResponseUtils.send_response(HTTPStatus.NO_CONTENT, None)
+>>>>>>> fc31345d (combining of autonomod and nomad to form the new adapt ai)
