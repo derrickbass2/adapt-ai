@@ -1,7 +1,12 @@
 from typing import Optional
+<<<<<<< HEAD
 
 import pyspark
 
+=======
+import pyspark
+from typing import Optional
+>>>>>>> cleanup/duplicate-removal
 
 class NeuroTechNetwork:
     def __init__(self):
@@ -32,4 +37,8 @@ class NeuroTechNetwork:
         Returns:
             Optional[float]: Metric score or None if failed.
         """
+<<<<<<< HEAD
         raise NotImplementedError("Method not implemented.")
+=======
+        raise NotImplementedError("Method not implemented.")
+>>>>>>> cleanup/duplicate-removal

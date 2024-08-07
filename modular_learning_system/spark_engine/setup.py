@@ -1,6 +1,9 @@
 from pyspark.sql import SparkSession
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 class SparkEngine:
     def __init__(self):
         self.spark = SparkSession.builder.appName('NOMAD').getOrCreate()
@@ -12,4 +15,8 @@ class SparkEngine:
         df.write.parquet(path)
 
     def __del__(self):
+<<<<<<< HEAD
         self.spark.stop()
+=======
+        self.spark.stop()
+>>>>>>> cleanup/duplicate-removal

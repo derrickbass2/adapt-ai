@@ -3,13 +3,19 @@ from pyspark.sql import SparkSession
 DATAPATH = '/Users/derrickbass/Desktop/autonomod/datasets/hospitality/'
 OUTPUTPATH = '/Users/derrickbass/Desktop/autonomod/datasets/cleaned_hospitality_data/'
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def clean_data(spark, df):
     # Example data cleaning method
     filtered_df = df.filter(df['salary'] > 30000)
     return filtered_df
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def main():
     spark = SparkSession.builder.appName('Spark Engine').getOrCreate()
 
@@ -20,6 +26,7 @@ def main():
     combined_df = cleaned_dfs.reduce(lambda a, b: a.unionByName(b))
     combined_df.write.mode('overwrite').csv(OUTPUTPATH)
 
+<<<<<<< HEAD
 
 if __name__ == '__main__':
 
@@ -33,3 +40,7 @@ def run():
 if __name__ == "__main__":
     print(run())
     main()
+=======
+if __name__ == '__main__':
+    main()
+>>>>>>> cleanup/duplicate-removal

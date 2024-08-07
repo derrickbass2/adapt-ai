@@ -1,56 +1,99 @@
+<<<<<<< HEAD
 from typing import List, Any, TypeVar
 
 import pandas as pd
 from pyspark.ml import Transformer
 from pyspark.ml.feature import VectorAssembler, OneHotEncoder, MinMaxScaler, Normalizer
 from pyspark.ml.feature import Word2Vec
+=======
+import os
+import sys
+from typing import List, Union, Optional, Any, TypeVar
+
+import pandas as pd
+from pyspark.ml import Transformer
+from pyspark.ml.feature import VectorAssembler, StringIndexer, OneHotEncoder, MinMaxScaler, Normalizer
+from pyspark.ml.classification import RandomForestClassifier
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+from pyspark.ml.feature import Word2Vec
+from pyspark.sql import SparkSession
+from pyspark.sql.types import StructField, StructType, DoubleType
+from pyspark.ml.pipeline import Pipeline
+>>>>>>> cleanup/duplicate-removal
 from pyspark.sql import DataFrame
 from pyspark.ml.linalg import Vectors
 from pyspark.sql.functions import udf
 
 T = TypeVar('T')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _validate_input_dataframe(df: pd.DataFrame, column_names: List[str]) -> bool:
     """Validate input DataFrame columns."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _extract_features(df: pd.DataFrame, categorical_cols: List[str], numerical_cols: List[str]) -> pd.DataFrame:
     """Extract features from the input DataFrame."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _assemble_vector(df: pd.DataFrame, feature_columns: List[str]) -> pd.DataFrame:
     """Create a vector column from specified features."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _normalize_data(df: pd.DataFrame, feature_columns: List[str]) -> pd.DataFrame:
     """Normalize the data using min-max scaling."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _cluster_data(df: pd.DataFrame, feature_columns: List[str]) -> pd.DataFrame:
     """Perform k-means clustering on the normalized data."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _train_model(df: pd.DataFrame, label_column: str, feature_columns: List[str]) -> Any:
     """Train a random forest classifier."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _predict(model: Any, df: pd.DataFrame, feature_columns: List[str]) -> pd.Series:
     """Predict labels using the trained model."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def _evaluate_model(predictions: pd.Series, actual_labels: pd.Series) -> float:
     """Calculate the F1 score for the model."""
     pass
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 class ColumnSelector(Transformer):
     """
     Selects specified columns from the input DataFrame.
@@ -67,7 +110,10 @@ class ColumnSelector(Transformer):
 
         return transform
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 class MeanVectorStandardizer(Transformer):
     """
     Computes the mean and variance for each feature, and applies a transformation to center and scale the features.
@@ -95,7 +141,13 @@ class MeanVectorStandardizer(Transformer):
 
         return transform
 
+<<<<<<< HEAD
 
 def preprocess_data(file_path: str, sep: str = ",") -> pd.DataFrame:
     """Load, preprocess, and return the cleaned DataFrame."""
     pass
+=======
+def preprocess_data(file_path: str, sep: str = ",") -> pd.DataFrame:
+    """Load, preprocess, and return the cleaned DataFrame."""
+    pass
+>>>>>>> cleanup/duplicate-removal

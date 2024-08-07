@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import fnmatch
 import os
 
 import numpy as np
 from tensorflow import keras
 
+=======
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+import os
+import fnmatch
+>>>>>>> cleanup/duplicate-removal
 
 def load_data(file_pattern):
     data = []
@@ -13,7 +21,10 @@ def load_data(file_pattern):
             data.extend(raw_data)
     return np.array(data)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def create_model(X_dimension):
     model = keras.Sequential([
         keras.layers.Dense(units=64, input_shape=(X_dimension,)),
@@ -24,7 +35,10 @@ def create_model(X_dimension):
     ])
     return model
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cleanup/duplicate-removal
 def main():
     X_dimension = 10
     X = load_data('*.npz')[:, :X_dimension]
@@ -36,6 +50,7 @@ def main():
 
     model.save('/Users/derrickbass/Desktop/autonomod/models/psych_aa_genome_model')
 
+<<<<<<< HEAD
 
 if __name__ == '__main__':
 
@@ -49,3 +64,7 @@ def run():
 if __name__ == "__main__":
     print(run())
     main()
+=======
+if __name__ == '__main__':
+    main()
+>>>>>>> cleanup/duplicate-removal
