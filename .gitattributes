@@ -1,4 +1,6 @@
 *.dylib filter=lfs diff=lfs merge=lfs -text
 *.jar filter=lfs diff=lfs merge=lfs -text
+mls/spark_engine/build/libs/spark_engine-1.0.jar filter=lfs diff=lfs merge=lfs -text
+mls/spark_engine/gradle/wrapper/gradle-wrapper.jar filter=lfs diff=lfs merge=lfs -text
 *.tar !text !filter !merge !diff
 *.dylib !text !filter !merge !diff
