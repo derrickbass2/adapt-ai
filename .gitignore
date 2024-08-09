@@ -12,3 +12,33 @@ env/lib/python3.11/site-packages/clang/native/libclang.dylib
 user_service/myenv/lib/python3.12/site-packages/pyspark/jars/rocksdbjni-8.3.2.jar
 env/lib/python3.11/site-packages/tensorflow/libtensorflow_cc.2.dylib
 user_service/myenv/lib/python3.12/site-packages/tensorflow/libtensorflow_cc.2.dylib
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+# Ignore Python bytecode
+*.pyc
+__pycache__/
+
+# Ignore virtual environment directories
+.venv/
+venv/
+
+# Ignore logs
+*.log
+
+# Ignore OS-specific files
+.DS_Store
+# Ignore virtual environment
+*.venv/
+*.env/
+myenv/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore log files
+*.log
