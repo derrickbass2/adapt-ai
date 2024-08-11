@@ -1,20 +1,16 @@
 from datetime import timedelta
-from flask import Flask, Blueprint, jsonify, request, session
-from flask_jwt_extended import JWTManager, jwt_required, decode_token, create_access_token, \
-    get_raw_jwt, get_jti
-from authlib.integrations.flask_oauth2 import ResourceProtector, AuthorizationServer, \
-    BearerTokenValidator
-from authlib.specs.rfc6749 import GrantType
-from werkzeug.security import safe_str_cmp
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
-from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.sql import func
+
+from authlib.integrations.flask_oauth2 import ResourceProtector
+from flask import Flask, request
 from flask import abort
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt
 from sqlalchemy import Column, Integer, String  # Add this line to import the missing modules
+from sqlalchemy import create_engine, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import func
+from werkzeug.security import safe_str_cmp
 
 Base = declarative_base()
 
@@ -55,7 +51,7 @@ class UserService():
             self._session.add(user)
             self._session.commit()
         except Exception as e:
-            print(f"Error occurred while inserting user {e}")
+            print("Error occurred while inserting user {e}")
 
     def authenticate_user(self, username, password):
         user = User.query.filter_by(username=username).first()
@@ -68,7 +64,7 @@ class UserService():
             self._session.add(blocklist)
             self._session.commit()
         except Exception as e:
-            print(f"Error occurred while inserting blacklisted token {e}")
+            print("Error occurred while inserting blacklisted token {e}")
 
     def get_revoked_token(self, jti):
         query = TokenBlocklist.query.filter_by(jti=jti).first()
@@ -104,7 +100,7 @@ def login():
 @app.route("/logout", methods=["POST"])
 @jwt_required()
 def logout():
-    jti = get_raw_jwt()["jti"]
+    jti = get_jwt()["jti"]
     user_svc = UserService("<insert postgres uri>")
     user_svc.revoke_token(jti)
     return {"message": "Successfully logged out"}, 200
