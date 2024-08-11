@@ -7,5 +7,6 @@ user_service/myenv/lib/python3.12/site-packages/tensorflow/libtensorflow_cc.2.dy
 env/lib/python3.11/site-packages/tensorflow/libtensorflow_cc.2.2.dylib filter=lfs diff=lfs merge=lfs -text
 mls/spark_engine/build/libs/spark_engine-1.0.jar filter=lfs diff=lfs merge=lfs -text
 mls/spark_engine/gradle/wrapper/gradle-wrapper.jar filter=lfs diff=lfs merge=lfs -text
+*.tar filter=lfs diff=lfs merge=lfs -text
 *.tar !text !filter !merge !diff
 *.dylib !text !filter !merge !diff
