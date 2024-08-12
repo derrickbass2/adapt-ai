@@ -6,12 +6,12 @@ from flask import abort
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt
 from sqlalchemy import Column, Integer, String  # Add this line to import the missing modules
 from sqlalchemy import create_engine, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
+import sqlalchemy.ext.declarative
 from sqlalchemy.orm import sessionmaker, relationship  # Add this line to import the missing module
 from sqlalchemy.sql import func
 from werkzeug.security import safe_str_cmp
 
-Base = declarative_base()
+Base = sqlalchemy.ext.declarative.declarative_base()
 
 class Role(Base):
     id = Column(Integer, primary_key=True)
