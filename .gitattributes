@@ -12,3 +12,4 @@ mls/spark_engine/gradle/wrapper/gradle-wrapper.jar filter=lfs diff=lfs merge=lfs
 *.tar !text !filter !merge !diff
 *.dylib !text !filter !merge !diff
 all filter=lfs diff=lfs merge=lfs -text
+*jar filter=lfs diff=lfs merge=lfs -text
