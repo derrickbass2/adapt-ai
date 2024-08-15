@@ -1,7 +1,8 @@
-from src.user_repository import UserRepository
-from src.user_controller import UserController
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from src.user_controller import UserController
+from src.user_repository import UserRepository
 
 
 def main():
