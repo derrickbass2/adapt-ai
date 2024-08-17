@@ -4,60 +4,55 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from flask import Flask
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt
-from sqlalchemy import Column, Integer, String, DateTime, create_engine, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.sql import func
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from sqlalchemy import func
 
+# Load environment variables from .env file
 load_dotenv()
 
-Base = declarative_base()
+# Initialize the Flask app
 app = Flask(__name__)
+
+# Set up the Flask configuration
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optional, to suppress warnings
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 
-# Initialize Flask-Migrate
-from flask_migrate import Migrate
-
-migrate = Migrate(app, Base)
-
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
-
-class Role(Base):
+# Define the database models
+class Role(db.Model):
     __tablename__ = 'roles'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False, index=True)
-    users = relationship("User", backref="role")
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False, index=True)
+    users = db.relationship("User", backref="role")
 
-
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    username = Column(String(80), unique=True, nullable=False, index=True)
-    password = Column(String(120), nullable=False)
-    email = Column(String(120), unique=True, nullable=False, index=True)
-    role_id = Column(Integer, ForeignKey('roles.id'), default=1)
-    created_at = Column(DateTime, server_default=func.now())
-    modified_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False, index=True)
+    password = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), default=1)
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    modified_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
-
-class TokenBlocklist(Base):
+class TokenBlocklist(db.Model):
     __tablename__ = 'token_blocklist'
-    id = Column(Integer, primary_key=True)
-    jti = Column(String(128), nullable=False, index=True)
-    created_at = Column(DateTime, server_default=func.now())
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(128), nullable=False, index=True)
+    created_at = db.Column(db.DateTime, server_default=func.now())
 
-
+# Service class to handle user operations
 class UserService:
-    def __init__(self, db_uri):
-        engine = create_engine(db_uri)
-        Base.metadata.create_all(bind=engine)
-        Session = sessionmaker(bind=engine)
-        self._session = Session()
+    def __init__(self, db_session):
+        self._session = db_session
 
     def identity_lookup(self, payload):
         user_id = payload["sub"]
@@ -74,8 +69,8 @@ class UserService:
         try:
             self._session.add(user)
             self._session.commit()
-        except Exception:
-            print("Error occurred while inserting user: {e}")
+        except Exception as e:
+            print(f"Error occurred while inserting user: {e}")
             self._session.rollback()
 
     def authenticate_user(self, username):
@@ -86,44 +81,34 @@ class UserService:
         try:
             self._session.add(blocklist)
             self._session.commit()
-        except Exception:
-            print("Error occurred while inserting blacklisted token: {e}")
+        except Exception as e:
+            print(f"Error occurred while inserting blacklisted token: {e}")
             self._session.rollback()
 
     def get_revoked_token(self, jti):
         return self._session.query(TokenBlocklist).filter_by(jti=jti).first() is not None
 
-
-@app.before_request
-def protect_bearer_only():
-    os.abort()
-
-
 @app.route("/register", methods=["POST"])
 def register():
     return {"message": "Registration endpoint"}, 200
-
 
 @app.route("/login", methods=["POST"])
 def login():
     return {"message": "Login endpoint"}, 200
 
-
 @app.route("/logout", methods=["POST"])
 @jwt_required()
 def logout():
     jti = get_jwt()["jti"]
-    user_svc = UserService(os.getenv('DB_URI'))
+    user_svc = UserService(db.session)
     user_svc.revoke_token(jti)
     return {"message": "Successfully logged out"}, 200
-
 
 @jwt.token_in_blocklist_loader
 def check_if_token_in_blocklist(decrypted_token):
     jti = decrypted_token["jti"]
-    user_svc = UserService(os.getenv('DB_URI'))
+    user_svc = UserService(db.session)
     return user_svc.get_revoked_token(jti)
 
-
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

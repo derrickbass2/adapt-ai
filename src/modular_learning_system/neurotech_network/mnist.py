@@ -1,10 +1,8 @@
-from neurotech_network import NeuralNetwork
-
+from neurotech_network import NeuralNetwork  # Import the NeuralNetwork class from the neurotech_network module
 
 def build_simple_model():
     # Define the structure of the neural network model here
     pass
-
 
 train_images = ...
 train_labels = ...
