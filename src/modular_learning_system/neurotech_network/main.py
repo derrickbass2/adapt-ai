@@ -33,3 +33,7 @@ class NeuroTechNetwork:
             Optional[float]: Metric score or None if failed.
         """
         raise NotImplementedError("Method not implemented.")
+
+
+class NeurotechNetwork:
+    pass
