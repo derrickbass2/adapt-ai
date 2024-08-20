@@ -1,42 +1,60 @@
 import argparse
-
 import numpy as np
-import pyspark
-from aa_genome import AA_Genome
 from pyspark.sql import SparkSession
+from adapt_backend.ml_models import AA_Genome  # Adjusted import path
 
 
 def generate_synthetic_data(rows: int):
+    """
+    Generate synthetic data for testing purposes.
+
+    :param rows: Number of rows to generate
+    :return: Tuple of numpy arrays (x, y)
+    """
     x = np.random.rand(rows, 10)
     y = np.sin(x[:, 0]) + np.random.normal(scale=0.1, size=rows)
     return x, y
 
 
 def parse_arguments():
+    """
+    Parse command-line arguments.
+
+    :return: Parsed arguments
+    """
     parser = argparse.ArgumentParser()
-    parser.add_argument("--target_value", type=float, default=0.5)
-    parser.add_argument("--dimensions", type=int, default=10)
-    parser.add_argument("--pop_size", type=int, default=100)
-    parser.add_argument("--generations", type=int, default=1000)
-    parser.add_argument("--mutation_rate", type=float, default=0.01)
-    args = parser.parse_args()
-    return args
+    parser.add_argument("--target_value", type=float, default=0.5, help="Target value for the model")
+    parser.add_argument("--dimensions", type=int, default=10, help="Number of dimensions")
+    parser.add_argument("--pop_size", type=int, default=100, help="Population size for the algorithm")
+    parser.add_argument("--generations", type=int, default=1000, help="Number of generations for training")
+    parser.add_argument("--mutation_rate", type=float, default=0.01, help="Mutation rate for the algorithm")
+    return parser.parse_args()
 
 
 def main(args):
+    # Generate synthetic data
     x, y = generate_synthetic_data(1000)
 
-    sc = pyspark.SparkContext()
-    spark = SparkSession(sc)
+    # Initialize Spark session
+    spark = SparkSession.builder.appName('AA_Genome_Session').getOrCreate()
 
-    df = spark.createDataFrame(zip(x.tolist()[::1], y.tolist()), ["x", "y"])
+    # Create Spark DataFrame
+    df = spark.createDataFrame(zip(x.tolist(), y.tolist()), ["x", "y"])
 
-    aa_genome = AA_Genome()
-    aa_genome.train_AA_genome_model(df, dimensions=args.dimensions, target_value=args.target_value,
-                                    pop_size=args.pop_size, num_generations=args.generations,
-                                    mutation_rate=args.mutation_rate)
-    best_solution = aa_genome.get_best_solution()
+    # Initialize and train the AA_Genome model
+    aa_genome = AA_Genome(
+        df,
+        dimensions=args.dimensions,
+        target_value=args.target_value,
+        pop_size=args.pop_size,
+        generations=args.generations,
+        mutation_rate=args.mutation_rate
+    )
 
+    trained_model = aa_genome.train_AA_genome_model()
+
+    # Example: Retrieve the best solution if applicable
+    best_solution = aa_genome.get_best_solution()  # Make sure this method exists in AA_Genome
     print(f'Best Solution: {best_solution}')
 
 
