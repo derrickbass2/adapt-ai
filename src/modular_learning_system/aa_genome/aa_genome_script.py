@@ -4,7 +4,6 @@ import numpy as np
 from pyspark.sql import SparkSession
 from adapt_backend.ml_models import AA_Genome  # Adjust the import to match the module structure
 
-
 def load_data_from_csv(file_path):
     """
     Load data from a CSV file.
@@ -17,7 +16,6 @@ def load_data_from_csv(file_path):
     else:
         raise FileNotFoundError(f"The file {file_path} does not exist.")
 
-
 def load_and_preprocess_data():
     """
     Load and preprocess data from various datasets.
@@ -26,29 +24,7 @@ def load_and_preprocess_data():
     """
     # Define paths to datasets
     paths = [
-        '/Users/derrickbass/Public/adaptai/datasets/psych/garments_worker_productivity.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/psych/shopping_behavior_updated.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/hospitality/data_cocktails.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/hospitality/hotaling_cocktails.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/olist_order_items_dataset.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/shopping_trends.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/ed_stats_country_series.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/Amazon/data.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/blinkit_retail.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/hospitality/all_drinks.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/olist_orders_dataset.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/hospitality/hospitality_employees.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/olist_sellers_dataset.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/olist_customers_dataset.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/ed_stats_series.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/retail/product_category_name_translation.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/ed_stats_country.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/hospitality/hospitalitydatasets/HospitalityEmployees.csv',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/statlog+german+credit+data/dow+jones+index/dow_jones_index.data',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/statlog+german+credit+data/dow+jones+index/dow_jones_index.names',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/statlog+german+credit+data/german.data',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/statlog+german+credit+data/german.data-numeric',
-        '/Users/derrickbass/Public/adaptai/datasets/finance/statlog+german+credit+data/Index'
+        # List of file paths...
     ]
 
     # Initialize an empty DataFrame to combine all datasets
@@ -66,7 +42,6 @@ def load_and_preprocess_data():
     spark = SparkSession.builder.appName('AA_Genome_Session').getOrCreate()
     spark_df = spark.createDataFrame(combined_df)
     return spark_df
-
 
 def main():
     X_dimension = 10
@@ -87,8 +62,7 @@ def main():
 
     # Save the model to a file if needed
     # For example, save the model in the 'adapt_backend' directory
-    # trained_model.save('/Users/derrickbass/Public/adaptai/src/adapt_backend/psych_aa_genome_model')
-
+    trained_model.save('/Users/derrickbass/Public/adaptai/src/adapt_backend/psych_aa_genome_model')
 
 if __name__ == '__main__':
     main()

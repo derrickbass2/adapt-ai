@@ -1,9 +1,11 @@
 import os
+import pickle
+import random
 import sys
 from typing import List, Optional, Any
+
 import numpy as np
-from pyspark.sql import SparkSession, DataFrame
-import random
+from pyspark.sql import DataFrame
 
 # Ensure the path to the genetic_algorithm module is correctly included
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'genetic_algorithm')))
@@ -65,11 +67,23 @@ class AA_Genome:
         # Placeholder: Define the genome structure and random generation logic
         return {'trait1': random.random(), 'trait2': random.random()}  # Example structure
 
+    def natural_selection(self, population: list) -> list:
+        """Perform natural selection to choose the fittest individuals."""
+        # Example: Sort by fitness and select the top individuals
+        population.sort(key=lambda genome: self.fitness(genome))
+        return population[:len(population) // 2]
+
+    def fitness(self, genome: dict) -> float:
+        """Calculate the fitness of a genome."""
+        # Placeholder: Implement actual fitness function
+        return sum(genome.values())  # Example fitness function
+
     def evolve_population(self, population: list) -> list:
         """Evolve the population using genetic algorithms."""
+        selected_population = self.natural_selection(population)
         new_population = []
-        for _ in range(len(population) // 2):
-            parent1, parent2 = random.sample(population, 2)
+        for _ in range(len(selected_population) // 2):
+            parent1, parent2 = random.sample(selected_population, 2)
             offspring1, offspring2 = self.mate(parent1, parent2), self.mate(parent2, parent1)
             new_population.extend([self.mutate(offspring1), self.mutate(offspring2)])
         return new_population
@@ -114,3 +128,18 @@ class AA_Genome:
         ])
         model.compile(optimizer='adam', loss='mean_absolute_error')
         return model
+
+    def save(self, path: str):
+        """Serialize the AA_Genome model to a file."""
+        with open(path, 'wb') as f:
+            pickle.dump(self, f)
+
+    @staticmethod
+    def load(path: str) -> 'AA_Genome':
+        """Deserialize the AA_Genome model from a file."""
+        with open(path, 'rb') as f:
+            return pickle.load(f)
+
+
+class AAGenome:
+    pass
