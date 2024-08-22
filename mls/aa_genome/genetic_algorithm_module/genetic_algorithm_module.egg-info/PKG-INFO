@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: genetic-algorithm-module
+Version: 0.1.0
+Summary: A genetic algorithm library.
+Home-page: https://github.com/derrickbass2/genetic_algorithm_module
+Author: Derrick Bass
+Author-email: Derrick.bass2@gmail.com
+License: MIT License
