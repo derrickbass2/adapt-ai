@@ -1,8 +1,10 @@
 from neurotech_network import NeuralNetwork
 
+
 def build_simple_model():
     # Define the structure of the neural network model here
     pass
+
 
 train_images = ...
 train_labels = ...

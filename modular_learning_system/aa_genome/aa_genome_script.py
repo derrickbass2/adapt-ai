@@ -1,8 +1,9 @@
-import numpy as np
-import tensorflow as tf
-from tensorflow import keras
-import os
 import fnmatch
+import os
+
+import numpy as np
+from tensorflow import keras
+
 
 def load_data(file_pattern):
     data = []
@@ -11,6 +12,7 @@ def load_data(file_pattern):
             raw_data = np.load('/Users/derrickbass/Desktop/autonomod/datasets/' + file)
             data.extend(raw_data)
     return np.array(data)
+
 
 def create_model(X_dimension):
     model = keras.Sequential([
@@ -21,6 +23,7 @@ def create_model(X_dimension):
         keras.layers.Dense(units=1)
     ])
     return model
+
 
 def main():
     X_dimension = 10
@@ -33,5 +36,16 @@ def main():
 
     model.save('/Users/derrickbass/Desktop/autonomod/models/psych_aa_genome_model')
 
+
 if __name__ == '__main__':
+
+
+# mls/aa_genome/aa_genome_script.py
+def run():
+    # Your existing code here
+    return "AA Genome result"
+
+
+if __name__ == "__main__":
+    print(run())
     main()
