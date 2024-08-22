@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: user_service
+Version: 0.1.0
+Requires-Python: 3.8
+Requires-Dist: Flask
+
+# Remove the duplicate "Requires-Dist" entry
+# Remove the duplicate "Requires-Dist" entry
+# Requires-Dist: psycopg2-binary
+# Remove the duplicate "Requires-Dist" entry
+# Requires-Dist: gunicorn
