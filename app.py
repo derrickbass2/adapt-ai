@@ -15,13 +15,14 @@ load_dotenv()
 app = Flask(__name__)
 
 # Set up the Flask configuration
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_default_secret_key')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI', 'postgresql://dbuser:mypassword@localhost:5432/mydatabase')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optional, to suppress warnings
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 
+# Initialize extensions
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
@@ -88,6 +89,7 @@ class UserService:
     def get_revoked_token(self, jti):
         return self._session.query(TokenBlocklist).filter_by(jti=jti).first() is not None
 
+# Flask routes
 @app.route("/register", methods=["POST"])
 def register():
     return {"message": "Registration endpoint"}, 200
@@ -104,6 +106,7 @@ def logout():
     user_svc.revoke_token(jti)
     return {"message": "Successfully logged out"}, 200
 
+# JWT token blocklist loader
 @jwt.token_in_blocklist_loader
 def check_if_token_in_blocklist(decrypted_token):
     jti = decrypted_token["jti"]
