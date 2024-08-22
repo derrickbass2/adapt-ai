@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
@@ -21,3 +22,11 @@ def get_session():
 
 def query():
     return None
+=======
+from sqlalchemy.orm import scoped_session, sessionmaker
+from database.engine import engine
+
+SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
+
+session = scoped_session(SessionLocal)
+>>>>>>> 721ae5e8 (Delete unnecessary files from virtual environment)
