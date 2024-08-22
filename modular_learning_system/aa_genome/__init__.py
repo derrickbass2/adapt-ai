@@ -1,15 +1,15 @@
 import os
 import sys
-from typing import List, Optional, Any
-
+import random
+from typing import List, Tuple, Optional, Callable, Any
 import numpy as np
 from pyspark.sql import SparkSession
+import sys
+sys.path.append(os.path.dirname(__file__) + '/../genetic_algorithm')  # Adjust path relative to the aa_genome package directoryimport genetic_algorithm  # Import the genetic_algorithm module
 
-sys.path.append(os.path.dirname(
-    __file__) + '/../genetic_algorithm')  # Adjust path relative to the aa_genome package directoryimport genetic_algorithm  # Import the genetic_algorithm module
+from genetic_algorithm import GA  # Import the GeneticAlgorithm class from the genetic_algorithm module
 
 spark = SparkSession.builder.appName('aa_genome').getOrCreate()
-
 
 class AA_Genome:
     def __init__(self, df: SparkSession, **kwargs):

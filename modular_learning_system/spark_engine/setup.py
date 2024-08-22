@@ -1,6 +1,5 @@
 from pyspark.sql import SparkSession
 
-
 class SparkEngine:
     def __init__(self):
         self.spark = SparkSession.builder.appName('NOMAD').getOrCreate()

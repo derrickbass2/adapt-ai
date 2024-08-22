@@ -1,7 +1,6 @@
 from typing import Optional
-
 import pyspark
-
+from typing import Optional
 
 class NeuroTechNetwork:
     def __init__(self):
