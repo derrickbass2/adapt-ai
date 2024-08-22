@@ -3069,3 +3069,7 @@ Mercury.modules
 *.llb
 *.aliases
 *.lvlps
+# Ignore virtual environments
+.venv/
+env/
+venv/
