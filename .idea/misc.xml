@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
+<<<<<<< HEAD
+    <option name="sdkName" value="Python 3.12 (adaptai)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (adaptai)" project-jdk-type="Python SDK" />
+=======
     <option name="sdkName" value="Python 3.11 (PyCharmLearningProject)" />
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/mls/spark_engine" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (AdaptAI)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (PyCharmLearningProject)" project-jdk-type="Python SDK" />
+>>>>>>> refs/heads/2cf7ab7
 </project>

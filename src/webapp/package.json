@@ -7,7 +7,14 @@
     "start": "node src/server.js",
     "build": "webpack"
   },
+<<<<<<< HEAD
+  "keywords": [
+    "ADAPT AI",
+    "Web Application"
+  ],
+=======
   "keywords": ["ADAPT AI", "Web Application"],
+>>>>>>> cleanup/duplicate-removal
   "author": "Derrick Bass <derrick@adaptivedatafusion.com>",
   "license": "MIT",
   "dependencies": {

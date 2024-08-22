@@ -39,6 +39,6 @@
 =======
   "dependencies": {
     "@svgr/webpack": "^8.1.0"
->>>>>>> de8c49ad ("Updated .DS_Store files in various directories")
+>>>>>>> cleanup/duplicate-removal
   }
 }

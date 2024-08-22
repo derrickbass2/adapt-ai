@@ -580,8 +580,8 @@ class TestAAGenome(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main(verbosity=2)
 
-### Source Code Snippets
 
+### Source Code Snippets
 Peeling back the curtain reveals the intricate web of relationships mediating genetic exchange within aa_genome:
 
 class AAGenome:
@@ -1132,7 +1132,6 @@ If you have questions, need help, or would like to engage with the ADAPT AI comm
 
 # Investors
 
-ADAPT AI is seeking strategic investors to join our team. If you're interested in investing, partnering, or participating in the growth of ADAPT AI, please get in touch with us at <hello@adaptivedatafusion.com> or send a DM through GitHub or Discord.
 
 # Beta Testing and Bug Reporting
 

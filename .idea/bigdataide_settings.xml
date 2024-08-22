@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BigDataIdeConnectionSettings">
+    <option name="connections">
+      <list>
+        <ExtendedConnectionData>
+          <option name="extended">
+            <map>
+              <entry key="authType" value="rO0ABXQAD0NSRURFTlRJQUxfRklMRQ==" />
+              <entry key="bucket" value="rO0ABXQAAA==" />
+              <entry key="bucketFilter" value="rO0ABXQAE0FkYXB0LUFJIERlcGxveW1lbnQ=" />
+              <entry key="bucketFilterType" value="rO0ABX5yAD9jb20uamV0YnJhaW5zLmJpZ2RhdGF0b29scy5jb21tb24uZmlsZXN0b3JhZ2VzLkJ1Y2tldEZpbHRlclR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAhDT05UQUlOUw==" />
+              <entry key="isBucketSourceCustom" value="rO0ABXNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAA=" />
+              <entry key="isMultiBucketSupport" value="rO0ABXNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAE=" />
+              <entry key="jsonLocation" value="rO0ABXQAeC9Vc2Vycy9kZXJyaWNrYmFzcy9Eb3dubG9hZHMvY2xpZW50X3NlY3JldF82OTkyNDA3NzY4OTctMHQwZW5rMDRoNGVwNTNiNzRyOWJ2YWExc2wxNmhwdTcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20uanNvbg==" />
+              <entry key="proxyAuthEnabled" value="rO0ABXNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAA=" />
+              <entry key="proxyEnableType" value="rO0ABX5yADxjb20uamV0YnJhaW5zLmJpZ2RhdGF0b29scy5jb21tb24uY29ubmVjdGlvbi5Qcm94eUVuYWJsZVR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAhESVNBQkxFRA==" />
+              <entry key="proxyHost" value="rO0ABXQAAA==" />
+              <entry key="proxyPort" value="rO0ABXNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAABQ" />
+              <entry key="proxyType" value="rO0ABX5yADZjb20uamV0YnJhaW5zLmJpZ2RhdGF0b29scy5jb21tb24uY29ubmVjdGlvbi5Qcm94eVR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AARIVFRQ" />
+            </map>
+          </option>
+          <option name="fqn" value="org.jetbrains.hdfsplugin.hdfs.settings.GCSConnectionData" />
+          <option name="groupId" value="GCSConnectionGroup" />
+          <option name="innerId" value="Google Cloud Storage@GCSConnectionGroup@-7289478321699768511" />
+          <option name="name" value="Google Cloud Storage" />
+          <option name="perProject" value="true" />
+        </ExtendedConnectionData>
+      </list>
+    </option>
+  </component>
+</project>

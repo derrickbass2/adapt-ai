@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<module version="4">
+  <component name="Flask">
+    <option name="enabled" value="true" />
+  </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="GOOGLE" />
+    <option name="myDocStringFormat" value="Google" />
+=======
 <module type="JAVA_MODULE" version="4">
   <component name="Flask">
     <option name="enabled" value="true" />
@@ -6,14 +15,21 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.11 (AdaptAI)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (PyCharmLearningProject)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
     <option name="removeUnused" value="true" />
     <option name="modifyBaseFiles" value="true" />
+>>>>>>> refs/heads/2cf7ab7
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
   </component>
+<<<<<<< HEAD
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="py.test" />
+  </component>
+=======
+>>>>>>> refs/heads/2cf7ab7
 </module>

@@ -16,12 +16,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Example route
 app.get('/api/data', (req, res) => {
+<<<<<<< HEAD
+    res.json({message: 'Welcome to ADAPT AI Web App'});
+=======
   res.json({ message: 'Welcome to ADAPT AI Web App' });
+>>>>>>> cleanup/duplicate-removal
 });
 
 // Start the server
 app.listen(port, () => {
+<<<<<<< HEAD
+    console.log(`Server is running on port ${port}`);
+=======
   console.log(`Server is running on port ${port}`);
+>>>>>>> cleanup/duplicate-removal
 });
 
 module.exports = app;
