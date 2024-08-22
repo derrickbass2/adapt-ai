@@ -4,8 +4,8 @@ from tensorflow import keras
 import os
 import fnmatch
 
-DATAPATH = '/Users/derrickbass/Desktop/Autonomod/datasets/'
-MODELPATH = '/Users/derrickbass/Desktop/Autonomod/models/'
+DATAPATH = '/Users/derrickbass/Public/adaptai/datasets/'
+MODELPATH = '/Users/derrickbass/Public/adaptai/models/'
 
 def load_data(file_pattern):
     data = []

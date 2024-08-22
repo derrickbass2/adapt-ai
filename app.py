@@ -1,12 +1,13 @@
-import os
 from datetime import timedelta
 
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import func
+
+from modular_learning_system import SparkEngine
 
 # Load environment variables from .env file
 load_dotenv()
@@ -15,8 +16,8 @@ load_dotenv()
 app = Flask(__name__)
 
 # Set up the Flask configuration
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_default_secret_key')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI', 'postgresql://dbuser:mypassword@localhost:5432/mydatabase')
+app.config['SECRET_KEY'] = b'Pc\xe2\xe5a@\x96\xa6\xd7\xaa2\xfb\xde\xd1U!\x07\x10\x00\xfdDlS\x8b'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://dbuser:mypassword@localhost:5432/mydatabase"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optional, to suppress warnings
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 app.config['JWT_BLACKLIST_ENABLED'] = True
@@ -27,12 +28,14 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
+
 # Define the database models
 class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False, index=True)
     users = db.relationship("User", backref="role")
+
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -44,11 +47,13 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, server_default=func.now())
     modified_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
+
 class TokenBlocklist(db.Model):
     __tablename__ = 'token_blocklist'
     id = db.Column(db.Integer, primary_key=True)
     jti = db.Column(db.String(128), nullable=False, index=True)
     created_at = db.Column(db.DateTime, server_default=func.now())
+
 
 # Service class to handle user operations
 class UserService:
@@ -89,14 +94,31 @@ class UserService:
     def get_revoked_token(self, jti):
         return self._session.query(TokenBlocklist).filter_by(jti=jti).first() is not None
 
+
+# Initialize Spark Engine
+spark_engine = SparkEngine()
+
+
 # Flask routes
 @app.route("/register", methods=["POST"])
 def register():
-    return {"message": "Registration endpoint"}, 200
+    data = request.json
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
+    role_name = data.get("role", 'user')
+
+    user_svc = UserService(db.session)
+    user_svc.register_user(username, email, password, role_name)
+
+    return jsonify({"message": "User registered successfully"}), 201
+
 
 @app.route("/login", methods=["POST"])
 def login():
-    return {"message": "Login endpoint"}, 200
+    # Placeholder for login logic
+    return jsonify({"message": "Login endpoint"}), 200
+
 
 @app.route("/logout", methods=["POST"])
 @jwt_required()
@@ -104,7 +126,62 @@ def logout():
     jti = get_jwt()["jti"]
     user_svc = UserService(db.session)
     user_svc.revoke_token(jti)
-    return {"message": "Successfully logged out"}, 200
+    return jsonify({"message": "Successfully logged out"}), 200
+
+
+@app.route("/preprocess", methods=["POST"])
+@jwt_required()
+def preprocess_data():
+    data = request.json
+    file_path = data.get("file_path")
+    feature_cols = data.get("feature_cols", [])
+    label_col = data.get("label_col", "")
+
+    df = spark_engine.read_csv(file_path)
+    df_preprocessed = spark_engine.preprocess_data(df, feature_cols, label_col)
+
+    output_path = "preprocessed_data.parquet"
+    spark_engine.write_parquet(df_preprocessed, output_path)
+
+    return jsonify({"message": "Data preprocessed successfully", "output_path": output_path}), 200
+
+
+@app.route("/cluster", methods=["POST"])
+@jwt_required()
+def cluster_data():
+    data = request.json
+    file_path = data.get("file_path")
+    num_clusters = data.get("num_clusters", 3)
+
+    df = spark_engine.read_csv(file_path)
+    df_preprocessed = spark_engine.preprocess_data(df, data.get("feature_cols", []), data.get("label_col", ""))
+    df_clustered = spark_engine.cluster_data(df_preprocessed, num_clusters)
+
+    output_path = "clustered_data.parquet"
+    spark_engine.write_parquet(df_clustered, output_path)
+
+    return jsonify({"message": "Data clustered successfully", "output_path": output_path}), 200
+
+
+@app.route("/predict", methods=["POST"])
+@jwt_required()
+def predict():
+    data = request.json
+    file_path = data.get("file_path")
+    model_path = data.get("model_path")
+
+    # Load model (Implement model loading as per your requirements)
+    # model = spark_engine.load_model(model_path)
+
+    df = spark_engine.read_csv(file_path)
+    df_preprocessed = spark_engine.preprocess_data(df, data.get("feature_cols", []), data.get("label_col", ""))
+    # predictions = spark_engine.predict(model, df_preprocessed)
+
+    output_path = "predictions.parquet"
+    # spark_engine.write_parquet(predictions, output_path)
+
+    return jsonify({"message": "Prediction completed successfully", "output_path": output_path}), 200
+
 
 # JWT token blocklist loader
 @jwt.token_in_blocklist_loader
@@ -112,6 +189,7 @@ def check_if_token_in_blocklist(decrypted_token):
     jti = decrypted_token["jti"]
     user_svc = UserService(db.session)
     return user_svc.get_revoked_token(jti)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
