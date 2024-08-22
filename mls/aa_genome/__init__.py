@@ -1,42 +1,37 @@
 import os
 import sys
-from typing import List, Optional, Any
-
+import random
+from typing import List, Tuple, Optional, Callable, Any
 import numpy as np
-from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql import SparkSession
+import sys
+sys.path.append(os.path.dirname(__file__) + '/../genetic_algorithm')  # Adjust path relative to the aa_genome package directoryimport genetic_algorithm  # Import the genetic_algorithm module
 
-sys.path.append('{0}/.../genetic_algorithm_module'.format(os.path.dirname(
-    __file__)))  # Adjust path relative to the aa_genome package
+from genetic_algorithm import GA  # Import the GeneticAlgorithm class from the genetic_algorithm module
 
 spark = SparkSession.builder.appName('aa_genome').getOrCreate()
 
-
-class AAGenome:
-    def __init__(self, df: DataFrame, **kwargs):
+class AA_Genome:
+    def __init__(self, df: SparkSession, **kwargs):
         self.df = df
         self.params = kwargs
 
     @staticmethod
-    def _convert_to_numpy(df: DataFrame, column_names: List[str]) -> np.ndarray:
+    def _convert_to_numpy(df: SparkSession, column_names: List[str]) -> np.ndarray:
         selected_cols = [c for c in column_names if c in df.columns]
         arr = df.select(*selected_cols).rdd.map(tuple).collect()
         return np.vstack(arr)
 
-    def train_aa_genome_model(self) -> Optional[Any]:
+    def train_AA_genome_model(self, **kwargs) -> Optional[Any]:
         # Convert DataFrame columns to NumPy array
-        self._convert_to_numpy(self.df, self.params.get('x', []))
-        self._convert_to_numpy(self.df, self.params.get('y', []))
+        x = self._convert_to_numpy(self.df, self.params.get('x', []))
+        y = self._convert_to_numpy(self.df, self.params.get('y', []))
 
         # Implement the logic for training the AA genome model using x and y
-        # Placeholder for training logic
-        model = None  # Replace with actual model training code
+        # Return trained model or None
+        raise NotImplementedError("Method not implemented.")
 
-        return model  # Ensure a model or None is returned
-
-    @staticmethod
-    def test_aa_genome_model() -> Optional[float]:
+    def test_AA_genome_model(self, model: Any, **kwargs) -> Optional[float]:
         # Implement the logic for testing the AA genome model using input dataframe and serialized model
-        # Placeholder for testing logic
-        score = None  # Replace with actual testing code
-
-        return score  # Ensure a metric score or None is returned
+        # Return metric score or None
+        raise NotImplementedError("Method not implemented.")

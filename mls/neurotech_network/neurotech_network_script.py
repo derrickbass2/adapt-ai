@@ -1,11 +1,11 @@
-import fnmatch
-import os
 import numpy as np
+import tensorflow as tf
 from tensorflow import keras
+import os
+import fnmatch
 
-DATAPATH = '/Users/derrickbass/Public/adaptai/datasets/'
-MODELPATH = '/Users/derrickbass/Public/adaptai/mls/neurotech_network/'
-
+DATAPATH = '/Users/derrickbass/Desktop/Autonomod/datasets/'
+MODELPATH = '/Users/derrickbass/Desktop/Autonomod/models/'
 
 def load_data(file_pattern):
     data = []
@@ -15,11 +15,9 @@ def load_data(file_pattern):
             data.extend(raw_data)
     return np.array(data)
 
-
-def create_model(input_dim):
+def create_model(X_dimension):
     model = keras.Sequential([
-        keras.layers.InputLayer(input_shape=(input_dim,)),
-        keras.layers.Dense(units=64),
+        keras.layers.Dense(units=64, input_shape=(X_dimension,)),
         keras.layers.LeakyReLU(alpha=0.1),
         keras.layers.Dense(units=32),
         keras.layers.LeakyReLU(alpha=0.1),
@@ -27,29 +25,18 @@ def create_model(input_dim):
     ])
     return model
 
+def main(X_dimension):
+    X = load_data('*.npz')[:, :X_dimension]
+    y = load_data('*.npz')[:, X_dimension:].reshape((-1,))
 
-def main():
-    x_dimension = 10  # Set this here to avoid shadowing
-    data = load_data('*.npz')
-    X = data[:, :x_dimension]
-    y = data[:, x_dimension:].reshape((-1,))
+    model = create_model(X_dimension)
 
-    model = create_model(X.shape[1])
+    history = model.compile(optimizer='adam', loss='mean_absolute_error').fit(X, y, epochs=10)
 
-    # Compile and fit the model
-    model.compile(optimizer='adam', loss='mean_absolute_error')
-    history = model.fit(X, y, epochs=10)
-
-    # Evaluate the model
     accuracy = model.evaluate(X, y)
 
-    # Save the model
     model.save(f"{MODELPATH}retail_neurotech_network_model")
 
-    # Use history and accuracy
-    print("Training history:", history.history)
-    print("Model accuracy:", accuracy)
-
-
 if __name__ == '__main__':
-    main()
+    X_dimension = 10
+    main(X_dimension)

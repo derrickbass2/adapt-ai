@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "nomad"
+version = "0.1.0"
+description = "This repository serves as a platform for developing, benchmarking, and solving real-world problems using machine learning techniques."
+authors = ["Derrick Bass <derrick.bass2@gmail.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "*"
+pytest = "^8.0.2"
+pyspark = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
