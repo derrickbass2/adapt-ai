@@ -20,3 +20,7 @@ class RFModel(sklearn.ensemble.RandomForestClassifier):
 class SVMModel(SVC):
     def __init__(self):
         super().__init__(random_state=42)
+
+
+class AA_Genome:
+    pass
