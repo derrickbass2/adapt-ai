@@ -1897,7 +1897,7 @@ if __name__ == "__main__":
 Peeling back the curtain reveals the intricate web of relationships mediating genetic exchange within aa_genome:
 
 class AAGenome:
- 
+
     def __init__(self, chromosomes: Sequence[Sequence[Any]], fitness_fn: Callable[[Sequence[Any]], float]):
         self.chromosomes = deepcopy(chromosomes)
         self.fitness_fn = fitness_fn
