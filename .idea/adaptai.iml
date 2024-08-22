@@ -6,7 +6,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.11 (PyCharmLearningProject)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (AdaptAI)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

@@ -7,5 +7,5 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/mls/spark_engine" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (PyCharmLearningProject)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (AdaptAI)" project-jdk-type="Python SDK" />
 </project>
