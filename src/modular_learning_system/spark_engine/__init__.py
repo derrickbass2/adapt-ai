@@ -152,3 +152,7 @@ def preprocess_data(file_path: str, sep: str = ",") -> pd.DataFrame:
     # Example preprocessing steps: fill missing values
     df.fillna(method='ffill', inplace=True)
     return df
+
+
+class SparkEngine:
+    pass

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from modular_learning_system.spark_engine.setup import SparkEngine
+from modular_learning_system import SparkEngine
 
 spark_engine_bp = Blueprint('spark_engine', __name__)
 spark_engine = SparkEngine()
