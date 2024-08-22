@@ -146,6 +146,8 @@ In this section, we will dive deep into the development of each core component o
 
 ### Motivation
 
+### Component Specifications
+
 The spark_engine serves as the bedrock upon which ADAPT AI erects its edifice, marrying the elegance of declarative programming with the sheer horsepower of distributed computing. Its raison d'être stems from the necessity of taming the wild beasts known as big data, wrestling petabytes of information into submission, and rendering them palatable for higher-order cognition.
 
 Benefiting from the Spark ecosystem, the spark_engine affords the following advantages:
@@ -250,7 +252,7 @@ Quantifying the performance characteristics of the spark_engine necessitates ben
 
 Preliminary investigations reveal that the spark_engine exhibits near-linear scalability concerning increasing volumes of processed data, commensurate with theoretical expectations posited by the underlying Spark machinery. Further optimizations may be attained through judicious configuration tuning, resource provisioning, and strategic partitioning schemes tailored to specific use cases.
 
-### Unit Tests
+## Unit Tests
 
 Ensuring the correctness of the spark_engine requires exhaustive testing procedures scrutinizing every conceivable facet of its exposed interface. Sample unit tests verifying the integrity of the SparkEngine class appear below:
 
@@ -457,7 +459,7 @@ class AAGenome:
         """
         pass
 
-### Example Usage
+### Usage Example
 
 We now demonstrate the mechanics of aa_genome by exercising its capacities in various contexts:
 
@@ -1813,7 +1815,7 @@ revitalized_population = AAGenome.deserialize(archive_path)
 assert len(revitalized_population) == len(naive_population)
 assert all([all([abs(gene_1 - gene_2) < 1e-9 for gene_1, gene_2 in zip(genome_1.chromosomes[0], genome_2.chromosomes[0])]) for genome_1, genome_2 in zip(naive_population, revitalized_population)])
 
-### Performance Analysis
+## Performance Analysis
 
 Assessing the runtime characteristics of aa_genome mandates profiling exercises monitoring the frequency and duration of events occurring throughout evolving populations' lives. Key observations pertinent to performance analysis include:
 • Dimensionality: Increasing dimensionality of genotype space engenders exponential growth in representational capacity, manifesting quadratically proportional increases in computational expense.
@@ -2481,5 +2483,3 @@ Visit <http://localhost:3000> in your web browser to launch the ADAPT AI app.
 Your feedback and bug reports are invaluable in helping us improve ADAPT AI and deliver a high-quality product. Thank you for your participation in the beta testing process!
 
 # THANK YOU
->>>>>>>
->>>>>>> 127fe6ac (chore: Remove unnecessary files and dependencies)
