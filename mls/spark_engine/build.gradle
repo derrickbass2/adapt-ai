@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'com.spark_engine'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['/Users/derrickbass/Public/adaptai/src']
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'SparkEngine',
+                'Implementation-Version': version
+        )
+    }
+    from sourceSets.main.output.classesDirs
+}
