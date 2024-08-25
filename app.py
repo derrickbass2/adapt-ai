@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from sqlalchemy import func
 
 from modular_learning_system import SparkEngine
+from app import routes  # Ensure routes.py is in the same directory as app.py
 
 # Load environment variables from .env file
 load_dotenv()
@@ -28,8 +29,9 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
 # Import and register blueprints or routes
-from app import routes  # Ensure routes.py is in the same directory as app.py
+
 app.register_blueprint(routes.bp)  # Register the blueprint
+
 
 # Define the database models
 class Role(db.Model):
@@ -77,8 +79,8 @@ class UserService:
         try:
             self._session.add(user)
             self._session.commit()
-        except Exception as e:
-            print(f"Error occurred while inserting user: {e}")
+        except Exception:
+            print("Error occurred while inserting user: {e}")
             self._session.rollback()
 
     def authenticate_user(self, username):
@@ -89,8 +91,8 @@ class UserService:
         try:
             self._session.add(blocklist)
             self._session.commit()
-        except Exception as e:
-            print(f"Error occurred while inserting blacklisted token: {e}")
+        except Exception:
+            print("Error occurred while inserting blacklisted token: {e}")
             self._session.rollback()
 
     def get_revoked_token(self, jti):
@@ -170,13 +172,13 @@ def cluster_data():
 def predict():
     data = request.json
     file_path = data.get("file_path")
-    model_path = data.get("model_path")
+    data.get("model_path")
 
     # Load model (Implement model loading as per your requirements)
     # model = spark_engine.load_model(model_path)
 
     df = spark_engine.read_csv(file_path)
-    df_preprocessed = spark_engine.preprocess_data(df, data.get("feature_cols", []), data.get("label_col", ""))
+    spark_engine.preprocess_data(df, data.get("feature_cols", []), data.get("label_col", ""))
     # predictions = spark_engine.predict(model, df_preprocessed)
 
     output_path = "predictions.parquet"
