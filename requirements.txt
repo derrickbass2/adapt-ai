@@ -15,5 +15,4 @@ pandas~=2.2.2
 setuptools~=70.3.0
 app~=0.0.1
 requests~=2.32.3
-pyspark-stubs~=3.0.0.post3
 tensorflow~=2.17.0

@@ -1,10 +1,9 @@
 from datetime import timedelta
-
-from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from dotenv import load_dotenv
 from sqlalchemy import func
 
 from modular_learning_system import SparkEngine
@@ -28,6 +27,9 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
+# Import and register blueprints or routes
+from app import routes  # Ensure routes.py is in the same directory as app.py
+app.register_blueprint(routes.bp)  # Register the blueprint
 
 # Define the database models
 class Role(db.Model):

@@ -1,1 +1,52 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from the .env file
+load_dotenv()
+
+class Config:
+    # General configuration
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'default_secret_key')
+    
+    # Database configuration
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URI', 'postgresql://dbuser:mypassword@localhost:5432/mydatabase')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Other settings
+    DEBUG = False
+
+class StagingConfig(Config):
+    # Staging specific configuration
+    SQLALCHEMY_DATABASE_URI = os.environ.get('STAGING_DATABASE_URL', 'postgresql://dbuser:mypassword@localhost:5432/mydatabase')
+    DEBUG = True
+
+class DevelopmentConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEVELOPMENT_DATABASE_URL', 'postgresql://dbuser:mypassword@localhost:5432/mydatabase')
+    DEBUG = True
+
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('PRODUCTION_DATABASE_URL', 'postgresql://dbuser:mypassword@localhost:5432/mydatabase')
+    DEBUG = False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
