@@ -1,6 +1,7 @@
 import sklearn.ensemble
 from sklearn.svm import SVC
 
+
 # Define your ML models here
 class LogisticRegression:
     def __init__(self, max_iter=100):

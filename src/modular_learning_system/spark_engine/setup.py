@@ -1,8 +1,9 @@
 from pyspark.sql import SparkSession
 
+
 class SparkEngine:
     def __init__(self):
-        self.spark = SparkSession.builder.appName('NOMAD').getOrCreate()
+        self.spark = SparkSession.builder.appName('ADAPTAI').getOrCreate()
 
     def read_csv(self, path):
         return self.spark.read.option('header', 'true').csv(path)

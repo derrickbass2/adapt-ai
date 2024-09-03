@@ -1,7 +1,8 @@
 # user_service/main.py
 
-from src.user_repository import UserRepository
 from src.user_controller import UserController
+from src.user_repository import UserRepository
+
 
 def main():
     # Initialize the UserRepository
@@ -12,6 +13,7 @@ def main():
 
     # Call a function from the controller
     print(user_controller.get_users())
+
 
 if __name__ == "__main__":
     main()

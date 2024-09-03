@@ -1,20 +1,22 @@
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.expanduser("~"))
-sys.path.append(os.path.join(os.path.expanduser("~"), "nomad"))
+sys.path.append(os.path.join(os.path.expanduser("~"), "adaptai"))
 
-from nomad import fetch_data
+from adaptai import fetch_data
 
 from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+
 @app.route('/api/data', methods=['GET'])
 def fetch_data_endpoint():
     raw_data = fetch_data()
-    processed_data = ... # Process the data using your Nomad functions
+    processed_data = ...  # Process the data using your Adaptai functions
     return jsonify({'result': processed_data})
+
 
 if __name__ == "__main__":
     app.run(debug=True)

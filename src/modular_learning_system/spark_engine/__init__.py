@@ -1,10 +1,12 @@
 from typing import List, Any
+
 import pandas as pd
 from pyspark.ml import Transformer
 from pyspark.ml.feature import VectorAssembler
-from pyspark.sql import DataFrame
 from pyspark.ml.linalg import Vectors
+from pyspark.sql import DataFrame
 from pyspark.sql.functions import udf
+from pyspark.sql.pandas._typing import DataFrameLike
 from pyspark.sql.types import ArrayType, DoubleType
 
 __all__ = [
@@ -17,11 +19,11 @@ __all__ = [
 def _validate_input_dataframe(df: pd.DataFrame, column_names: List[str]) -> bool:
     """Validate input DataFrame columns."""
     if not all(col in df.columns for col in column_names):
-        raise ValueError(f"DataFrame must contain columns: {column_names}")
+        raise ValueError("DataFrame must contain columns: {column_names}")
     return True
 
 
-def _extract_features(df: pd.DataFrame, categorical_cols: List[str], numerical_cols: List[str]) -> pd.DataFrame:
+def _extract_features(df: pd.DataFrame, categorical_cols: List[str]) -> pd.DataFrame:
     """Extract features from the input DataFrame."""
     # Example implementation: One-hot encode categorical columns and normalize numerical columns
     df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
@@ -43,7 +45,7 @@ def _normalize_data(df: pd.DataFrame, feature_columns: List[str]) -> pd.DataFram
     return df
 
 
-def _cluster_data(df: pd.DataFrame, feature_columns: List[str], k: int) -> pd.DataFrame:
+def _cluster_data(df: pd.DataFrame, feature_columns: List[str], k: int) -> DataFrameLike:
     """Perform k-means clustering on the normalized data."""
     from pyspark.ml.clustering import KMeans
     from pyspark.sql import SparkSession
@@ -72,7 +74,7 @@ def _train_model(df: pd.DataFrame, label_column: str, feature_columns: List[str]
     vec_assembler = VectorAssembler(inputCols=feature_columns, outputCol='features')
     df_transformed = vec_assembler.transform(df_spark)
 
-    rf = RandomForestClassifier(labelCol=label_column, featuresCol='features', seed=1)
+    rf = RandomForestClassifier(labelCol=label_column, seed=1)
     model = rf.fit(df_transformed)
 
     return model
@@ -155,4 +157,25 @@ def preprocess_data(file_path: str, sep: str = ",") -> pd.DataFrame:
 
 
 class SparkEngine:
-    pass
+    def read_csv(self, file_path: str) -> pd.DataFrame:
+        """Read CSV file into a DataFrame."""
+        return preprocess_data(file_path)
+
+    def preprocess_data(self, df: pd.DataFrame, feature_cols: List[str]) -> pd.DataFrame:
+        """Preprocess the DataFrame for modeling."""
+        df = _extract_features(df, categorical_cols=feature_cols)
+        df = _normalize_data(df, feature_columns=feature_cols)
+        return df
+
+    def write_parquet(self, df: pd.DataFrame, output_path: str) -> None:
+        """Write DataFrame to a Parquet file."""
+        from pyspark.sql import SparkSession
+
+        spark = SparkSession.builder.getOrCreate()
+        df_spark = spark.createDataFrame(df)
+        df_spark.write.parquet(output_path)
+
+    def cluster_data(self, df: pd.DataFrame, feature_cols: List[str], num_clusters: int) -> DataFrameLike:
+        """Cluster data using k-means."""
+        df = _normalize_data(df, feature_columns=feature_cols)
+        return _cluster_data(df, feature_columns=feature_cols, k=num_clusters)

@@ -2,13 +2,9 @@ def response_utils():
     return None
 
 
-def response_utils():
+def modular_learning_system():
     return None
 
 
-def response_utils():
-    return None
-
-
-def odular_learning_system():
+def models():
     return None

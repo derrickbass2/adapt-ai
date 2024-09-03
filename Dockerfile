@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -24,7 +24,7 @@ COPY . /app
 EXPOSE 5000
 
 # Set environment variables
-ENV FLASK_APP=app.py
+ENV FLASK_APP=/Users/derrickbass/Public/adaptai/app.py
 ENV FLASK_ENV=production
 
 # Install gunicorn
