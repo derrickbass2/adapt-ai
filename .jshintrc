@@ -1,0 +1,8 @@
+{
+  "esversion": 6,
+  "node": true,
+  "globals": {
+    "console": true,
+    "module": true
+  }
+}

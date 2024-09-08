@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebResourcesPaths">
+    <contentEntries>
+      <entry url="file://$PROJECT_DIR$">
+        <entryData>
+          <resourceRoots>
+            <path value="file://$PROJECT_DIR$/datasets" />
+            <path value="file://$PROJECT_DIR$/datasets/cocktails" />
+            <path value="file://$PROJECT_DIR$/datasets/edstats-csv-zip-32-mb-" />
+            <path value="file://$PROJECT_DIR$/datasets/finance" />
+            <path value="file://$PROJECT_DIR$/datasets/food" />
+            <path value="file://$PROJECT_DIR$/datasets/hospitality" />
+            <path value="file://$PROJECT_DIR$/datasets/psych" />
+            <path value="file://$PROJECT_DIR$/datasets/retail" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+    </contentEntries>
+  </component>
+</project>
