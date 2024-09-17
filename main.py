@@ -11,19 +11,18 @@ def main():
     engine = create_engine(db_uri)
 
     # Create a configured "session" class
-    session = sessionmaker(bind=engine)
+    Session = sessionmaker(bind=engine)
 
     # Create a session instance
-    session = session()
+    with Session() as session:
+        # Initialize the UserRepository with the session
+        user_repository = UserRepository(session)
 
-    # Initialize the UserRepository with the session
-    UserRepository(session)
+        # Initialize the UserController with the UserRepository
+        user_controller = UserController(user_repository)
 
-    # Initialize the UserController with the UserRepository
-    user_controller = UserController()
-
-    # Call a function from the controller
-    print(user_controller.get_users())
+        # Call a function from the controller
+        print(user_controller.get_users())
 
 
 if __name__ == "__main__":

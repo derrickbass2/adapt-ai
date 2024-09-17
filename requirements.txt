@@ -1,23 +1,49 @@
-blinker==1.7.0
-numpy==1.26.4
-pandas==2.2.2
-pyspark==3.2.2
-requests==2.32.3
-tensorflow==2.17.0
-typing_extensions==4.12.2
-Werkzeug==3.0.4
-Flask~=3.0.3
-SQLAlchemy~=2.0.32
-pydantic~=2.9.0b2
-automium_web~=0.1.1
+# Web Frameworks
+flask==2.3.2                # Flask web framework (if both frameworks are used, ensure compatibility)
+
+# ASGI Server
+
+# JWT and Authentication
+flask-jwt-extended==4.3.1   # JWT support for Flask
+
+
+# Pydantic
+pydantic==1.10.9            # Data validation and settings management using Python type annotations
+
+# Flask Extensions
+alembic==1.10.3             # Database migrations
+werkzeug==2.3.6             # Flask dependency for routing and request handling
+
+# Environment Variables
+python-dotenv==1.0.0        # For loading environment variables from a `.env` file
+
+# Data Science and ML Libraries
+pandas==2.0.3               # Data manipulation
+numpy==1.24.3               # Numerical computing
+tensorflow==2.13.0          # Machine learning library
+
+# API Handling and Token Management
+requests==2.31.0            # HTTP requests
+
+# Database and ORM
+sqlalchemy==2.0.16          # Database ORM
+
+# Testing Libraries
+
+# Serialization
+
+# Task Queuing and Background Jobs
+
+# Security
+
 scikit-learn~=1.5.1
-spglib~=2.5.0
-# Remove or update the line below
-# pyspark-stubs~=3.2.2
+automium_web~=0.1.1
+pyspark~=3.5.2
 typing~=3.7.4.3
-setuptools~=74.0.0
-python-dotenv~=1.0.1
-Flask-JWT-Extended~=4.6.0
-Flask-Migrate~=4.0.7
+build~=1.2.2
 app~=0.0.1
-alembic~=1.13.2
+setuptools~=74.0.0
+
+pyspark-stubs~=3.0.0.post3
+users~=1.0.dev0
+datasets~=3.0.0

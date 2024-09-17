@@ -15,8 +15,7 @@
 """Dataset class for Food-101 dataset."""
 
 import datasets
-from datasets.tasks import ImageClassification
-
+from datasets import ImageClassification
 
 _BASE_URL = "http://data.vision.ee.ethz.ch/cvl/food-101.tar.gz"
 
@@ -209,7 +208,7 @@ class Food101(datasets.GeneratorBasedBuilder):
             files_to_keep = set(f.read().split("\n"))
         for file_path, file_obj in images:
             if file_path.startswith(_IMAGES_DIR):
-                if file_path[len(_IMAGES_DIR) : -len(".jpg")] in files_to_keep:
+                if file_path[len(_IMAGES_DIR): -len(".jpg")] in files_to_keep:
                     label = file_path.split("/")[2]
                     yield file_path, {
                         "image": {"path": file_path, "bytes": file_obj.read()},

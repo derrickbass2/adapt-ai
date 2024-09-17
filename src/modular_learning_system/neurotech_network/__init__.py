@@ -20,7 +20,7 @@ def initialize_neurotech_network(params: dict) -> Any:
     try:
         return NeuroTechNetwork(**params)
     except Exception as e:
-        print("Error initializing NeuroTech Network: {e}")
+        print(f"Error initializing NeuroTech Network: {e}")
         return None
 
 
@@ -36,5 +36,5 @@ def load_mnist_model(model_path: str) -> Any:
         classifier.load_model(model_path)
         return classifier
     except Exception as e:
-        print("Error loading MNIST model: {e}")
+        print(f"Error loading MNIST model: {e}")
         return None

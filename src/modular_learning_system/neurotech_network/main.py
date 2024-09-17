@@ -1,4 +1,5 @@
 from typing import Optional, Dict
+
 import pyspark
 
 
@@ -8,7 +9,7 @@ class NeuroTechNetwork:
 
     def train_NTN_model(self, df: pyspark.sql.DataFrame, **kwargs) -> Optional[str]:
         """
-        Trains the Neuro Tech Network model using input dataframe.
+        Trains the NeuroTech Network model using the input dataframe.
 
         Parameters:
             df (pyspark.sql.DataFrame): Input dataframe.
@@ -18,7 +19,7 @@ class NeuroTechNetwork:
             Optional[str]: Serialized model or None if failed.
         """
         try:
-            # Placeholder: Implement your training logic here
+            # Implement your training logic here
             self.model = "Trained Model"
             # Serialize and return the model
             return self.serialize_model()
@@ -28,7 +29,7 @@ class NeuroTechNetwork:
 
     def test_NTN_model(self, model: str, df: pyspark.sql.DataFrame, **kwargs) -> Optional[float]:
         """
-        Tests the Neuro Tech Network model using input dataframe and serialized model.
+        Tests the NeuroTech Network model using input dataframe and serialized model.
 
         Parameters:
             model (str): Serialized model.
@@ -39,8 +40,7 @@ class NeuroTechNetwork:
             Optional[float]: Metric score or None if failed.
         """
         try:
-            # Placeholder: Implement your testing logic here
-            # Deserialize model if necessary
+            # Implement your testing logic here
             score = 0.95  # Replace with actual evaluation
             return score
         except Exception as e:
@@ -54,7 +54,7 @@ class NeuroTechNetwork:
         Returns:
             str: Serialized model string.
         """
-        # Placeholder: Implement serialization logic
+        # Implement serialization logic
         return "Serialized Model"
 
     def deserialize_model(self, serialized_model: str):
@@ -64,5 +64,5 @@ class NeuroTechNetwork:
         Parameters:
             serialized_model (str): The model string to deserialize.
         """
-        # Placeholder: Implement deserialization logic
+        # Implement deserialization logic
         self.model = "Deserialized Model"

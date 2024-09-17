@@ -1,8 +1,10 @@
 from flask import Blueprint, request, jsonify
+
 from adapt_backend.ml_models import AA_Genome  # Import the model class
 
 # Initialize the Blueprint
 aa_genome_bp = Blueprint('aa_genome', __name__)
+
 
 @aa_genome_bp.route('/train', methods=['POST'])
 def train_model():
@@ -30,6 +32,7 @@ def train_model():
 
     return jsonify({"message": "Model trained successfully", "model": trained_model}), 200
 
+
 @aa_genome_bp.route('/best_solution', methods=['GET'])
 def get_best_solution():
     """
@@ -40,4 +43,10 @@ def get_best_solution():
 
     return jsonify({"best_solution": best_solution}), 200
 
+
 # Additional routes can be added here
+
+
+@aa_genome_bp.route('/')
+def home():
+    return jsonify({"message": "Welcome to the AA Genome API"})

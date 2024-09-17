@@ -13,9 +13,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/jsLinters" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/stylesheetLinters" />
       <excludeFolder url="file://$MODULE_DIR$/AdaptAI/.venv" />
-      <excludeFolder url="file://$MODULE_DIR$/src/tests" />
+      <excludeFolder url="file://$MODULE_DIR$/tests" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (AdaptAI)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (adaptai)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

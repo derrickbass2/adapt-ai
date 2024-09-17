@@ -1,9 +1,11 @@
 from http import HTTPStatus
+
 from flask import Flask, request
+
 from src.response_utils import ResponseUtils
 from .user_service import UserService
 
-app: Flask = Flask(__name__)
+app = Flask(__name__)
 user_service = UserService()
 
 
@@ -47,4 +49,22 @@ def delete_user(id: int):
 
 
 class UserController:
-    pass
+    def __init__(self, user_repository):
+        self.user_repository = user_repository
+
+    def get_users(self):
+        return self.user_repository.get_users()
+
+    def get_user_by_id(self, id):
+        return self.user_repository.get_user_by_id(id)
+
+    def create_user(self, user_data):
+        user_schema = UserSchema(**user_data)
+        return self.user_repository.create_user(user_schema)
+
+    def update_user(self, id, user_data):
+        user_schema = UserSchema(**user_data)
+        return self.user_repository.update_user(id, user_schema)
+
+    def delete_user(self, id):
+        self.user_repository.delete_user(id)

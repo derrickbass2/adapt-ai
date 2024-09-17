@@ -5,3 +5,7 @@ from sklearn.model_selection import cross_val_score
 def cross_validate(model, X, y, cv=5):
     scores = cross_val_score(model, X, y, cv=cv)
     return scores
+
+
+def train_and_evaluate():
+    return None

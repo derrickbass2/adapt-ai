@@ -2,7 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 # Function to preprocess text data
-def preprocess_text(text):
+def preprocess_text(text, preprocessed_text=None):
     # Implement your text preprocessing steps here
     # Return the preprocessed text
     return preprocessed_text
@@ -16,7 +16,7 @@ def tfidf_transform(text_data):
 
 
 # Function to perform feature engineering
-def engineer_features(data):
+def engineer_features(data, engineered_features=None):
     # Perform feature engineering steps here
     # Return the engineered feature matrix
     return engineered_features

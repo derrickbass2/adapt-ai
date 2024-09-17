@@ -1,13 +1,39 @@
 from typing import List, Any
 
 import pandas as pd
+from build.lib.modular_learning_system.spark_engine.spark_engine_script import clean_data
 from pyspark.ml import Transformer
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.linalg import Vectors
-from pyspark.sql import DataFrame
+from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.functions import udf
-from pyspark.sql.pandas._typing import DataFrameLike
 from pyspark.sql.types import ArrayType, DoubleType
+
+from spark_engine import SparkEngineUtils
+
+
+def process_dataset(spark: SparkSession, file_path: str, output_path: str) -> None:
+    """Read, clean, and write the processed data."""
+    print(f"Processing {file_path}...")
+
+    # Load data
+    df = spark.read.option('header', 'true').csv(file_path)
+
+    # Instantiate the utilities class for additional operations
+    engine_utils = SparkEngineUtils(spark)
+
+    # Clean and transform the data
+    cleaned_df = clean_data(df)
+    advanced_cleaned_df = engine_utils.advanced_cleaning(cleaned_df)
+
+    # Optional: Run clustering
+    feature_cols = ['col1', 'col2']  # Specify your feature columns
+    clustered_df = engine_utils.run_kmeans(advanced_cleaned_df, feature_cols)
+
+    # Save cleaned data
+    engine_utils.write_output(clustered_df, output_path)
+    print(f"Data saved to {output_path}")
+
 
 __all__ = [
     'ColumnSelector',
@@ -19,13 +45,12 @@ __all__ = [
 def _validate_input_dataframe(df: pd.DataFrame, column_names: List[str]) -> bool:
     """Validate input DataFrame columns."""
     if not all(col in df.columns for col in column_names):
-        raise ValueError("DataFrame must contain columns: {column_names}")
+        raise ValueError(f"DataFrame must contain columns: {column_names}")
     return True
 
 
 def _extract_features(df: pd.DataFrame, categorical_cols: List[str]) -> pd.DataFrame:
     """Extract features from the input DataFrame."""
-    # Example implementation: One-hot encode categorical columns and normalize numerical columns
     df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
     return df
 
@@ -45,10 +70,9 @@ def _normalize_data(df: pd.DataFrame, feature_columns: List[str]) -> pd.DataFram
     return df
 
 
-def _cluster_data(df: pd.DataFrame, feature_columns: List[str], k: int) -> DataFrameLike:
+def _cluster_data(df: pd.DataFrame, feature_columns: List[str], k: int) -> pd.DataFrame:
     """Perform k-means clustering on the normalized data."""
     from pyspark.ml.clustering import KMeans
-    from pyspark.sql import SparkSession
 
     spark = SparkSession.builder.getOrCreate()
     df_spark = spark.createDataFrame(df)
@@ -66,7 +90,6 @@ def _cluster_data(df: pd.DataFrame, feature_columns: List[str], k: int) -> DataF
 def _train_model(df: pd.DataFrame, label_column: str, feature_columns: List[str]) -> Any:
     """Train a random forest classifier."""
     from pyspark.ml.classification import RandomForestClassifier
-    from pyspark.sql import SparkSession
 
     spark = SparkSession.builder.getOrCreate()
     df_spark = spark.createDataFrame(df)
@@ -82,8 +105,6 @@ def _train_model(df: pd.DataFrame, label_column: str, feature_columns: List[str]
 
 def _predict(model: Any, df: pd.DataFrame, feature_columns: List[str]) -> pd.Series:
     """Predict labels using the trained model."""
-    from pyspark.sql import SparkSession
-
     spark = SparkSession.builder.getOrCreate()
     df_spark = spark.createDataFrame(df)
 
@@ -109,12 +130,8 @@ class ColumnSelector(Transformer):
         super().__init__()
         self._selected_cols = selected_cols
 
-    @property
-    def _transformFunc(self):
-        def transform(df: DataFrame) -> DataFrame:
-            return df.select(*self._selected_cols)
-
-        return transform
+    def _transform(self, df: DataFrame) -> DataFrame:
+        return df.select(*self._selected_cols)
 
 
 class MeanVectorStandardizer(Transformer):
@@ -127,32 +144,27 @@ class MeanVectorStandardizer(Transformer):
         self._input_col = input_col
         self._output_col = output_col
 
-    @property
-    def _transformFunc(self):
-        def transform(df: DataFrame) -> DataFrame:
-            vec_assembler = VectorAssembler(inputCols=[self._input_col], outputCol=self._output_col)
-            transformed_df = vec_assembler.transform(df)
+    def _transform(self, df: DataFrame) -> DataFrame:
+        vec_assembler = VectorAssembler(inputCols=[self._input_col], outputCol=self._output_col)
+        transformed_df = vec_assembler.transform(df)
 
-            stats = transformed_df.select(self._output_col).describe().toPandas()
-            mu = stats[stats['summary'] == 'mean'][self._output_col].values[0]
-            sigma = stats[stats['summary'] == 'stddev'][self._output_col].values[0]
+        stats = transformed_df.select(self._output_col).describe().toPandas()
+        mu = stats[stats['summary'] == 'mean'][self._output_col].values[0]
+        sigma = stats[stats['summary'] == 'stddev'][self._output_col].values[0]
 
-            def standardize(v):
-                return [(x - mu) / sigma for x in v]
+        def standardize(v):
+            return [(x - mu) / sigma for x in v]
 
-            transf_vec = udf(standardize, ArrayType(DoubleType()))
-            centered_df = transformed_df.withColumn(self._output_col, transf_vec(transformed_df[self._output_col]))
+        transf_vec = udf(standardize, ArrayType(DoubleType()))
+        centered_df = transformed_df.withColumn(self._output_col, transf_vec(transformed_df[self._output_col]))
 
-            return centered_df
-
-        return transform
+        return centered_df
 
 
 def preprocess_data(file_path: str, sep: str = ",") -> pd.DataFrame:
     """Load, preprocess, and return the cleaned DataFrame."""
     df = pd.read_csv(file_path, sep=sep)
-    # Example preprocessing steps: fill missing values
-    df.fillna(method='ffill', inplace=True)
+    df.fillna(method='ffill', inplace=True)  # Fill missing values
     return df
 
 
@@ -169,13 +181,14 @@ class SparkEngine:
 
     def write_parquet(self, df: pd.DataFrame, output_path: str) -> None:
         """Write DataFrame to a Parquet file."""
-        from pyspark.sql import SparkSession
-
         spark = SparkSession.builder.getOrCreate()
         df_spark = spark.createDataFrame(df)
         df_spark.write.parquet(output_path)
 
-    def cluster_data(self, df: pd.DataFrame, feature_cols: List[str], num_clusters: int) -> DataFrameLike:
+    def cluster_data(self, df: pd.DataFrame, feature_cols: List[str], num_clusters: int) -> pd.DataFrame:
         """Cluster data using k-means."""
         df = _normalize_data(df, feature_columns=feature_cols)
         return _cluster_data(df, feature_columns=feature_cols, k=num_clusters)
+
+    def SparkEngine(self):
+        pass

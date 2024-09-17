@@ -1,8 +1,11 @@
 import os
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 from pyspark.sql import SparkSession
+
 from adapt_backend.ml_models import AA_Genome  # Adjust the import to match the module structure
+
 
 def load_data_from_csv(file_path):
     """
@@ -15,6 +18,7 @@ def load_data_from_csv(file_path):
         return pd.read_csv(file_path)
     else:
         raise FileNotFoundError(f"The file {file_path} does not exist.")
+
 
 def load_and_preprocess_data():
     """
@@ -43,6 +47,7 @@ def load_and_preprocess_data():
     spark_df = spark.createDataFrame(combined_df)
     return spark_df
 
+
 def main():
     X_dimension = 10
     df = load_and_preprocess_data()
@@ -63,6 +68,7 @@ def main():
     # Save the model to a file if needed
     # For example, save the model in the 'adapt_backend' directory
     trained_model.save('/Users/derrickbass/Public/adaptai/src/adapt_backend/psych_aa_genome_model')
+
 
 if __name__ == '__main__':
     main()

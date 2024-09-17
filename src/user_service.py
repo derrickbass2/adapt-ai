@@ -52,7 +52,7 @@ class UserService:
         """Retrieve a user by their ID."""
         try:
             user = self._session.query(User).filter_by(id=user_id).first()
-            return user.to_dict() if user else None  # Assuming to_dict method exists in User model
+            return user.to_dict() if user else {"message": "User not found"}
         except Exception as e:
             print(f"Error occurred while retrieving user by ID: {e}")
             return {"message": "Error occurred while retrieving user by ID", "error": str(e)}
@@ -98,7 +98,7 @@ class UserService:
             self._session.commit()
             return {"message": "Token revoked successfully"}
         except Exception as e:
-            print(f"Error occurred while inserting blacklisted token: {e}")
+            print(f"Error occurred while revoking token: {e}")
             self._session.rollback()
             return {"message": "Error occurred while revoking token", "error": str(e)}
 

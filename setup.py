@@ -9,7 +9,18 @@ setup(
         'Flask',
         'SQLAlchemy',
         'psycopg2-binary',
-        'gunicorn'
+        'gunicorn',
+        'pyspark==3.5.2',  # Fixed syntax error for specifying the pyspark version
+        'pydantic',
+        'python-dotenv',
+        'Flask-JWT-Extended',
+        'Flask-Migrate',
+        'tensorflow',
+        'authlib',
+        'Werkzeug',
+        'pytest',
+        'pandas',
+        'alembic',
     ],
     python_requires=">=3.8",
 )
