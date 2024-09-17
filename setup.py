@@ -1,26 +1,35 @@
-from setuptools import find_namespace_packages, setup
+from setuptools import find_packages, setup
 
 setup(
     name="user_service",
     version="0.1.0",
-    packages=find_namespace_packages(where="src"),
+    description="A user service with Flask and SQLAlchemy support, including PySpark.",
+    author="Derrick Bass",
+    author_email="derrick@edaptivedatafusion.com",
+    url="https://github.com/adaptivedatafusion/adapt-ai",
+    packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=[
         'Flask',
         'SQLAlchemy',
         'psycopg2-binary',
         'gunicorn',
-        'pyspark==3.5.2',  # Fixed syntax error for specifying the pyspark version
+        'pyspark==3.5.2',
         'pydantic',
         'python-dotenv',
         'Flask-JWT-Extended',
         'Flask-Migrate',
         'tensorflow',
         'authlib',
-        'Werkzeug',
+        'Werkzeug==3.0.1',
         'pytest',
         'pandas',
         'alembic',
     ],
     python_requires=">=3.8",
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+    ],
 )

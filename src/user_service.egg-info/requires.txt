@@ -1,0 +1,15 @@
+Flask
+SQLAlchemy
+psycopg2-binary
+gunicorn
+pyspark==3.5.2
+pydantic
+python-dotenv
+Flask-JWT-Extended
+Flask-Migrate
+tensorflow
+authlib
+Werkzeug==3.0.1
+pytest
+pandas
+alembic

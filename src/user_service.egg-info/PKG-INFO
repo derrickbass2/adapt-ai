@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: user_service
+Version: 0.1.0
+Summary: A user service with Flask and SQLAlchemy support, including PySpark.
+Home-page: https://github.com/adaptivedatafusion/adapt-ai
+Author: Derrick Bass
+Author-email: derrick@edaptivedatafusion.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+License-File: LICENSE
+Requires-Dist: Flask
+Requires-Dist: SQLAlchemy
+Requires-Dist: psycopg2-binary
+Requires-Dist: gunicorn
+Requires-Dist: pyspark==3.5.2
+Requires-Dist: pydantic
+Requires-Dist: python-dotenv
+Requires-Dist: Flask-JWT-Extended
+Requires-Dist: Flask-Migrate
+Requires-Dist: tensorflow
+Requires-Dist: authlib
+Requires-Dist: Werkzeug==3.0.1
+Requires-Dist: pytest
+Requires-Dist: pandas
+Requires-Dist: alembic
