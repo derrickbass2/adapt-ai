@@ -2,7 +2,7 @@ import fnmatch
 import os
 
 import numpy as np
-from tensorflow import keras
+import tensorflow as tf
 
 DATAPATH = '/Users/derrickbass/Public/adaptai/datasets/'
 MODELPATH = '/Users/derrickbass/Public/adaptai/models/'
@@ -15,12 +15,12 @@ class NeurotechNetwork:
         self.model = self.create_model(10)  # Assuming X_dimension is 10
 
     def create_model(self, X_dimension):
-        model = keras.Sequential([
-            keras.layers.Dense(units=64, input_shape=(X_dimension,)),
-            keras.layers.LeakyReLU(alpha=0.1),
-            keras.layers.Dense(units=32),
-            keras.layers.LeakyReLU(alpha=0.1),
-            keras.layers.Dense(units=1)
+        model = tf.keras.Sequential([
+            tf.keras.layers.Dense(units=64, input_shape=(X_dimension,)),
+            tf.keras.layers.LeakyReLU(alpha=0.1),
+            tf.keras.layers.Dense(units=32),
+            tf.keras.layers.LeakyReLU(alpha=0.1),
+            tf.keras.layers.Dense(units=1)
         ])
         model.compile(optimizer='adam', loss='mean_absolute_error')
         return model
@@ -49,7 +49,7 @@ def main(X_dimension):
     X = load_data('*.npz')[:, :X_dimension]
     y = load_data('*.npz')[:, X_dimension:].reshape((-1,))
 
-    model = create_model(X_dimension)
+    model = NeurotechNetwork.create_model(X_dimension)
 
     history = model.fit(X, y, epochs=10)
 

@@ -3,6 +3,9 @@ import os
 
 from pyspark.sql import DataFrame, SparkSession
 
+# Initialize Spark Session
+spark = SparkSession.builder.appName("adaptai").getOrCreate()
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

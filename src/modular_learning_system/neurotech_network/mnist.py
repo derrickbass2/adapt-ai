@@ -1,4 +1,5 @@
-from tensorflow import keras
+from tensorflow.keras import models, layers
+
 
 class MNISTClassifier:
     def __init__(self):
@@ -16,17 +17,19 @@ class MNISTClassifier:
         val_images, val_labels = val_data
 
         # Define a simple model
-        self.model = keras.Sequential([
-            keras.layers.Flatten(input_shape=(28, 28)),
-            keras.layers.Dense(128, activation='relu'),
-            keras.layers.Dropout(0.2),
-            keras.layers.Dense(10, activation='softmax')
+        self.model = models.Sequential([
+            layers.Flatten(input_shape=(28, 28)),
+            layers.Dense(128, activation='relu'),
+            layers.Dropout(0.2),
+            layers.Dense(10, activation='softmax')
         ])
 
+        # Compile the model
         self.model.compile(optimizer='adam',
                            loss='sparse_categorical_crossentropy',
                            metrics=['accuracy'])
 
+        # Train the model
         self.model.fit(train_images, train_labels, epochs=5, validation_data=(val_images, val_labels))
 
     def load_model(self, model_path: str):
@@ -36,7 +39,7 @@ class MNISTClassifier:
         Parameters:
             model_path (str): Path to the saved model.
         """
-        self.model = keras.models.load_model(model_path)
+        self.model = models.load_model(model_path)
 
     def predict(self, data):
         """

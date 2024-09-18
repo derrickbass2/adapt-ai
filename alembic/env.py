@@ -4,7 +4,7 @@ from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from src.database import Base  # Import your Base class
+from adaptai.database import Base  # Import your Base class
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

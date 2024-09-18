@@ -3,30 +3,24 @@ import random
 from typing import List, Optional, Any
 
 import numpy as np
-from pyspark.sql import DataFrame
+import tensorflow as tf
+from pyspark.sql import DataFrame as SparkDataFrame
 
-from modular_learning_system.spark_engine.spark_engine_script import SparkEngine
-from .aa_genome import AA_Genome
+from modular_learning_system.neurotech_network import NeuroTechNetwork
+from modular_learning_system.spark_engine.spark_engine import SparkEngine
 
-# Import the genetic_algorithm module (if necessary)
-# from genetic_algorithm import GeneticAlgorithm  # Uncomment if you need to use the genetic_algorithm module
+# Define module-level constants and variables (if necessary)
 
 __all__ = ['AA_Genome']
 
 
 class AA_Genome:
-    def __init__(self, df: DataFrame, **kwargs):
-        """
-        Initialize the AA_Genome class with a Spark DataFrame and optional parameters.
-
-        :param df: Spark DataFrame
-        :param kwargs: Additional parameters for the model
-        """
+    def __init__(self, df: SparkDataFrame, **kwargs):
         self.df = df
         self.params = kwargs
 
     @staticmethod
-    def _convert_to_numpy(df: DataFrame, column_names: List[str]) -> np.ndarray:
+    def _convert_to_numpy(df: SparkDataFrame, column_names: List[str]) -> np.ndarray:
         """
         Convert specified columns of a Spark DataFrame to a NumPy array.
 
@@ -42,10 +36,7 @@ class AA_Genome:
         """Mate two parent genomes to produce offspring."""
         offspring = {}
         for key in parent1.keys():
-            if random.random() > 0.5:
-                offspring[key] = parent1[key]
-            else:
-                offspring[key] = parent2[key]
+            offspring[key] = parent1[key] if random.random() > 0.5 else parent2[key]
         return offspring
 
     def mutate(self, genome: dict, mutation_rate: float = 0.01) -> dict:
@@ -57,24 +48,23 @@ class AA_Genome:
 
     def possible_values_for_trait(self, trait: str) -> list:
         """Define possible values for a given trait."""
-        # Placeholder: Implement actual possible values based on trait
-        return [0, 1, 2]  # Example values
+        # Placeholder for actual trait value determination logic
+        return [0, 1, 2]
 
     def random_genome(self) -> dict:
         """Generate a random genome."""
         # Placeholder: Define the genome structure and random generation logic
-        return {'trait1': random.random(), 'trait2': random.random()}  # Example structure
+        return {'trait1': random.random(), 'trait2': random.random()}
 
     def natural_selection(self, population: list) -> list:
         """Perform natural selection to choose the fittest individuals."""
-        # Example: Sort by fitness and select the top individuals
         population.sort(key=lambda genome: self.fitness(genome))
         return population[:len(population) // 2]
 
     def fitness(self, genome: dict) -> float:
         """Calculate the fitness of a genome."""
-        # Placeholder: Implement actual fitness function
-        return sum(genome.values())  # Example fitness function
+        # Placeholder for actual fitness function
+        return sum(genome.values())
 
     def evolve_population(self, population: list) -> list:
         """Evolve the population using genetic algorithms."""
@@ -82,7 +72,8 @@ class AA_Genome:
         new_population = []
         for _ in range(len(selected_population) // 2):
             parent1, parent2 = random.sample(selected_population, 2)
-            offspring1, offspring2 = self.mate(parent1, parent2), self.mate(parent2, parent1)
+            offspring1 = self.mate(parent1, parent2)
+            offspring2 = self.mate(parent2, parent1)
             new_population.extend([self.mutate(offspring1), self.mutate(offspring2)])
         return new_population
 
@@ -96,33 +87,29 @@ class AA_Genome:
         x = self._convert_to_numpy(self.df, self.params.get('x', []))
         y = self._convert_to_numpy(self.df, self.params.get('y', []))
 
-        # Example of genetic algorithm training
         population = [self.random_genome() for _ in range(self.params.get('pop_size', 100))]
         for generation in range(self.params.get('generations', 1000)):
-            # Perform selection, mating, and mutation
             population = self.evolve_population(population)
 
-        # Model creation and training
         model = self.create_model(x.shape[1])
         model.fit(x, y, epochs=10)
-        model.save('model_path')  # Save path or handle as needed
+        model.save('model_path')
 
         return model
 
-    def create_model(self, input_dim: int, keras=None) -> Any:
+    def create_model(self, input_dim: int) -> Any:
         """
         Create and compile a neural network model.
 
         :param input_dim: Number of input features
         :return: Compiled Keras model
         """
-        from tensorflow import keras
-        model = keras.Sequential([
-            keras.layers.Dense(units=64, input_shape=(input_dim,)),
-            keras.layers.LeakyReLU(alpha=0.1),
-            keras.layers.Dense(units=32),
-            keras.layers.LeakyReLU(alpha=0.1),
-            keras.layers.Dense(units=1)
+        model = tf.keras.Sequential([
+            tf.keras.layers.Dense(units=64, input_shape=(input_dim,)),
+            tf.keras.layers.LeakyReLU(alpha=0.1),
+            tf.keras.layers.Dense(units=32),
+            tf.keras.layers.LeakyReLU(alpha=0.1),
+            tf.keras.layers.Dense(units=1)
         ])
         model.compile(optimizer='adam', loss='mean_absolute_error')
         return model
@@ -140,29 +127,43 @@ class AA_Genome:
 
 
 # aa_genome/aa_genome_script.py
-class AAGenome:
-    def __init__(self):
-        pass
 
-    def process_data(self, data):
-        # Process data from SparkEngine
+class AAGenomeScript:
+    def __init__(self):
+        self.spark_engine = SparkEngine()
+        self.neurotech_network = NeuroTechNetwork()
+
+    def process_data(self, df: SparkDataFrame, feature_cols: List[str]) -> np.ndarray:
+        cleaned_data = self.spark_engine.preprocess_data(df, feature_cols)
+        aa_genome = AA_Genome(df=cleaned_data)
+        processed_data = aa_genome._convert_to_numpy(cleaned_data, feature_cols)
         return processed_data
 
-
-class AAGenome:
-    pass
+    def run_pipeline(self, df: SparkDataFrame, feature_cols: List[str]):
+        processed_data = self.process_data(df, feature_cols)
+        results = self.neurotech_network.analyze_data(processed_data)
+        return results
 
 
 # Example Data Flow
-spark_engine = SparkEngine()
-aa_genome = AAGenome()
-neurotech_network = NeurotechNetwork()
 
-# Spark Engine produces cleaned data
-cleaned_data = spark_engine.preprocess_data(df, feature_cols)
+def main():
+    # Initialize components
+    spark_engine = SparkEngine()
+    neurotech_network = NeuroTechNetwork()
 
-# AA Genome processes data
-processed_data = aa_genome.process_data(cleaned_data)
+    # Assume df is a preloaded Spark DataFrame and feature_cols is a list of column names
+    df = ...  # Placeholder for actual Spark DataFrame loading
+    feature_cols = ['feature1', 'feature2', 'feature3']
 
-# Neurotech Network analyzes data
-results = neurotech_network.analyze_data(processed_data)
+    # Process data using AA_Genome and SparkEngine
+    aa_genome_script = AAGenomeScript()
+    processed_data = aa_genome_script.process_data(df, feature_cols)
+
+    # Analyze processed data using NeuroTechNetwork
+    results = neurotech_network.analyze_data(processed_data)
+    print(results)
+
+
+if __name__ == '__main__':
+    main()

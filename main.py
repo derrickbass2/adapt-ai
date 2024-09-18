@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.user_controller import UserController
-from src.user_repository import UserRepository
+from adaptai.user_controller import UserController
+from adaptai.user_repository import UserRepository
 
 
 def main():

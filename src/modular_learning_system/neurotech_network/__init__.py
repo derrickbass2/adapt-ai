@@ -17,8 +17,9 @@ def initialize_neurotech_network(params: dict) -> Any:
     :param params: Dictionary of parameters for initialization
     :return: Initialized NeuroTechNetwork instance
     """
+    valid_params = {key: value for key, value in params.items() if hasattr(NeuroTechNetwork, key)}
     try:
-        return NeuroTechNetwork(**params)
+        return NeuroTechNetwork(**valid_params)
     except Exception as e:
         print(f"Error initializing NeuroTech Network: {e}")
         return None

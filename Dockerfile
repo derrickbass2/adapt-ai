@@ -9,13 +9,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libffi-dev \
     python3-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only requirements.txt first, to leverage Docker's caching
-COPY requirements.txt /app/
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# Copy the pyproject.toml and poetry.lock first, to leverage Docker's caching
+COPY pyproject.toml poetry.lock* /app/
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN poetry install --no-dev
 
 # Copy the rest of the application code
 COPY . /app
@@ -24,11 +28,11 @@ COPY . /app
 EXPOSE 5000
 
 # Set environment variables
-ENV FLASK_APP=/Users/derrickbass/Public/adaptai/app.py
+ENV FLASK_APP=/app/app.py
 ENV FLASK_ENV=production
 
 # Install gunicorn
-RUN pip install gunicorn
+RUN poetry run pip install gunicorn
 
 # Run gunicorn when the container launches
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "app:app"]

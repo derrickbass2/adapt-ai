@@ -24,7 +24,7 @@ class SVMModel(SVC):
 
 
 class AA_Genome:
-    def __init__(self):
+    def __init__(self) -> object:
         super().__init__(random_state=42)
 
     def get_best_solution(self):
