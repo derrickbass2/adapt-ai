@@ -1,67 +1,53 @@
-import base64
-import io
-from typing import Optional
+import os
 
 import tensorflow as tf
-from pyspark.sql import DataFrame
-from tensorflow.keras import models
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Sequential
 
 
-class NeuroTechNetwork:
+class NeurotechNetwork:
     def __init__(self):
-        self.model = None
+        self.model_path = "/Users/derrickbass/Public/adaptai/neurotech_model.h5"
 
-    def train_NTN_model(self, df: DataFrame, **kwargs) -> Optional[str]:
-        try:
-            pandas_df = df.toPandas()
-            X = pandas_df.iloc[:, :-1].values
-            y = pandas_df.iloc[:, -1].values
+    def train_model(self, df):
+        # Splitting features and target
+        features = df.select("feature1", "feature2").toPandas()
+        target = df.select("target").toPandas()
 
-            model = tf.keras.Sequential([
-                tf.keras.layers.Dense(units=64, input_shape=(X.shape[1],), activation='relu'),
-                tf.keras.layers.Dense(units=32, activation='relu'),
-                tf.keras.layers.Dense(units=1)
-            ])
+        # Define a simple sequential model
+        model = Sequential([
+            Dense(64, input_dim=2, activation='relu'),
+            Dense(32, activation='relu'),
+            Dense(1, activation='sigmoid')
+        ])
 
-            model.compile(optimizer='adam', loss='mean_squared_error')
-            model.fit(X, y, epochs=10, batch_size=32, **kwargs)
+        # Compile the model
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-            self.model = model
-            return self.serialize_model()
-        except Exception as e:
-            print(f"Error training model: {e}")
-            return None
+        # Train the model
+        model.fit(features, target, epochs=10, batch_size=2, verbose=0)
 
-    def test_NTN_model(self, model_str: str, df: DataFrame, **kwargs) -> Optional[float]:
-        try:
-            self.deserialize_model(model_str)
-            pandas_df = df.toPandas()
-            X = pandas_df.iloc[:, :-1].values
-            y = pandas_df.iloc[:, -1].values
+        # Save the model
+        model.save(self.model_path)
 
-            loss = self.model.evaluate(X, y, **kwargs)
-            return loss
-        except Exception as e:
-            print(f"Error testing model: {e}")
-            return None
+        return self.model_path
 
-    def serialize_model(self) -> str:
-        if self.model is not None:
-            buffer = io.BytesIO()
-            self.model.save_weights(buffer)
-            model_bytes = buffer.getvalue()
-            model_str = base64.b64encode(model_bytes).decode()
-            return model_str
-        return ""
+    def evaluate_model(self, df):
+        # Load the trained model
+        model = self.load_model()
 
-    def deserialize_model(self, model_str: str):
-        if model_str:
-            model_bytes = base64.b64decode(model_str)
-            buffer = io.BytesIO(model_bytes)
-            buffer.seek(0)
-            self.model = tf.keras.Sequential([
-                tf.keras.layers.Dense(units=64, input_shape=(None, 64), activation='relu'),
-                tf.keras.layers.Dense(units=32, activation='relu'),
-                tf.keras.layers.Dense(units=1)
-            ])
-            self.model.load_weights(buffer)
+        # Splitting features and target
+        features = df.select("feature1", "feature2").toPandas()
+        target = df.select("target").toPandas()
+
+        # Evaluate the model
+        loss, accuracy = model.evaluate(features.values, target.values, verbose=0)
+
+        return accuracy
+
+    def load_model(self):
+        # Load the model from the saved path
+        if os.path.isfile(self.model_path):
+            return tf.keras.models.load_model(self.model_path)
+        else:
+            raise FileNotFoundError(f"Model file not found at {self.model_path}")

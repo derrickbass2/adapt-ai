@@ -1,28 +1,29 @@
 from typing import Any
 
-# Import key classes or functions from main.py and mnist.py
-from .main import NeuroTechNetwork
-from .mnist import MNISTClassifier
+from pyspark.ml.evaluation import ClusteringEvaluator
+from pyspark.ml.feature import VectorAssembler
+
+from modular_learning_system.neurotech_network.mnist import MNISTClassifier
+from modular_learning_system.neurotech_network.neurotech_network import NeurotechNetwork
 
 __all__ = [
-    'NeuroTechNetwork',
+    'NeurotechNetwork',
     'MNISTClassifier'
 ]
 
 
-def initialize_neurotech_network(params: dict) -> Any:
+def initialize_neurotech_network(name: str, data_source: str) -> Any:
     """
-    Initialize the NeuroTech Network with provided parameters.
+    Initialize the Neurotech Network with provided parameters.
 
-    :param params: Dictionary of parameters for initialization
-    :return: Initialized NeuroTechNetwork instance
+    :param name: Name for the Neurotech Network instance
+    :param data_source: Data source for the Neurotech Network instance
+    :return: Initialized NeurotechNetwork instance
     """
-    valid_params = {key: value for key, value in params.items() if hasattr(NeuroTechNetwork, key)}
     try:
-        return NeuroTechNetwork(**valid_params)
+        return NeurotechNetwork()
     except Exception as e:
-        print(f"Error initializing NeuroTech Network: {e}")
-        return None
+        raise RuntimeError(f"Error initializing Neurotech Network: {e}")
 
 
 def load_mnist_model(model_path: str) -> Any:
@@ -33,9 +34,34 @@ def load_mnist_model(model_path: str) -> Any:
     :return: Loaded MNIST model
     """
     try:
-        classifier = MNISTClassifier()
-        classifier.load_model(model_path)
-        return classifier
+        # Uncomment when MNISTClassifier is defined
+        # classifier = MNISTClassifier()
+        # classifier.load_model(model_path)
+        # return classifier
+        pass  # Placeholder until MNISTClassifier is available
     except Exception as e:
-        print(f"Error loading MNIST model: {e}")
-        return None
+        raise RuntimeError(f"Error loading MNIST model: {e}")
+
+
+class SparkEngineUtils:
+    @staticmethod
+    def convert_to_pandas(df):
+        return df.toPandas()
+
+    @staticmethod
+    def convert_to_spark(df, spark):
+        return spark.createDataFrame(df)
+
+    @staticmethod
+    def vectorize_features(df, feature_cols):
+        assembler = VectorAssembler(inputCols=feature_cols, outputCol="features")
+        return assembler.transform(df)
+
+    @staticmethod
+    def calculate_silhouette_score(df, prediction_col):
+        evaluator = ClusteringEvaluator(predictionCol=prediction_col)
+        return evaluator.evaluate(df)
+
+    @staticmethod
+    def calculate_davis_bouldin_score(df):
+        raise NotImplementedError("Davis-Bouldin score calculation is not implemented in this version of PySpark.")

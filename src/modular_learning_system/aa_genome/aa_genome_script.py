@@ -1,18 +1,52 @@
 import os
+from typing import List
 
 import numpy as np
 import pandas as pd
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, DataFrame as SparkDataFrame
 
 from adapt_backend.ml_models import AA_Genome  # Adjust the import to match the module structure
+from modular_learning_system.neurotech_network.neurotech_network_script import NeurotechNetwork
+from modular_learning_system.spark_engine.spark_engine import SparkEngine
 
 
-def load_data_from_csv(file_path):
+class AAGenomeScript:
+    def __init__(self):
+        self.spark_engine = SparkEngine()
+        self.neurotech_network = NeurotechNetwork()
+
+    def process_data(self, df: SparkDataFrame, feature_cols: List[str]) -> np.ndarray:
+        """
+        Process the Spark DataFrame, clean the data, and convert it to NumPy.
+
+        :param df: Input Spark DataFrame
+        :param feature_cols: List of features to be processed
+        :return: NumPy array of processed data
+        """
+        cleaned_data = self.spark_engine.preprocess_data(df, feature_cols)
+        aa_genome = AA_Genome(df=cleaned_data)
+        processed_data = aa_genome._convert_to_numpy(cleaned_data, feature_cols)
+        return processed_data
+
+    def run_pipeline(self, df: SparkDataFrame, feature_cols: List[str]):
+        """
+        Run the full data processing and analysis pipeline.
+
+        :param df: Input Spark DataFrame
+        :param feature_cols: List of feature columns
+        :return: Results of the NeuroTechNetwork analysis
+        """
+        processed_data = self.process_data(df, feature_cols)
+        results = self.neurotech_network.analyze_data(processed_data)
+        return results
+
+
+def load_data_from_csv(file_path: str) -> pd.DataFrame:
     """
     Load data from a CSV file.
 
     :param file_path: Path to the CSV file
-    :return: DataFrame with the loaded data
+    :return: Pandas DataFrame with the loaded data
     """
     if os.path.exists(file_path):
         return pd.read_csv(file_path)
@@ -20,54 +54,45 @@ def load_data_from_csv(file_path):
         raise FileNotFoundError(f"The file {file_path} does not exist.")
 
 
-def load_and_preprocess_data():
+def load_and_preprocess_data(paths: List[str]) -> SparkDataFrame:
     """
-    Load and preprocess data from various datasets.
+    Load and preprocess data from various CSV files.
 
+    :param paths: List of file paths for the datasets
     :return: Preprocessed Spark DataFrame
     """
-    # Define paths to datasets
-    paths = [
-        # List of file paths...
-    ]
-
-    # Initialize an empty DataFrame to combine all datasets
     combined_df = pd.DataFrame()
 
-    # Load and combine data
     for path in paths:
         try:
             df = load_data_from_csv(path)
             combined_df = pd.concat([combined_df, df], ignore_index=True)
         except FileNotFoundError as e:
-            print(e)
+            print(f"Error: {e}")
 
-    # Convert combined DataFrame to Spark DataFrame
+    # Convert the combined Pandas DataFrame to a Spark DataFrame
     spark = SparkSession.builder.appName('AA_Genome_Session').getOrCreate()
     spark_df = spark.createDataFrame(combined_df)
     return spark_df
 
 
 def main():
-    X_dimension = 10
-    df = load_and_preprocess_data()
+    # File paths to your CSV datasets (update with actual paths)
+    paths = ['data/file1.csv', 'data/file2.csv']  # Example paths
 
-    # Here, assuming that you have 'x' and 'y' columns in your combined data
-    x = df.select("x").rdd.map(lambda row: row[0]).collect()
-    y = df.select("y").rdd.map(lambda row: row[0]).collect()
+    # Load and preprocess data
+    df_spark = load_and_preprocess_data(paths)
 
-    x = np.array(x).reshape(-1, X_dimension)
-    y = np.array(y).reshape((-1,))
+    # Define feature columns based on your data
+    feature_cols = ['feature1', 'feature2', 'feature3']  # Update with actual feature columns
 
-    df_spark = SparkSession.builder.appName('AA_Genome_Session').getOrCreate().createDataFrame(
-        zip(x.tolist(), y.tolist()), ["x", "y"])
+    # Process data using AAGenomeScript
+    aa_genome_script = AAGenomeScript()
+    processed_data = aa_genome_script.process_data(df_spark, feature_cols)
 
-    aa_genome = AA_Genome(df_spark, dimensions=X_dimension)
-    trained_model = aa_genome.train_AA_genome_model()
-
-    # Save the model to a file if needed
-    # For example, save the model in the 'adapt_backend' directory
-    trained_model.save('/Users/derrickbass/Public/adaptai/src/adapt_backend/psych_aa_genome_model')
+    # Analyze processed data using NeuroTechNetwork
+    results = aa_genome_script.run_pipeline(df_spark, feature_cols)
+    print(results)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,3 @@
-# user_service/main.py
-
 from adaptai.user_controller import UserController
 from adaptai.user_repository import UserRepository
 

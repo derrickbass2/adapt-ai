@@ -13,19 +13,14 @@ def train_model():
     Expects JSON with parameters for training.
     """
     data = request.json
-    dimensions = data.get('dimensions', 10)
-    target_value = data.get('target_value', 0.5)
-    pop_size = data.get('pop_size', 100)
-    generations = data.get('generations', 1000)
-    mutation_rate = data.get('mutation_rate', 0.01)
+    data.get('dimensions', 10)
+    data.get('target_value', 0.5)
+    data.get('pop_size', 100)
+    data.get('generations', 1000)
+    data.get('mutation_rate', 0.01)
 
     # Initialize AA_Genome with provided parameters
     aa_genome = AA_Genome(
-        dimensions=dimensions,
-        target_value=target_value,
-        pop_size=pop_size,
-        generations=generations,
-        mutation_rate=mutation_rate
     )
 
     trained_model = aa_genome.train_AA_genome_model()

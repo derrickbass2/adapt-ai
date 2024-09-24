@@ -1,4 +1,5 @@
 import pandas as pd
+from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 
 from .data_processing import preprocess_text, tfidf_transform, engineer_features
@@ -27,7 +28,7 @@ data_paths = [
     "path/to/ed_stats_country.csv"
 ]
 
-data = pd.concat([pd.read_csv(path) for path in data_paths], ignore_index=True)
+data: DataFrame = pd.concat([pd.read_csv(path) for path in data_paths], ignore_index=True)
 
 text_data = [preprocess_text(text) for text in
              data['text_column']]  # Replace 'text_column' with the actual text column name
@@ -47,6 +48,7 @@ lr_model = LRModel()
 rf_model = RFModel()
 svm_model = SVMModel()
 
+# Train and evaluate models
 lr_accuracy = train_and_evaluate(lr_model, X_train, y_train, X_test, y_test)
 rf_accuracy = train_and_evaluate(rf_model, X_train, y_train, X_test, y_test)
 svm_accuracy = train_and_evaluate(svm_model, X_train, y_train, X_test, y_test)
@@ -57,6 +59,6 @@ print(f"RF Model Accuracy: {rf_accuracy}")
 print(f"SVM Model Accuracy: {svm_accuracy}")
 
 # Save trained models
-lr_model.model.save('lr_model')
-rf_model.model.save('rf_model')
-svm_model.model.save('svm_model')
+lr_model.save('lr_model')
+rf_model.save('rf_model')
+svm_model.save('svm_model')

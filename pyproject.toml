@@ -5,29 +5,44 @@ description = "A machine learning platform for developing, benchmarking, and sol
 authors = ["Derrick Bass <derrick@adaptivedatafusion.com>"]
 license = "Apache-2.0"  # Correct SPDX identifier for Apache License 2.0
 readme = "README.md"  # If README.md exists in the root directory
+homepage = "https://adaptivedatafusion.com" # The homepage of AdaptAI
+repository = "https://github.com/adaptivedatafusion/adaptai"
 
 [tool.poetry.dependencies]
-python = ">=3.9.1,<3.13"
-
-# Core dependencies
-numpy = "1.24.3"
+python-dotenv = "1.0.1"
+python = "3.12.6"
+torch = "2.4.1"
+click = "8.1.7"
+uvicorn = "0.30.6"
+fastapi = "0.115.0"
+sqlalchemy = "2.0.35"
+pyarrow = "17.0.0"
+numpy = "1.26.4"
 pandas = "2.0.3"
 scikit-learn = "1.5.1"
 flask = "2.3.2"
 flask-jwt-extended = "4.3.1"
-pydantic = "1.10.9"
 alembic = "1.10.3"
 werkzeug = "2.3.6"
-python-dotenv = "1.0.0"
-tensorflow = "2.15.0"
+tensorflow = "2.17.0"
 requests = "2.32.2"
-sqlalchemy = "2.0.16"
 automium_web = "0.1.1"
 pyspark = "^3.5.2"
-typing-extensions = ">=3.6.6, <4.6.0"
+typing-extensions = ">=4.8.0"
 setuptools = "74.0.0"
 datasets = "3.0.0"
-tensorflow-io-gcs-filesystem = "0.37.1"
+keras = "^3.5.0"
+decisiontreeclassifier = "^0.0.7"
+sequential = "^1.0.0"
+keras-nightly = "^3.5.0.dev2024092318"
+
+[tool.poetry.scripts]
+adaptai = "adaptai.app:create_app"
+
+[tool.poetry.dev-dependencies]
+black = "22.10.0"
+isort = "5.12.0"
+pre-commit = "3.3.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"

@@ -56,15 +56,18 @@ class TokenBlocklist(Base):
 
 # If you have more models, define them here
 class LRModel:
-    pass
+    def save(self, param):
+        pass
 
 
 class RFModel:
-    pass
+    def save(self, param):
+        pass
 
 
 class SVMModel:
-    pass
+    def save(self, param):
+        pass
 
 
 def db():

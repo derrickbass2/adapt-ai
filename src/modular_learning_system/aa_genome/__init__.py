@@ -1,3 +1,4 @@
+import os
 import pickle
 import random
 from typing import List, Optional, Any
@@ -6,10 +7,7 @@ import numpy as np
 import tensorflow as tf
 from pyspark.sql import DataFrame as SparkDataFrame
 
-from modular_learning_system.neurotech_network import NeuroTechNetwork
-from modular_learning_system.spark_engine.spark_engine import SparkEngine
-
-# Define module-level constants and variables (if necessary)
+from modular_learning_system.aa_genome.aa_genome import AA_Genome  # Corrected class name
 
 __all__ = ['AA_Genome']
 
@@ -32,39 +30,37 @@ class AA_Genome:
         arr = df.select(*selected_cols).rdd.map(tuple).collect()
         return np.vstack(arr)
 
-    def mate(self, parent1: dict, parent2: dict) -> dict:
+    @staticmethod
+    def mate(parent1: dict, parent2: dict) -> dict:
         """Mate two parent genomes to produce offspring."""
-        offspring = {}
-        for key in parent1.keys():
-            offspring[key] = parent1[key] if random.random() > 0.5 else parent2[key]
-        return offspring
+        return {key: parent1[key] if random.random() > 0.5 else parent2[key] for key in parent1.keys()}
 
     def mutate(self, genome: dict, mutation_rate: float = 0.01) -> dict:
         """Mutate the genome by randomly altering its traits."""
         for key in genome.keys():
             if random.random() < mutation_rate:
-                genome[key] = random.choice(self.possible_values_for_trait(key))
+                genome[key] = random.choice(self.possible_values_for_trait())
         return genome
 
-    def possible_values_for_trait(self, trait: str) -> list:
+    @staticmethod
+    def possible_values_for_trait() -> list:
         """Define possible values for a given trait."""
-        # Placeholder for actual trait value determination logic
-        return [0, 1, 2]
+        return [0, 1, 2]  # Placeholder
 
-    def random_genome(self) -> dict:
+    @staticmethod
+    def random_genome() -> dict:
         """Generate a random genome."""
-        # Placeholder: Define the genome structure and random generation logic
-        return {'trait1': random.random(), 'trait2': random.random()}
+        return {'trait1': random.random(), 'trait2': random.random()}  # Placeholder
 
     def natural_selection(self, population: list) -> list:
         """Perform natural selection to choose the fittest individuals."""
         population.sort(key=lambda genome: self.fitness(genome))
         return population[:len(population) // 2]
 
-    def fitness(self, genome: dict) -> float:
+    @staticmethod
+    def fitness(genome: dict) -> float:
         """Calculate the fitness of a genome."""
-        # Placeholder for actual fitness function
-        return sum(genome.values())
+        return sum(genome.values())  # Placeholder
 
     def evolve_population(self, population: list) -> list:
         """Evolve the population using genetic algorithms."""
@@ -77,7 +73,7 @@ class AA_Genome:
             new_population.extend([self.mutate(offspring1), self.mutate(offspring2)])
         return new_population
 
-    def train_AA_genome_model(self, **kwargs) -> Optional[Any]:
+    def train_AA_genome_model(self) -> Optional[Any]:
         """
         Train the AA genome model using the provided parameters.
 
@@ -93,11 +89,23 @@ class AA_Genome:
 
         model = self.create_model(x.shape[1])
         model.fit(x, y, epochs=10)
-        model.save('model_path')
+
+        # Ensure MODELPATH directory exists
+        os.makedirs(self.params.get('model_path', 'model_path'), exist_ok=True)
+
+        # Save model
+        model_save_path = os.path.join(self.params.get('model_path', 'model_path'), 'aa_genome_model')
+        try:
+            model.save(model_save_path)
+            print(f"Model saved to {model_save_path}")
+        except Exception as e:
+            print(f"Error saving model: {e}")
+            return None
 
         return model
 
-    def create_model(self, input_dim: int) -> Any:
+    @staticmethod
+    def create_model(input_dim: int) -> Any:
         """
         Create and compile a neural network model.
 
@@ -124,46 +132,3 @@ class AA_Genome:
         """Deserialize the AA_Genome model from a file."""
         with open(path, 'rb') as f:
             return pickle.load(f)
-
-
-# aa_genome/aa_genome_script.py
-
-class AAGenomeScript:
-    def __init__(self):
-        self.spark_engine = SparkEngine()
-        self.neurotech_network = NeuroTechNetwork()
-
-    def process_data(self, df: SparkDataFrame, feature_cols: List[str]) -> np.ndarray:
-        cleaned_data = self.spark_engine.preprocess_data(df, feature_cols)
-        aa_genome = AA_Genome(df=cleaned_data)
-        processed_data = aa_genome._convert_to_numpy(cleaned_data, feature_cols)
-        return processed_data
-
-    def run_pipeline(self, df: SparkDataFrame, feature_cols: List[str]):
-        processed_data = self.process_data(df, feature_cols)
-        results = self.neurotech_network.analyze_data(processed_data)
-        return results
-
-
-# Example Data Flow
-
-def main():
-    # Initialize components
-    spark_engine = SparkEngine()
-    neurotech_network = NeuroTechNetwork()
-
-    # Assume df is a preloaded Spark DataFrame and feature_cols is a list of column names
-    df = ...  # Placeholder for actual Spark DataFrame loading
-    feature_cols = ['feature1', 'feature2', 'feature3']
-
-    # Process data using AA_Genome and SparkEngine
-    aa_genome_script = AAGenomeScript()
-    processed_data = aa_genome_script.process_data(df, feature_cols)
-
-    # Analyze processed data using NeuroTechNetwork
-    results = neurotech_network.analyze_data(processed_data)
-    print(results)
-
-
-if __name__ == '__main__':
-    main()
