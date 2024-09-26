@@ -8,3 +8,7 @@ def modular_learning_system():
 
 def models():
     return None
+
+
+def fetch_data():
+    return None

@@ -35,6 +35,7 @@ keras = "^3.5.0"
 decisiontreeclassifier = "^0.0.7"
 sequential = "^1.0.0"
 keras-nightly = "^3.5.0.dev2024092318"
+fetch-data = "^0.2.5.2"
 
 [tool.poetry.scripts]
 adaptai = "adaptai.app:create_app"

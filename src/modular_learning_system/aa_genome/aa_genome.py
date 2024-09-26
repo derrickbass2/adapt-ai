@@ -7,7 +7,6 @@ class AA_Genome:
                  generations: int = 1000, mutation_rate: float = 0.01):
         """
         Initialize the AA_Genome class.
-
         :param data: Spark DataFrame containing the data
         :param dimensions: Number of dimensions for input data
         :param target_value: The target value the model is attempting to reach
@@ -27,72 +26,82 @@ class AA_Genome:
         """
         Initialize the population for the genetic algorithm.
         """
-        # Example: Randomly generate initial population
+        # Example: Randomly generate initial population with values between 0 and 1
         return np.random.rand(self.pop_size, self.dimensions)
 
     def fitness(self, individual):
         """
         Calculate the fitness of an individual.
-        This could be based on how close the individual is to the target_value.
+        This function evaluates how close the individual is to the target_value.
+        :param individual: A numpy array representing an individual
+        :return: Fitness score (lower is better)
         """
-        # Example fitness function: difference from target_value
-        prediction = np.sum(individual)  # You can customize this
-        return abs(self.target_value - prediction)
+        # Example fitness function: using sum of individual values as a prediction
+        prediction = np.sum(individual)
+        return abs(self.target_value - prediction)  # Lower difference is better
 
     def evolve(self):
         """
         Evolve the population over generations.
         """
         for generation in range(self.generations):
+            # Evaluate fitness for each individual
             fitness_scores = np.array([self.fitness(ind) for ind in self.population])
 
             # Select individuals based on their fitness
             selected = self.selection(fitness_scores)
 
-            # Perform crossover and mutation to create new population
+            # Create the next generation using crossover and mutation
             self.population = self.crossover_and_mutation(selected)
 
-            print(f"Generation {generation}: Best fitness {min(fitness_scores)}")
+            # Output best fitness for the current generation
+            print(f"Generation {generation + 1}: Best fitness = {min(fitness_scores)}")
 
     def selection(self, fitness_scores):
         """
         Select individuals based on their fitness scores.
+        This example selects the best half of the population.
+        :param fitness_scores: Numpy array of fitness scores
+        :return: Selected population for the next generation
         """
-        # Example: Select the best half of the population
-        sorted_indices = np.argsort(fitness_scores)
+        sorted_indices = np.argsort(fitness_scores)  # Sort by fitness (ascending)
         return self.population[sorted_indices[:self.pop_size // 2]]
 
     def crossover_and_mutation(self, selected):
         """
         Perform crossover and mutation to create the next generation.
+        :param selected: Selected individuals for breeding
+        :return: The new generation
         """
-        # Example: Combine and mutate selected individuals
         next_generation = []
         for i in range(self.pop_size):
+            # Select two random parents
             parent1 = selected[np.random.randint(len(selected))]
             parent2 = selected[np.random.randint(len(selected))]
 
-            # Crossover (combine parents)
+            # Crossover: create a child as the average of the parents
             child = (parent1 + parent2) / 2
 
-            # Mutation
+            # Mutation: apply random changes with a probability equal to mutation_rate
             mutation = np.random.rand(self.dimensions) < self.mutation_rate
             child[mutation] = np.random.rand(np.sum(mutation))
 
             next_generation.append(child)
+
         return np.array(next_generation)
 
     def train_AA_genome_model(self):
         """
-        Train the genetic algorithm.
+        Train the AA_Genome model using a genetic algorithm.
         """
         self.evolve()
-        print("Training completed")
+        print("Training completed.")
         return self
 
     def get_best_solution(self):
         """
-        Get the best solution from the population.
+        Retrieve the best solution from the current population.
+        :return: The best individual in the population
         """
         fitness_scores = np.array([self.fitness(ind) for ind in self.population])
         best_index = np.argmin(fitness_scores)

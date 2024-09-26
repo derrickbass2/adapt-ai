@@ -10,25 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7eb16fa0-f0d3-49f9-97cb-661a410b805b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/neurotech_model.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/adaptai.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/adaptai.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/data_loader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/evolution.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/fitness_funtion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/genome_transformations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/spark_engine_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qodana.sarif.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adaptai/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/routes_aa_genome.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes_aa_genome.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/routes_neurotech_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes_neurotech_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/aa_genome_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/aa_genome_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adaptai/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/aa_genome.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/aa_genome.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/spark_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/spark_engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,78 +221,7 @@
       <recent name="$PROJECT_DIR$/hospitality_datasets/hospitality" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test_train_and_save_model">
-    <configuration name="adaptai" type="PythonConfigurationType" factoryName="Python">
-      <module name="adaptai" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12 (adaptai)" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_pyspark" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="adaptai" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12 (adaptai)" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_pyspark.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_train_and_save_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="adaptai" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_train_and_save_model.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Flask server.Flask (app.py)">
     <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="adaptai" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
@@ -353,16 +275,11 @@
     <list>
       <item itemvalue="Flask server.Flask (app.py)" />
       <item itemvalue="npm.start" />
-      <item itemvalue="Python.adaptai" />
-      <item itemvalue="Python.test_train_and_save_model" />
-      <item itemvalue="Python.test_pyspark" />
       <item itemvalue="Python tests.pytest in /Users/derrickbass/Public/adaptai/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_train_and_save_model" />
         <item itemvalue="Flask server.Flask (app.py)" />
-        <item itemvalue="Python.test_pyspark" />
         <item itemvalue="npm.start" />
         <item itemvalue="Python tests.pytest in /Users/derrickbass/Public/adaptai/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" />
       </list>
@@ -467,7 +384,8 @@
       <workItem from="1727000624995" duration="3670000" />
       <workItem from="1727127188036" duration="17000" />
       <workItem from="1727127212389" duration="5386000" />
-      <workItem from="1727203682862" duration="142000" />
+      <workItem from="1727203682862" duration="6505000" />
+      <workItem from="1727310718428" duration="2222000" />
     </task>
     <task id="LOCAL-00001" summary="Chore: Cleaning up old files and removing duplicates">
       <option name="closed" value="true" />
@@ -573,7 +491,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726620143402</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="passing last unit test (pytest) for neurotech_network_script.py">
+      <option name="closed" value="true" />
+      <created>1727203915914</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1727203915914</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -623,7 +549,8 @@
     <MESSAGE value="debugging adaptai and getting ready for deployment" />
     <MESSAGE value="debug continues" />
     <MESSAGE value="debugging continues again" />
-    <option name="LAST_COMMIT_MESSAGE" value="debugging continues again" />
+    <MESSAGE value="passing last unit test (pytest) for neurotech_network_script.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="passing last unit test (pytest) for neurotech_network_script.py" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

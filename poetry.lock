@@ -323,6 +323,17 @@ files = [
 ]
 
 [[package]]
+name = "chardet"
+version = "3.0.4"
+description = "Universal encoding detector for Python 2 and 3"
+optional = false
+python-versions = "*"
+files = [
+    { file = "chardet-3.0.4-py2.py3-none-any.whl", hash = "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691" },
+    { file = "chardet-3.0.4.tar.gz", hash = "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae" },
+]
+
+[[package]]
 name = "charset-normalizer"
 version = "3.3.2"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
@@ -530,6 +541,20 @@ files = [
 ]
 
 [[package]]
+name = "envyaml"
+version = "1.10.211231"
+description = "Simple YAML configuration file parser with easy access for structured data"
+optional = false
+python-versions = ">=2.7"
+files = [
+    { file = "envyaml-1.10.211231-py2.py3-none-any.whl", hash = "sha256:8d7a7a6be12587cc5da32a587067506b47b849f4643981099ad148015a72de52" },
+    { file = "envyaml-1.10.211231.tar.gz", hash = "sha256:88f8a076159e3c317d3450a5f404132b6ac91aecee4934ea72eac65f911f1244" },
+]
+
+[package.dependencies]
+PyYAML = "*"
+
+[[package]]
 name = "fastapi"
 version = "0.115.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
@@ -548,6 +573,29 @@ typing-extensions = ">=4.8.0"
 [package.extras]
 all = ["email-validator (>=2.0.0)", "fastapi-cli[standard] (>=0.0.5)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.7)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
 standard = ["email-validator (>=2.0.0)", "fastapi-cli[standard] (>=0.0.5)", "httpx (>=0.23.0)", "jinja2 (>=2.11.2)", "python-multipart (>=0.0.7)", "uvicorn[standard] (>=0.12.0)"]
+
+[[package]]
+name = "fetch-data"
+version = "0.2.5.2"
+description = "Download remote data (HTTP, FTP, SFTP) and store locally for data pipeline"
+optional = false
+python-versions = ">=3.6"
+files = [
+    { file = "fetch_data-0.2.5.2-py3-none-any.whl", hash = "sha256:a1cbb6eefb0f80ebe26c8343026fae6d973041db6da988d88af3566b4a02baa0" },
+    { file = "fetch_data-0.2.5.2.tar.gz", hash = "sha256:b71edea4e95a9290d01db2d66c07189c1cf74301993a44f5ce83107de106f375" },
+]
+
+[package.dependencies]
+aiohttp = "*"
+chardet = "3.0.4"
+envyaml = "*"
+fsspec = "*"
+joblib = "*"
+numpy = "*"
+pooch = "*"
+python-dotenv = "*"
+requests = "*"
+tqdm = "*"
 
 [[package]]
 name = "filelock"
@@ -1929,6 +1977,27 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "pooch"
+version = "1.8.2"
+description = "A friend to fetch your data files"
+optional = false
+python-versions = ">=3.7"
+files = [
+    { file = "pooch-1.8.2-py3-none-any.whl", hash = "sha256:3529a57096f7198778a5ceefd5ac3ef0e4d06a6ddaf9fc2d609b806f25302c47" },
+    { file = "pooch-1.8.2.tar.gz", hash = "sha256:76561f0de68a01da4df6af38e9955c4c9d1a5c90da73f7e40276a5728ec83d10" },
+]
+
+[package.dependencies]
+packaging = ">=20.0"
+platformdirs = ">=2.5.0"
+requests = ">=2.19.0"
+
+[package.extras]
+progress = ["tqdm (>=4.41.0,<5.0.0)"]
+sftp = ["paramiko (>=2.7.0)"]
+xxhash = ["xxhash (>=1.4.3)"]
+
+[[package]]
 name = "pre-commit"
 version = "3.3.3"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
@@ -3188,4 +3257,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "3.12.6"
-content-hash = "c6056e8ca8ae9ab2f1925a6cf866af13fe3369725736328805e8dc4e55b0fe50"
+content-hash = "ffb51ae391bf2086f880fc9b8f1975982b2eae1cd4ebc85050599b1bed9c8187"
