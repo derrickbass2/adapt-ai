@@ -3,7 +3,19 @@ from http import HTTPStatus
 from flask import Flask, request
 
 from adaptai.response_utils import ResponseUtils
-from .user_service import UserService
+from adaptai.response_utils import format_response
+from adaptai.user_service import UserService
+
+
+class UserController:
+    def __init__(self):
+        self.user_service = UserService()
+
+    def get_user_insights(self, user_id):
+        # Get processed insights for the user, likely from NeurotechNetwork
+        insights = self.user_service.generate_user_insights(user_id)
+        return format_response(insights)
+
 
 app = Flask(__name__)
 user_service = UserService()

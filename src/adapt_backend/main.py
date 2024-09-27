@@ -30,14 +30,14 @@ data_paths = [
 
 data: DataFrame = pd.concat([pd.read_csv(path) for path in data_paths], ignore_index=True)
 
-text_data = [preprocess_text(text) for text in
+text_data = [preprocess_text() for text in
              data['text_column']]  # Replace 'text_column' with the actual text column name
 
 # Perform TF-IDF vectorization
 vectorizer, tfidf_matrix = tfidf_transform(text_data)
 
 # Engineer additional features
-X = engineer_features(tfidf_matrix, data[['feature1', 'feature2']])  # Replace with actual feature column names
+X = engineer_features(data[['feature1', 'feature2']])  # Replace with actual feature column names
 y = data['target_column']  # Replace 'target_column' with the actual target column name
 
 # Split data into training and testing sets

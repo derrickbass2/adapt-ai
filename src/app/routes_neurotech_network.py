@@ -1,7 +1,8 @@
+import numpy as np
 from flask import Flask, request, jsonify
 
-from .mnist import MNISTClassifier
-from .neurotech_network_script import NeurotechNetwork
+from modular_learning_system.neurotech_network.mnist import MNISTClassifier
+from modular_learning_system.neurotech_network.neurotech_network_script import NeurotechNetwork
 
 app = Flask(__name__)
 
@@ -52,25 +53,28 @@ def train_neurotech():
         data_files = neurotech_network.load_data(data['data_source'])
         neurotech_network.train_model(data_files)
         neurotech_network.save_model()
-        return jsonify({"message": "Neurotech model trained and saved successfully."}), 200
+        return jsonify({"message": "Neurotech model trained successfully."}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
 
-@app.route('/evaluate_neurotech', methods=['POST'])
-def evaluate_neurotech():
+@app.route('/predict_neurotech', methods=['POST'])
+def predict_neurotech():
     """
-    Endpoint to evaluate the Neurotech model.
+    Endpoint to make predictions using the Neurotech Network.
     """
     try:
         data = request.json
-        X_test = np.array(data['X_test'])
-        y_test = np.array(data['y_test'])
-        loss = neurotech_network.evaluate_model(X_test, y_test)
-        return jsonify({"loss": loss}), 200
+        data_files = neurotech_network.load_data(data['data_source'])
+        predictions = neurotech_network.predict(data_files)
+        return jsonify({"predictions": predictions.tolist()}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/')
+def home():
+    """
+    A simple home route to test the API.
+    """
+    return jsonify({"message": "Welcome to the Neurotech Network API"}), 200

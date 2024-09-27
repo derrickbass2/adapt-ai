@@ -187,6 +187,20 @@ test = ["anyio[trio]", "coverage[toml] (>=7)", "exceptiongroup (>=1.2.0)", "hypo
 trio = ["trio (>=0.23)"]
 
 [[package]]
+name = "asgiref"
+version = "3.8.1"
+description = "ASGI specs, helper code, and adapters"
+optional = false
+python-versions = ">=3.8"
+files = [
+    { file = "asgiref-3.8.1-py3-none-any.whl", hash = "sha256:3e1e3ecc849832fe52ccf2cb6686b7a55f82bb1d6aee72a58826471390335e47" },
+    { file = "asgiref-3.8.1.tar.gz", hash = "sha256:c343bd80a0bec947a9860adb4c432ffa7db769836c64238fc34bdc3fec84d590" },
+]
+
+[package.extras]
+tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
+
+[[package]]
 name = "astunparse"
 version = "1.6.3"
 description = "An AST unparser for Python"
@@ -541,6 +555,54 @@ files = [
 ]
 
 [[package]]
+name = "django"
+version = "5.1.1"
+description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
+optional = false
+python-versions = ">=3.10"
+files = [
+    { file = "Django-5.1.1-py3-none-any.whl", hash = "sha256:71603f27dac22a6533fb38d83072eea9ddb4017fead6f67f2562a40402d61c3f" },
+    { file = "Django-5.1.1.tar.gz", hash = "sha256:021ffb7fdab3d2d388bc8c7c2434eb9c1f6f4d09e6119010bbb1694dda286bc2" },
+]
+
+[package.dependencies]
+asgiref = ">=3.8.1,<4"
+sqlparse = ">=0.3.1"
+tzdata = { version = "*", markers = "sys_platform == \"win32\"" }
+
+[package.extras]
+argon2 = ["argon2-cffi (>=19.1.0)"]
+bcrypt = ["bcrypt"]
+
+[[package]]
+name = "django-crum"
+version = "0.7.9"
+description = "Django middleware to capture current request and user."
+optional = false
+python-versions = "*"
+files = [
+    { file = "django-crum-0.7.9.tar.gz", hash = "sha256:65e9bc0f070a663fafc4d9e357f45fd4e6f01838b20a9e2fb7670f5706754288" },
+    { file = "django_crum-0.7.9-py2.py3-none-any.whl", hash = "sha256:037cc8b822975bb1d41cd24269b59a512cc77448fadc3f34ab9a17b229b4b471" },
+]
+
+[package.dependencies]
+django = ">=1.8"
+
+[[package]]
+name = "django-layers-hr"
+version = "1.11.1"
+description = "Serve different templates and static files for eg. mobi and web. Layers can be stacked to enable resource re-use."
+optional = false
+python-versions = "*"
+files = [
+    { file = "django-layers-hr-1.11.1.tar.gz", hash = "sha256:e0f84b17ef91fc7227fb28663cfef9771e21b15a10c0b94ee3cca48cdbfda11d" },
+]
+
+[package.dependencies]
+django = "*"
+django-crum = "*"
+
+[[package]]
 name = "envyaml"
 version = "1.10.211231"
 description = "Simple YAML configuration file parser with easy access for structured data"
@@ -653,6 +715,21 @@ Werkzeug = ">=0.14"
 
 [package.extras]
 asymmetric-crypto = ["cryptography (>=35.0.0)"]
+
+[[package]]
+name = "flask-sqlalchemy"
+version = "3.1.1"
+description = "Add SQLAlchemy support to your Flask application."
+optional = false
+python-versions = ">=3.8"
+files = [
+    { file = "flask_sqlalchemy-3.1.1-py3-none-any.whl", hash = "sha256:4ba4be7f419dc72f4efd8802d69974803c37259dd42f3913b0dcf75c9447e0a0" },
+    { file = "flask_sqlalchemy-3.1.1.tar.gz", hash = "sha256:e4b68bb881802dda1a7d878b2fc84c06d1ee57fb40b874d3dc97dabfa36b8312" },
+]
+
+[package.dependencies]
+flask = ">=2.2.5"
+sqlalchemy = ">=2.0.16"
 
 [[package]]
 name = "flatbuffers"
@@ -2587,6 +2664,21 @@ pymysql = ["pymysql"]
 sqlcipher = ["sqlcipher3_binary"]
 
 [[package]]
+name = "sqlparse"
+version = "0.5.1"
+description = "A non-validating SQL parser."
+optional = false
+python-versions = ">=3.8"
+files = [
+    { file = "sqlparse-0.5.1-py3-none-any.whl", hash = "sha256:773dcbf9a5ab44a090f3441e2180efe2560220203dc2f8c0b0fa141e18b505e4" },
+    { file = "sqlparse-0.5.1.tar.gz", hash = "sha256:bb6b4df465655ef332548e24f08e205afc81b9ab86cb1c45657a7ff173a3a00e" },
+]
+
+[package.extras]
+dev = ["build", "hatch"]
+doc = ["sphinx"]
+
+[[package]]
 name = "starlette"
 version = "0.38.5"
 description = "The little ASGI library that shines."
@@ -3257,4 +3349,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "3.12.6"
-content-hash = "ffb51ae391bf2086f880fc9b8f1975982b2eae1cd4ebc85050599b1bed9c8187"
+content-hash = "eacc6cb6a243c659b9a130b94bbf78c6bec7eff1ba7ac444d415b301506462a7"

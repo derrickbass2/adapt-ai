@@ -20,7 +20,7 @@ def process_data():
     neurotech_network_url = 'http://localhost:3003/api/neurotech-network/analyze'
 
     try:
-        preprocess_response = requests.post(preprocess_url, json={'file_path': file_path, 'feature_cols': feature_cols})
+        requests.post(preprocess_url, json={'file_path': file_path, 'feature_cols': feature_cols})
         cluster_response = requests.post(cluster_url, json={'file_path': file_path, 'num_clusters': num_clusters})
         aa_genome_response = requests.post(aa_genome_url, json=cluster_response.json())
         neurotech_network_response = requests.post(neurotech_network_url, json=aa_genome_response.json())
@@ -32,3 +32,7 @@ def process_data():
 
 if __name__ == '__main__':
     app.run(port=port)
+
+
+def spark_engine():
+    return None
