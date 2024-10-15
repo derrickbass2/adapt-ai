@@ -26,3 +26,5 @@ def calculate_folding_range(sequence):
                         max_range = range_length
 
     return max_range
+node_modules
+node_modules

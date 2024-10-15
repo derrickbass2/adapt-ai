@@ -10,7 +10,7 @@ repository = "https://github.com/adaptivedatafusion/adaptai"
 
 [tool.poetry.dependencies]
 python-dotenv = "1.0.1"
-python = "3.12.6"
+python = ">=3.9,<4.0"
 torch = "2.4.1"
 click = "8.1.7"
 uvicorn = "0.30.6"
