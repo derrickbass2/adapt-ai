@@ -303,3 +303,6 @@ class SparkEngine:
         rdd = predictions.select(label_col, "prediction").rdd.map(lambda row: (row[label_col], row["prediction"]))
         metrics = MulticlassMetrics(rdd)
         return metrics.confusionMatrix().toArray()
+
+    def predict(self, data):
+        pass

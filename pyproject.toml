@@ -34,13 +34,12 @@ datasets = "3.0.0"
 keras = "^3.5.0"
 decisiontreeclassifier = "^0.0.7"
 sequential = "^1.0.0"
-keras-nightly = "^3.5.0.dev2024092318"
 fetch-data = "^0.2.5.2"
 flask-sqlalchemy = "^3.1.1"
 django-layers-hr = "^1.11.1"
 
 [tool.poetry.scripts]
-adaptai = "adaptai.app:create_app"
+adaptai = "adapt-ai-real.app:create_app"
 
 [tool.poetry.dev-dependencies]
 black = "22.10.0"

@@ -78,3 +78,7 @@ def home():
     A simple home route to test the API.
     """
     return jsonify({"message": "Welcome to the Neurotech Network API"}), 200
+
+
+def neurotech_network_bp():
+    return None

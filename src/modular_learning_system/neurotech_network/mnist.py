@@ -6,7 +6,7 @@ from typing import Any, List
 
 import numpy as np
 import tensorflow as tf  # Use TensorFlow as the base library for Keras
-from tensorflow.keras import layers  # Import layers from tf.keras, not standalone keras
+from tensorflow_keras import layers  # Import layers from tf.keras, not standalone keras
 
 DATA_DIR = 'str'
 __all__ = ['MNISTClassifier']
@@ -65,3 +65,6 @@ class MNISTClassifier:
             tf.keras.models.save_model(self.model, model_io)  # Corrected tf.keras.models.save_model
             model_io.seek(0)
             return base64.b64encode(model_io.read()).decode()
+
+    def build_and_train(self, param, param1):
+        pass

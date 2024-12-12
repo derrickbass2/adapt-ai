@@ -103,3 +103,6 @@ class NeurotechNetwork:
             tf.keras.models.save_model(self.model, model_io)
             model_io.seek(0)
             return base64.b64encode(model_io.read()).decode('utf-8')
+
+    def predict(self, data_files):
+        pass

@@ -44,12 +44,13 @@
   "author": "Derrick Bass",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "css-select": "^5.1.0",
     "express": "^4.21.0",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.3",
     "nth-check": "^2.1.1",
+    "react-router-dom": "^7.0.2",
     "react-svg-core": "^3.0.3",
     "react-svg-loader": "^3.0.0"
   },
@@ -61,6 +62,7 @@
     "@babel/traverse": "^7.25.6",
     "@svgr/cli": "^8.1.0",
     "jshint": "^2.13.6",
+    "react": "^19.0.0",
     "svgo": "^3.3.2",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4"

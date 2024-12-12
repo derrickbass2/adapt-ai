@@ -10,23 +10,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7eb16fa0-f0d3-49f9-97cb-661a410b805b" name="Changes" comment="debugging with pytest in poetry shell for the spark_engine">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/list_directory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/adapt_ui/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/adapt_ui/src/components/DataProcessing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/adaptai.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/adaptai.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neurotech_model.h5" beforeDir="false" afterPath="$PROJECT_DIR$/neurotech_model.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/data_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/data_processing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/ml_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/ml_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adaptai/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/user_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/routes_aa_genome.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes_aa_genome.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_aa_genome.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_aa_genome.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_food101.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_food101.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_neurotech_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_neurotech_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_spark_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_spark_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_ui/src/components/icons/Label/InTransit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_ui/src/components/icons/Label/InTransit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/routes_neurotech_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes_neurotech_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/routes_spark_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes_spark_engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network_script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/spark_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/spark_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,8 +128,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:derrickbass2/adapt-ai.git&quot;,
-    &quot;accountId&quot;: &quot;37ff329a-a1f1-4d64-b5b9-0f96dfd9349b&quot;
+    &quot;url&quot;: &quot;https://github.com/derrickbass2/adapt-ai.git&quot;,
+    &quot;accountId&quot;: &quot;191d8539-d6b0-4c33-8816-bfbe2abf7f00&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -158,15 +164,17 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Docker.Dockerfile.executor": "Run",
-    "Flask server.Flask (app.py).executor": "Run",
+    "Flask server.Flask (app.py).executor": "Debug",
     "Flask server.adaptai.executor": "Coverage",
     "Gradle.spark_engine.executor": "Debug",
     "Python tests.Doctest via pytest in frame.py.executor": "Run",
     "Python tests.pytest in /adaptai.executor": "Run",
     "Python.adaptai.executor": "Coverage",
+    "Python.list_directory.executor": "Run",
     "Python.test_pyspark.executor": "Run",
     "Python.test_train_and_save_model.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -178,10 +186,10 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
-    "javascript.nodejs.core.library.configured.version": "22.4.1",
-    "javascript.nodejs.core.library.typings.version": "22.4.2",
+    "javascript.nodejs.core.library.configured.version": "22.12.0",
+    "javascript.nodejs.core.library.typings.version": "22.10.1",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/derrickbass/Public/adaptai/src/modular_learning_system/neurotech_network",
+    "last_opened_file_path": "/Users/dbass/PycharmProjects/adapt-ai-real",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.stylelint": "true",
@@ -225,14 +233,37 @@
       <recent name="$PROJECT_DIR$/src/modular_learning_system/neurotech_network" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/webapp/src" />
       <recent name="$PROJECT_DIR$/static/js" />
       <recent name="$PROJECT_DIR$/src/adaptai" />
       <recent name="$PROJECT_DIR$/src/webapp" />
-      <recent name="$PROJECT_DIR$/hospitality_datasets/hospitality" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in /adaptai">
+  <component name="RunManager" selected="Flask server.Flask (app.py)">
+    <configuration name="list_directory" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="adaptai" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/list_directory.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="adaptai" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
@@ -265,7 +296,7 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="pytest in /Users/derrickbass/Public/adaptai/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest in /Users/dbass/PycharmProjects/adapt-ai-real/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="adaptai" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -304,22 +335,24 @@
     <list>
       <item itemvalue="Flask server.Flask (app.py)" />
       <item itemvalue="npm.start" />
+      <item itemvalue="Python.list_directory" />
       <item itemvalue="Python tests.pytest in /adaptai" />
-      <item itemvalue="Python tests.pytest in /Users/derrickbass/Public/adaptai/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" />
+      <item itemvalue="Python tests.pytest in /Users/dbass/PycharmProjects/adapt-ai-real/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Flask server.Flask (app.py)" />
+        <item itemvalue="Python.list_directory" />
+        <item itemvalue="Python tests.pytest in /Users/dbass/PycharmProjects/adapt-ai-real/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" />
         <item itemvalue="npm.start" />
-        <item itemvalue="Python tests.pytest in /Users/derrickbass/Public/adaptai/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas/frame.py" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23339.19" />
-        <option value="bundled-python-sdk-0029f7779945-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23339.19" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-PY-243.21565.199" />
+        <option value="bundled-python-sdk-cab1f2013843-4ae2d6a61b08-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.21565.199" />
       </set>
     </attachedChunks>
   </component>
@@ -429,6 +462,11 @@
       <workItem from="1727333495213" duration="4930000" />
       <workItem from="1727383928663" duration="3557000" />
       <workItem from="1727416132235" duration="5305000" />
+      <workItem from="1733299709105" duration="352000" />
+      <workItem from="1733300066691" duration="908000" />
+      <workItem from="1733637975107" duration="10632000" />
+      <workItem from="1733654434329" duration="899000" />
+      <workItem from="1733678579765" duration="613000" />
     </task>
     <task id="LOCAL-00001" summary="Chore: Cleaning up old files and removing duplicates">
       <option name="closed" value="true" />
@@ -629,6 +667,10 @@
           <line>13</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/conftest.py</url>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -640,12 +682,12 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MyClass_java$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1727130853092" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/adaptai$Doctest_via_pytest_in_frame_py.coverage" NAME="Doctest via pytest in frame.py Coverage Results" MODIFIED="1722580140731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas" />
-    <SUITE FILE_PATH="coverage/adaptai$adaptai.coverage" NAME="adaptai Coverage Results" MODIFIED="1722600081725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/MyClass_java$test_train_and_save_model.coverage" NAME="test_train_and_save_model Coverage Results" MODIFIED="1727131172492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/MyClass_java$adaptai.coverage" NAME="adaptai Coverage Results" MODIFIED="1725074249178" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/MyClass_java$test_pyspark.coverage" NAME="test_pyspark Coverage Results" MODIFIED="1726616268521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/MyClass_java$pytest_in__adaptai.coverage" NAME="pytest in /adaptai Coverage Results" MODIFIED="1727417434303" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/adaptai$adaptai.coverage" NAME="adaptai Coverage Results" MODIFIED="1722600081725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/adaptai$Doctest_via_pytest_in_frame_py.coverage" NAME="Doctest via pytest in frame.py Coverage Results" MODIFIED="1722580140731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mls/spark_engine/venv/lib/python3.12/site-packages/pyspark/pandas" />
+    <SUITE FILE_PATH="coverage/MyClass_java$adaptai.coverage" NAME="adaptai Coverage Results" MODIFIED="1725074249178" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/MyClass_java$pytest_in__adaptai.coverage" NAME="pytest in /adaptai Coverage Results" MODIFIED="1733655078563" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/MyClass_java$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1733678879525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
