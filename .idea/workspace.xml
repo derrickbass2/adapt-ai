@@ -9,29 +9,53 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7eb16fa0-f0d3-49f9-97cb-661a410b805b" name="Changes" comment="debugging with pytest in poetry shell for the spark_engine">
-      <change afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/list_directory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/adapt_ui/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/adapt_ui/src/components/DataProcessing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/adaptai.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/adaptai.iml" afterDir="false" />
+    <list default="true" id="7eb16fa0-f0d3-49f9-97cb-661a410b805b" name="Changes" comment="Refactor model handling and update dependencies.&#10;&#10;Reorganized model training and prediction functions for better structure and clarity, including validation and error handling. Upgraded `aiohttp` package to version 3.11.11 in dependencies to ensure compatibility and apply potential fixes or improvements.">
+      <change afterPath="$PROJECT_DIR$/pretrained pytorch/tf_efficientnet_b0_ns__0 2.pt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pretrained pytorch/tf_efficientnet_b0_ns__1 2.pt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/routes/metrics.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Dashboard/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/DataInput/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Directory/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/RealTimeChart/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/RealTimeMetrics/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useDashboard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useWebSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/dataCollection.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/integration.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/websockets.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/slices/alertsSlice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/slices/dashboardSlice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/dashboard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/retail/Amazon/archive (2)/amazon_categories.csv" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/retail/Amazon/amazon_categories.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/retail/Amazon/archive (2)/amazon_products.csv.REMOVED.git-id" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/retail/Amazon/amazon_products.csv.REMOVED.git-id" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_aa_genome.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_aa_genome.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_food101.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_food101.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_neurotech_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_neurotech_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_backend/tests/test_spark_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_spark_engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adapt_ui/src/components/icons/Label/InTransit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_ui/src/components/icons/Label/InTransit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/ml_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/ml_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/prediction.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/prediction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adapt_backend/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adapt_backend/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adaptai/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adaptai/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adaptai/text_cleaning.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/text_cleaning.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adaptai/user_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adaptai/user_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/user_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adaptai/user_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/adaptai/user_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/routes_neurotech_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes_neurotech_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/aa_genome/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/neurotech_network/neurotech_network_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/spark_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modular_learning_system/spark_engine/spark_engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -159,54 +183,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Docker.Dockerfile.executor": "Run",
-    "Flask server.Flask (app.py).executor": "Debug",
-    "Flask server.adaptai.executor": "Coverage",
-    "Gradle.spark_engine.executor": "Debug",
-    "Python tests.Doctest via pytest in frame.py.executor": "Run",
-    "Python tests.pytest in /adaptai.executor": "Run",
-    "Python.adaptai.executor": "Coverage",
-    "Python.list_directory.executor": "Run",
-    "Python.test_pyspark.executor": "Run",
-    "Python.test_train_and_save_model.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
-    "WebServerToolWindowPanel.toolwindow.show.date": "false",
-    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
-    "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "javascript.nodejs.core.library.configured.version": "22.12.0",
-    "javascript.nodejs.core.library.typings.version": "22.10.1",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/dbass/PycharmProjects/adapt-ai-real",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.stylelint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "com.tabnineCommon.userSettings.AppSettingsConfigurable",
-    "ts.external.directory.path": "/Applications/PyCharm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "typescript.add.unambiguous.imports.on.the.fly": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Flask (app.py).executor&quot;: &quot;Debug&quot;,
+    &quot;Flask server.adaptai.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.spark_engine.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Doctest via pytest in frame.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in /adaptai.executor&quot;: &quot;Run&quot;,
+    &quot;Python.adaptai.executor&quot;: &quot;Coverage&quot;,
+    &quot;Python.list_directory.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_pyspark.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_train_and_save_model.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;22.12.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.10.1&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/dbass/PycharmProjects/adapt-ai-real&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.qodana&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/PyCharm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;typescript.add.unambiguous.imports.on.the.fly&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="adaptai" is-module-sdk="true">
@@ -223,21 +247,34 @@
     <option name="mySupportGeventDebugging" value="true" />
     <option name="myDropIntoDebuggerOnFailedTests" value="true" />
   </component>
-  <component name="QodanaReportsService">
-    <option name="descriptions">
-      <ReportDescription path="$PROJECT_DIR$/qodana.sarif.json" reportGuid="88bdda30-70e4-48d1-89bb-c40a88435875" reportId="MyClass.java/qodana/2024-09-13" />
+  <component name="QodanaCloudProjectLink">
+    <option name="lastReportId" value="0Xvjj" />
+    <option name="linkedProjectId" value="3jKYX" />
+    <option name="linkedProjectName" value="My first project" />
+    <option name="organizationId" value="p4ldR" />
+    <option name="userId" value="405QM" />
+  </component>
+  <component name="QodanaHighlightedReportService">
+    <option name="cloudReportPersistedInfo">
+      <CloudReportPersistedInfo>
+        <option name="projectId" value="3jKYX" />
+        <option name="reportId" value="0Xvjj" />
+      </CloudReportPersistedInfo>
     </option>
+  </component>
+  <component name="QodanaIsSelectedPersistenceService">
+    <option name="selectedOrLoading" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/modular_learning_system/neurotech_network" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/datasets/retail/Amazon" />
+      <recent name="$PROJECT_DIR$/pretrained pytorch" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/webapp/src" />
       <recent name="$PROJECT_DIR$/static/js" />
-      <recent name="$PROJECT_DIR$/src/adaptai" />
-      <recent name="$PROJECT_DIR$/src/webapp" />
     </key>
   </component>
   <component name="RunManager" selected="Flask server.Flask (app.py)">
@@ -351,8 +388,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-PY-243.21565.199" />
-        <option value="bundled-python-sdk-cab1f2013843-4ae2d6a61b08-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.21565.199" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.180" />
+        <option value="bundled-python-sdk-85c76a3b01b3-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.180" />
       </set>
     </attachedChunks>
   </component>
@@ -467,6 +504,11 @@
       <workItem from="1733637975107" duration="10632000" />
       <workItem from="1733654434329" duration="899000" />
       <workItem from="1733678579765" duration="613000" />
+      <workItem from="1734071647398" duration="9069000" />
+      <workItem from="1734148360702" duration="1504000" />
+      <workItem from="1734150961579" duration="22000" />
+      <workItem from="1734583748852" duration="13222000" />
+      <workItem from="1734749726756" duration="3089000" />
     </task>
     <task id="LOCAL-00001" summary="Chore: Cleaning up old files and removing duplicates">
       <option name="closed" value="true" />
@@ -641,7 +683,8 @@
     <MESSAGE value="passing last unit test (pytest) for neurotech_network_script.py" />
     <MESSAGE value="updating the aa_genome module to meet current tech specifications" />
     <MESSAGE value="debugging with pytest in poetry shell for the spark_engine" />
-    <option name="LAST_COMMIT_MESSAGE" value="debugging with pytest in poetry shell for the spark_engine" />
+    <MESSAGE value="Refactor model handling and update dependencies.&#10;&#10;Reorganized model training and prediction functions for better structure and clarity, including validation and error handling. Upgraded `aiohttp` package to version 3.11.11 in dependencies to ensure compatibility and apply potential fixes or improvements." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor model handling and update dependencies.&#10;&#10;Reorganized model training and prediction functions for better structure and clarity, including validation and error handling. Upgraded `aiohttp` package to version 3.11.11 in dependencies to ensure compatibility and apply potential fixes or improvements." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

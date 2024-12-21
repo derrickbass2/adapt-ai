@@ -1,10 +1,8 @@
-# /Users/derrickbass/Public/adaptai/src/adapt_backend/models.py
-
 from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, MetaData, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, validates
 
 # Define metadata
 metadata = MetaData()
@@ -13,18 +11,22 @@ metadata = MetaData()
 Base = declarative_base(metadata=metadata)
 
 
-# Define SQLAlchemy models
+# User Model
 class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    username = Column(String(50), unique=True, nullable=False)
-    email = Column(String(120), unique=True, nullable=False)
+    username = Column(String(50), unique=True, nullable=False, index=True)
+    email = Column(String(120), unique=True, nullable=False, index=True)
+    jti = Column(String(36), nullable=False, index=True)
     password = Column(String(200), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    role_id = Column(Integer, ForeignKey('roles.id'), nullable=False)
-
+    created_at = Column(DateTime, default=datetime, nullable=False)
+    role_id = Column(Integer, ForeignKey('roles.id', ondelete='CASCADE'), nullable=False)
     role = relationship('Role', back_populates='users')
+
+    def __repr__(self):
+        """Provide a string representation for debugging."""
+        return f"<User(id={self.id}, username={self.username}, email={self.email}, role_id={self.role_id})>"
 
     def to_dict(self):
         """Convert User model to a dictionary for easy serialization."""
@@ -36,39 +38,96 @@ class User(Base):
             "role_id": self.role_id
         }
 
+    @validates('email')
+    def validate_email(self, email):
+        """Validate the format of the email address."""
+        if '@' not in email or '.' not in email:
+            raise ValueError("Invalid email address format.")
+        return email
 
+    @validates('username')
+    def validate_username(self, username):
+        """Validate username length and format."""
+        if len(username) < 3:
+            raise ValueError("Username must be at least 3 characters long.")
+        return username
+
+
+# Role Model
 class Role(Base):
     __tablename__ = 'roles'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    name = Column(String(50), nullable=False, unique=True)
+    users = relationship('User', back_populates='role', cascade='all, delete-orphan')
 
-    users = relationship('User', back_populates='role')
+    def __repr__(self):
+        """Provide a string representation for debugging."""
+        return f"<Role(id={self.id}, name={self.name})>"
 
 
+# Token Blocklist Model
 class TokenBlocklist(Base):
     __tablename__ = 'token_blocklist'
 
     id = Column(Integer, primary_key=True)
-    jti = Column(String(36), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    jti = Column(String(36), nullable=False, unique=True)
+    created_at = Column(DateTime, default=datetime, nullable=False)
+
+    def __repr__(self):
+        """Provide a string representation for debugging."""
+        return f"<TokenBlocklist(id={self.id}, jti={self.jti}, created_at={self.created_at})>"
 
 
-# If you have more models, define them here
-class LRModel:
-    def save(self, param):
+# Abstract Model Class for ML Models
+class BaseModel:
+    def __init__(self):
+        """Initialize a base model with unimplemented placeholders."""
+        self.model = None
+
+    def save(self, filepath: str):
+        """Save the trained model to a file."""
+        raise NotImplementedError("The save() method should be implemented by subclasses.")
+
+    def load(self, filepath: str):
+        """Load a previously trained model."""
+        raise NotImplementedError("The load() method should be implemented by subclasses.")
+
+
+# Logistic Regression Model
+class LRModel(BaseModel):
+    def save(self, filepath: str):
+        print(f"Saving Logistic Regression model to {filepath}...")
+        # Add logic to serialize and save the model
+        pass
+
+    def load(self, filepath: str):
+        print(f"Loading Logistic Regression model from {filepath}...")
+        # Add logic to deserialize and load the model
         pass
 
 
-class RFModel:
-    def save(self, param):
+# Random Forest Model
+class RFModel(BaseModel):
+    def save(self, filepath: str):
+        print(f"Saving Random Forest model to {filepath}...")
+        # Add logic to serialize and save the model
+        pass
+
+    def load(self, filepath: str):
+        print(f"Loading Random Forest model from {filepath}...")
+        # Add logic to deserialize and load the model
         pass
 
 
-class SVMModel:
-    def save(self, param):
+# Support Vector Machine Model
+class SVMModel(BaseModel):
+    def save(self, filepath: str):
+        print(f"Saving SVM model to {filepath}...")
+        # Add logic to serialize and save the model
         pass
 
-
-def db():
-    return None
+    def load(self, filepath: str):
+        print(f"Loading SVM model from {filepath}...")
+        # Add logic to deserialize and load the model
+        pass

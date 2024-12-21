@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from adaptai.user_controller import UserController
+from adaptai.routes import UserController
 from adaptai.user_repository import UserRepository
 
 

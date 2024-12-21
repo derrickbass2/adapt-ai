@@ -3,7 +3,7 @@ import os
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras import layers
+from tensorflow import layers
 
 DATAPATH = '/Users/derrickbass/Public/adaptai/datasets/'
 MODELPATH = '/Users/derrickbass/Public/adaptai/neurotech_model.h5'
@@ -105,4 +105,7 @@ class NeurotechNetwork:
             return base64.b64encode(model_io.read()).decode('utf-8')
 
     def predict(self, data_files):
+        pass
+
+    def analyze_data(self, processed_data):
         pass

@@ -3,7 +3,7 @@ import argparse
 import numpy as np
 from pyspark.sql import SparkSession
 
-from aa_genome import AA_Genome  # Adjusted import path to match project structure
+from modular_learning_system.aa_genome.aa_genome import AA_Genome  # Adjusted import path to match project structure
 
 
 def generate_synthetic_data(rows: int, dimensions: int):

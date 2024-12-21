@@ -10,3 +10,6 @@ class UserSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+    def model_dump(self):
+        pass
