@@ -54,7 +54,7 @@ class AA_Genome:
             # Create the next generation using crossover and mutation
             self.population = self.crossover_and_mutation(selected)
 
-            # Output best fitness for the current generation
+            # Output the best fitness for the current generation
             print(f"Generation {generation + 1}: Best fitness = {min(fitness_scores)}")
 
     def selection(self, fitness_scores):
@@ -106,3 +106,7 @@ class AA_Genome:
         fitness_scores = np.array([self.fitness(ind) for ind in self.population])
         best_index = np.argmin(fitness_scores)
         return self.population[best_index]
+
+    @classmethod
+    def _convert_to_numpy(cls, cleaned_data_list, feature_cols):
+        pass

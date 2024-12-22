@@ -66,6 +66,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/datasets/retail/Amazon/amazon_categories.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/datasets/retail/Amazon/data.csv">
           <value>
             <Attribute>

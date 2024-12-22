@@ -1,182 +1,173 @@
-from typing import List, Optional, Tuple
+import os
 
 import numpy as np
-from keras.layers import Dense, Dropout
-from keras.models import Sequential
-from keras.optimizers import Adam
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
+import pandas as pd
+from joblib import dump, load
+from keras.layers import Dense
+from keras.models import Sequential, load_model
+from sklearn.cluster import KMeans
+from sklearn.linear_model import LogisticRegression, LinearRegression
 
 
-def create_neurotech_model(input_shape: Tuple[int], is_classification: bool, num_classes: int = 1) -> Sequential:
-    """
-    Create and compile a neural network model for regression or classification.
+# ---------------------------------------------
+# Genetic Algorithm Class (AA_Genome)
+# ---------------------------------------------
+class AA_Genome:
+    def __init__(self, dimensions=10, target_value=0.5, pop_size=100, generations=1000, mutation_rate=0.01):
+        """
+        Genetic Algorithm initialization.
+        """
+        self.dimensions = dimensions
+        self.target_value = target_value
+        self.pop_size = pop_size
+        self.generations = generations
+        self.mutation_rate = mutation_rate
+        self.population = self._initialize_population()
+        self.best_solution = None
 
-    Args:
-        input_shape (Tuple[int]): The shape of the input data (e.g., `(num_features,)`).
-        is_classification (bool): Whether the model is for classification.
-        num_classes (int): Number of output classes (only applicable for classification).
+    def _initialize_population(self):
+        return np.random.rand(self.pop_size, self.dimensions)
 
-    Returns:
-        Sequential: A compiled Keras model ready for training.
-    Raises:
-        ValueError: If `num_classes` is invalid for the chosen mode (classification).
-    """
-    # Validate `num_classes` for classification
-    if is_classification and num_classes < 2:
-        raise ValueError("For classification tasks, `num_classes` must be 2 or greater.")
+    def _evaluate_fitness(self, individual, features=None, labels=None):
+        """
+        Use input data for fitness (if provided); otherwise, use target value.
+        """
+        if features is not None and labels is not None:
+            predictions = np.dot(features, individual)
+            loss = np.mean((predictions - labels) ** 2)  # Mean Squared Error
+            return loss
+        return np.abs(np.sum(individual) - self.target_value)
 
-    # Initialize the Sequential model
+    def _select_parents(self, features=None, labels=None):
+        fitness_scores = np.array([self._evaluate_fitness(ind, features, labels) for ind in self.population])
+        parent_indices = np.argsort(fitness_scores)[:2]
+        return self.population[parent_indices]
+
+    def _crossover(self, parent1, parent2):
+        crossover_point = np.random.randint(1, self.dimensions - 1)
+        return np.concatenate((parent1[:crossover_point], parent2[crossover_point:]))
+
+    def _mutate(self, child):
+        if np.random.rand() < self.mutation_rate:
+            mutation_index = np.random.randint(0, self.dimensions)
+            child[mutation_index] = np.random.rand()
+        return child
+
+    def train_AA_genome_model(self, features=None, labels=None):
+        for generation in range(self.generations):
+            parents = self._select_parents(features, labels)
+            new_population = []
+
+            for _ in range(self.pop_size):
+                parent1, parent2 = np.random.permutation(parents)
+                child = self._crossover(parent1, parent2)
+                child = self._mutate(child)
+                new_population.append(child)
+
+            self.population = np.array(new_population)
+            self.best_solution = self._select_parents(features, labels)[0]
+
+    def get_best_solution(self):
+        if self.best_solution is None:
+            raise ValueError("Model not trained yet. Call 'train_AA_genome_model' first.")
+        return self.best_solution
+
+
+# ---------------------------------------------
+# Keras Neural Network Model
+# ---------------------------------------------
+def create_neurotech_model(input_shape, is_classification=True, num_classes=2, hidden_layers=None):
+    if not isinstance(input_shape, tuple) or len(input_shape) != 1:
+        raise ValueError("`input_shape` must be a tuple of size 1 (e.g., (n_features,))")
+    if hidden_layers is None:
+        hidden_layers = [64, 32]
+
     model = Sequential()
+    model.add(Dense(hidden_layers[0], input_shape=input_shape, activation="relu"))
+    for layer_size in hidden_layers[1:]:
+        model.add(Dense(layer_size, activation="relu"))
 
-    # Input layer + first hidden layer
-    model.add(Dense(128, input_shape=input_shape, activation='relu'))
-    model.add(Dropout(0.2))  # Add dropout to prevent overfitting
-
-    # Second hidden layer
-    model.add(Dense(64, activation='relu'))
-    model.add(Dropout(0.2))  # Add dropout for regularization
-
-    # Output layer
     if is_classification:
-        if num_classes == 2:
-            # Binary classification
-            model.add(Dense(1, activation='sigmoid'))
-            loss = 'binary_crossentropy'
-            metrics = ['accuracy']
-        else:
-            # Multi-class classification
-            model.add(Dense(num_classes, activation='softmax'))
-            loss = 'sparse_categorical_crossentropy'
-            metrics = ['accuracy']
+        model.add(Dense(num_classes, activation="softmax"))
+        model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
     else:
-        # Regression
-        model.add(Dense(1, activation='linear'))
-        loss = 'mean_squared_error'
-        metrics = ['mae']
-
-    # Compile the model
-    model.compile(
-        optimizer=Adam(learning_rate=0.001),  # Adam optimizer with default parameters
-        loss=loss,
-        metrics=metrics
-    )
+        model.add(Dense(1, activation="linear"))
+        model.compile(optimizer="adam", loss="mse", metrics=["mae"])
 
     return model
 
 
-class RandomForestModel(RandomForestClassifier):
-    def __init__(self, n_estimators: int = 100, random_state: Optional[int] = 42):
+# ---------------------------------------------
+# SparkEngine Class
+# ---------------------------------------------
+class SparkEngine:
+    @staticmethod
+    def read_csv(file_path):
         """
-        Initialize a Random Forest Model with specified hyperparameters.
-
-        Args:
-            n_estimators (int): Number of trees in the forest. Default is 100.
-            random_state (Optional[int]): Random seed for reproducibility.
+        Reads a CSV file into a DataFrame.
         """
-        super().__init__(n_estimators=n_estimators, random_state=random_state)
-
-    def fit(self, *args, **kwargs):
-        """
-        Fit method with dataset size validation.
-        Raises:
-            ValueError: If the dataset is too small for Random Forest.
-        """
-        X, y = args
-        if len(X) < 10:
-            raise ValueError("RandomForestClassifier requires at least 10 samples to generate results effectively.")
-        super().fit(*args, **kwargs)
-
-
-class SVMModel(SVC):
-    def __init__(self, kernel: str = 'rbf', random_state: Optional[int] = None, **kwargs):
-        """
-        Initialize an SVM model with specified kernel and random state.
-
-        Args:
-            kernel (str): Type of kernel to use in the SVM (e.g., 'linear', 'rbf'). Default is 'rbf'.
-            random_state (Optional[int]): Random seed for reproducibility. Not supported for all kernels.
-        """
-        super().__init__(kernel=kernel, **kwargs)
-        self.random_state = random_state
-
-    def fit(self, *args, **kwargs):
-        """
-        Fit method with scalability warning.
-        Raises:
-            ValueError: If the dataset size is too large for SVM.
-        """
-        X, _ = args
-        if len(X) > 10000:
-            raise ValueError(
-                "SVM does not scale well for datasets larger than 10,000 samples. Consider using LinearSVC.")
-        super().fit(*args, **kwargs)
-
-
-class AA_Genome:
-    def __init__(self):
-        """
-        Genetic Algorithm/Model Handling Class.
-
-        Attributes:
-            best_solution (Optional[np.ndarray]): Placeholder for the best solution of the genome model.
-        """
-        self.best_solution: Optional[np.ndarray] = None
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"File not found: {file_path}")
+        return pd.read_csv(file_path)
 
     @staticmethod
-    def train_AA_genome_model(data: np.ndarray, labels: np.ndarray):
+    def preprocess_data(df, feature_cols, label_col):
         """
-        Placeholder for training the AA Genome model. Replace this logic with actual implementation.
-
-        Args:
-            data (np.ndarray): Input feature data for training.
-            labels (np.ndarray): Corresponding labels for training.
+        Preprocesses the input data for clustering or training.
         """
-        # Validate input data
-        if not isinstance(data, np.ndarray) or not isinstance(labels, np.ndarray):
-            raise ValueError("Both data and labels must be NumPy arrays.")
-
-        # Add your logic for training the genome model here
-        raise NotImplementedError("train_AA_genome_model logic is not yet implemented.")
-
-    def get_best_solution(self) -> np.ndarray:
-        """
-        Return the best solution found by the AA Genome model.
-
-        Returns:
-            np.ndarray: Best solution.
-        Raises:
-            ValueError: If no solution has been generated yet.
-        """
-        if self.best_solution is None:
-            raise ValueError("No solution has been generated yet.")
-        return self.best_solution
+        if not all(col in df.columns for col in feature_cols):
+            raise ValueError("Some feature columns are missing in the DataFrame.")
+        if label_col and label_col not in df.columns:
+            raise ValueError("The label column is missing in the DataFrame.")
+        df = df.dropna()
+        X = df[feature_cols]
+        y = df[label_col] if label_col else None
+        return X, y
 
     @staticmethod
-    def _convert_to_numpy(cleaned_data: List[List[float]], feature_cols: List[int]) -> np.ndarray:
+    def cluster_data(df, num_clusters):
+        numeric_cols = df.select_dtypes(include=["number"]).columns
+        if not numeric_cols.any():
+            raise ValueError("No numeric columns found for clustering.")
+        kmeans = KMeans(n_clusters=num_clusters)
+        df["cluster"] = kmeans.fit_predict(df[numeric_cols])
+        return df
+
+    @staticmethod
+    def train_model(X, y, is_classification=True):
         """
-        Helper function to convert cleaned input data into a NumPy array.
-
-        Args:
-            cleaned_data (List[List[float]]): List of cleaned data points.
-            feature_cols (List[int]): List of feature column indices to include.
-
-        Returns:
-            np.ndarray: Converted NumPy array of cleaned data.
-        Raises:
-            ValueError: If there are issues during data conversion.
+        Trains a Logistic Regression or Linear Regression model.
         """
-        # Validate types and structure
-        if not all(isinstance(row, list) for row in cleaned_data):
-            raise ValueError("`cleaned_data` must be a list of lists.")
-        if not all(isinstance(col, int) for col in feature_cols):
-            raise ValueError("`feature_cols` must be a list of integers.")
+        if is_classification:
+            model = LogisticRegression()
+        else:
+            model = LinearRegression()
+        model.fit(X, y)
+        return model
 
-        # Perform conversion
-        try:
-            return np.array([
-                [row[col] for col in feature_cols]
-                for row in cleaned_data
-            ])
-        except Exception as e:
-            raise ValueError(f"Data conversion failed: {e}")
+    @staticmethod
+    def predict(X, model_path):
+        """
+        Loads a pre-trained model and predicts results.
+        """
+        ext = os.path.splitext(model_path)[1]
+        if ext == ".joblib":
+            model = load(model_path)
+        elif ext == ".h5":
+            model = load_model(model_path)
+        else:
+            raise ValueError(f"Unsupported model format: {ext}")
+        return model.predict(X)
+
+    @staticmethod
+    def save_model(model, model_path):
+        """
+        Saves a given model to the specified path.
+        """
+        ext = os.path.splitext(model_path)[1]
+        if ext == ".joblib":
+            dump(model, model_path)
+        elif ext == ".h5":
+            model.save(model_path)
+        else:
+            raise ValueError("Unsupported file extension for save_model()")

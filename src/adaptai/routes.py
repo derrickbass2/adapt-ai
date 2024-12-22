@@ -117,3 +117,7 @@ def delete_user(id: int):
 
     except Exception as e:
         return ResponseUtils.send_response(HTTPStatus.INTERNAL_SERVER_ERROR, {"error": str(e)})
+
+
+class UserController:
+    pass

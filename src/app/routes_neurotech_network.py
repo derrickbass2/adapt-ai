@@ -1,123 +1,99 @@
-import logging
-
 import numpy as np
-from flask import Flask, request, jsonify, abort
+from flask import Blueprint, request, jsonify
 
-from modular_learning_system.neurotech_network.mnist import MNISTClassifier
-from modular_learning_system.neurotech_network.neurotech_network_script import NeurotechNetwork
+from adapt_backend.ml_models import create_neurotech_model
 
-# Initialize Flask app
-app = Flask(__name__)
+# Initialize the Blueprint
+neurotech_network_bp = Blueprint("neurotech_network", __name__)
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Initialize model instances
-mnist_classifier = MNISTClassifier()
-neurotech_network = NeurotechNetwork(name="Neurotech Model", data_source="data_source")
+# In-memory model storage for simplicity (not ideal for production systems)
+neural_network_model = None
 
 
-def validate_json(required_keys, data):
+@neurotech_network_bp.route("/train", methods=["POST"])
+def train_neural_network():
     """
-    Utility function to validate JSON input keys.
+    Endpoint to train a neural network model using the Neurotech model.
+    Expects JSON input with `features`, `labels`, `is_classification`, and `num_classes`.
     """
-    if not data or not isinstance(data, dict):
-        abort(400, {"error": "Invalid input or missing JSON payload."})
-
-    missing_keys = [key for key in required_keys if key not in data]
-    if missing_keys:
-        abort(400, {"error": f"Missing required fields: {', '.join(missing_keys)}"})
-
-
-@app.route('/train_mnist', methods=['POST'])
-def train_mnist():
-    """
-    Endpoint to train the MNIST classifier.
-    """
+    global neural_network_model
     try:
+        # Parse input JSON data
         data = request.json
-        validate_json(['train_images', 'train_labels', 'val_images', 'val_labels'], data)
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
 
-        train_images = np.array(data['train_images'])
-        train_labels = np.array(data['train_labels'])
-        val_images = np.array(data['val_images'])
-        val_labels = np.array(data['val_labels'])
+        # Extract input data and model parameters
+        features = np.array(data.get("features"))
+        labels = np.array(data.get("labels"))
+        is_classification = data.get("is_classification", True)
+        num_classes = data.get("num_classes", 2)
+        epochs = data.get("epochs", 10)
+        batch_size = data.get("batch_size", 32)
 
-        mnist_classifier.build_and_train((train_images, train_labels), (val_images, val_labels))
-        logger.info("MNIST model trained successfully.")
-        return jsonify({"message": "MNIST model trained successfully."}), 200
-    except Exception as e:
-        logger.error(f"Error training MNIST model: {str(e)}", exc_info=True)
+        # Validate features and labels
+        if features.size == 0 or labels.size == 0:
+            return jsonify({"error": "Features and labels cannot be empty."}), 400
+        if len(features) != len(labels):
+            return jsonify({"error": "Number of features and labels must match."}), 400
+
+        # Create a neural network model
+        input_shape = (features.shape[1],)  # Assuming features are 2D (samples, features)
+        neural_network_model = create_neurotech_model(input_shape, is_classification, num_classes)
+
+        # Train the model
+        neural_network_model.fit(features, labels, epochs=epochs, batch_size=batch_size, verbose=1)
+
+        return jsonify({"message": "Model trained successfully"}), 200
+
+    except ValueError as e:
+        # Handle value-specific issues (e.g., invalid parameters)
         return jsonify({"error": str(e)}), 400
 
+    except Exception as e:
+        # Handle any other errors
+        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
-@app.route('/predict_mnist', methods=['POST'])
-def predict_mnist():
+
+@neurotech_network_bp.route("/predict", methods=["POST"])
+def predict_with_neural_network():
     """
-    Endpoint to make predictions with the MNIST classifier.
+    Endpoint to make predictions using the trained neural network model.
+    Expects JSON input with `features`.
     """
+    global neural_network_model
     try:
-        data = request.json
-        validate_json(['images'], data)
+        if neural_network_model is None:
+            return jsonify({"error": "Model has not been trained yet."}), 400
 
-        images = np.array(data['images'])
-        predictions = mnist_classifier.predict(images)
-        logger.info("MNIST prediction completed successfully.")
+        # Parse features from the request
+        data = request.json
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
+        features = np.array(data.get("features"))
+
+        # Validate features
+        if features.ndim != 2:
+            return jsonify({"error": "Features must be a 2-dimensional array."}), 400
+
+        # Make predictions
+        predictions = neural_network_model.predict(features)
+
+        # Convert predictions to list for JSON serialization
         return jsonify({"predictions": predictions.tolist()}), 200
-    except Exception as e:
-        logger.error(f"Error during MNIST prediction: {str(e)}", exc_info=True)
+
+    except ValueError as e:
+        # Handle value-specific issues
         return jsonify({"error": str(e)}), 400
 
-
-@app.route('/train_neurotech', methods=['POST'])
-def train_neurotech():
-    """
-    Endpoint to train the Neurotech Network.
-    """
-    try:
-        data = request.json
-        validate_json(['data_source'], data)
-
-        data_source = data['data_source']
-        data_files = neurotech_network.load_data(data_source)
-        neurotech_network.train_model(data_files)
-        neurotech_network.save_model()
-
-        logger.info("Neurotech model trained successfully.")
-        return jsonify({"message": "Neurotech model trained successfully."}), 200
     except Exception as e:
-        logger.error(f"Error training Neurotech model: {str(e)}", exc_info=True)
-        return jsonify({"error": str(e)}), 400
+        # Handle unexpected errors
+        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 
-@app.route('/predict_neurotech', methods=['POST'])
-def predict_neurotech():
-    """
-    Endpoint to make predictions using the Neurotech Network.
-    """
-    try:
-        data = request.json
-        validate_json(['data_source'], data)
-
-        data_source = data['data_source']
-        data_files = neurotech_network.load_data(data_source)
-        predictions = neurotech_network.predict(data_files)
-        logger.info("Neurotech prediction completed successfully.")
-        return jsonify({"predictions": predictions.tolist()}), 200
-    except Exception as e:
-        logger.error(f"Error during Neurotech prediction: {str(e)}", exc_info=True)
-        return jsonify({"error": str(e)}), 400
-
-
-@app.route('/')
+@neurotech_network_bp.route("/")
 def home():
     """
-    A simple home route to test the API.
+    A simple home route for the Neurotech API.
     """
-    logger.info("Home endpoint accessed.")
-    return jsonify({"message": "Welcome to the Neurotech Network API"}), 200
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return jsonify({"message": "Welcome to the Neurotech Network API!"}), 200
