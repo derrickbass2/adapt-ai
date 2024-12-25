@@ -80,6 +80,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/datasets/retail/blinkit_retail.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/datasets/retail/olist_customers_dataset.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/datasets/retail/olist_sellers_dataset.csv">
           <value>
             <Attribute>

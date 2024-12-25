@@ -3,53 +3,49 @@ name = "adaptai"
 version = "0.0.1"
 description = "A machine learning platform for developing, benchmarking, and solving real-world problems."
 authors = ["Derrick Bass <derrick@adaptivedatafusion.com>"]
-license = "Apache-2.0"  # Correct SPDX identifier for Apache License 2.0
-readme = "README.md"  # If README.md exists in the root directory
+license = "Apache-2.0"  # Correct SPDX identifier
+readme = "README.md"  # Ensure README.md exists in the root directory
 homepage = "https://adaptivedatafusion.com"
 repository = "https://github.com/adaptivedatafusion/adaptai"
 
 [tool.poetry.dependencies]
 python-dotenv = "1.0.1"
 python = ">=3.10,<3.13"  # Compatible with most ML/DL frameworks
-torch = "^2.0.0"  # Align with stable PyTorch releases for production
+torch = "^2.0.0"  # Align with stable PyTorch releases
 click = "^8.1"  # Specify major version compatibility
-uvicorn = "^0.22.0"  # Updated to more recent stable version
-fastapi = "0.109.1"  # Updated to align with compatible versions of Uvicorn
+uvicorn = "^0.23.0"  # Latest stable Uvicorn release
+fastapi = "0.109.1"  # Latest compatible version with Uvicorn
 sqlalchemy = "^2.0.20"  # Ensure compatibility with FastAPI and Alembic
-pyarrow = "^15.0.1"  # Keep it up-to-date but not overloading dependencies
+pyarrow = "^15.0.1"  # Up-to-date and optimized
 numpy = "^1.24.0"  # Compatible with TensorFlow/PyTorch
-pandas = "^2.0.3"  # Aligned with general compatibility versions
-scikit-learn = "^1.3"  # Limit to compatible major versions
-flask = "^2.3.3"  # Ensure Flask app dependencies match with Werkzeug library
-flask-jwt-extended = "^4.4.0"  # Frequently works best with Flask updates
-alembic = "^1.11.0"  # Latest Alembic release
-werkzeug = "3.0.6"  # Requires compatibility with Flask/Flask-SQLAlchemy
-tensorflow = "^2.17.0"  # Ensure compatibility with Python 3.9+ and Keras
-requests = "^2.31.0"  # Latest stable release for HTTP operations
-typing-extensions = "^4.7.1"  # To maintain Python type compatibility
-setuptools = "70.0.0"  # Aligned with Python versions for consistent builds
-datasets = "^3.0.0"  # NLP-focused dataset integration
-keras = "^3.5.0"  # Align with TensorFlow >=2.17.0 requirementsautomium-web = "^0.1.1"  # Assuming this dependency is required and maintained
-pyspark = "^3.5.0"  # Reduce upper limit for compatibility and performance
-flask-sqlalchemy = "^3.1.1"  # Aligned with Flask and SQLAlchemy versions
-
-# Dependencies to potentially remove or review:
-# decisiontreeclassifier = "^0.0.7" - Consider replacing with scikit-learn
-# sequential = "^1.0.0" - Likely redundant with TensorFlow/Keras
-# fetch-data = "^0.2.5.2" - Verify its utility and maintenance
-# django-layers-hr = "^1.11.1" - Flask and Django ecosystems aren't commonly mixed
+pandas = "^2.0.3"  # Use version aligned with compatibility constraints
+scikit-learn = "^1.3"  # Compatible with Python 3.10+
+flask = "^2.3.3"  # Ensure compatibility with Werkzeug
+flask-jwt-extended = "^4.4.0"  # Works with Flask updates
+alembic = "^1.11.0"  # Use the latest stable Alembic
+werkzeug = "3.0.6"  # Align with Flask compatibility
+tensorflow = "^2.17.0"  # Compatible with Python 3.10+
+requests = "^2.31.0"  # Latest version for HTTP requests
+typing-extensions = "^4.7.1"  # Ensures compatibility with Python types
+setuptools = "^70.0.0"  # Compatible with Python tools
+datasets = "^3.0.0"  # Focused on NLP dataset integration
+pyspark = "^3.5.0"  # Compatible with core Python features
+flask-sqlalchemy = "^3.1.1"  # Works well with Flask/SQLAlchemy
+huggingface-hub = "^0.27.0" # For Ml Models imports
+# Removed unnecessary or redundant dependencies:
+# Removed keras (use TensorFlow's built-in Keras implementation)
+# Removed fetch-data, decisiontreeclassifier, sequential, django-layers-hr (verify utility if required)
+celery = "^5.4.0"
 
 [tool.poetry.scripts]
-adaptai = "adapt-ai-real.app:create_app"  # Verify this entry-point is working
+adaptai = "adapt-ai-real.app:create_app"  # Verify app entry point works
 
 [tool.poetry.dev-dependencies]
-black = "^23.9.1"  # Black code formatter, updated to the latest version
-isort = "^5.12.0"  # Python imports sorter, already the latest
+black = "^23.9.1"  # Code formatter
+isort = "^5.12.0"  # Python imports sorter
 pre-commit = "^3.3.3"  # Pre-commit hooks for code quality
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.3"  # Pytest for testing framework
+pytest = "^8.3.3"  # Testing framework
 
 [build-system]
-requires = ["poetry-core>=1.6.0"]  # Update Poetry core for compatibility
+requires = ["poetry-core>=1.6.0"]  # Core requirement for builds
 build-backend = "poetry.core.masonry.api"
