@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from src.adapt_backend.models import Role, User, TokenBlocklist
+from src.adapt_backend.database_models import Role, User, TokenBlocklist
 
 db = SQLAlchemy()
 

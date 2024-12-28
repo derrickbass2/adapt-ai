@@ -1,18 +1,10 @@
-import os
-
 import numpy as np
-import pandas as pd
 import tensorflow as tf
-from joblib import dump, load
-from sklearn.cluster import KMeans
-from sklearn.linear_model import LogisticRegression, LinearRegression
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.models import Sequential
 
 
-# ---------------------------------------------
-# Genetic Algorithm Class (AA_Genome)
-# ---------------------------------------------
+# Genetic Algorithm Class
 class AA_Genome:
     def __init__(self, dimensions=10, target_value=0.5, pop_size=100, generations=1000, mutation_rate=0.01):
         """
@@ -27,27 +19,21 @@ class AA_Genome:
         self.best_solution = None
 
     def _initialize_population(self):
-        # Ensure population dimensions are valid
         if self.pop_size <= 0 or self.dimensions <= 0:
             raise ValueError("Population size and dimensions must be positive integers.")
         return np.random.rand(self.pop_size, self.dimensions)
 
     def _evaluate_fitness(self, individual, features=None, labels=None):
-        """
-        Use input data for fitness (if provided); otherwise, use target value.
-        """
         try:
             if features is not None and labels is not None:
                 predictions = np.dot(features, individual)
-                loss = np.mean((predictions - labels) ** 2)  # Mean Squared Error
-                return loss
+                loss = np.mean((predictions - labels) ** 2)
+                return loss  # Mean Squared Error
             return np.abs(np.sum(individual) - self.target_value)
         except Exception as e:
             raise RuntimeError(f"Error in fitness evaluation: {str(e)}")
 
     def _select_parents(self, features=None, labels=None):
-        if len(self.population) == 0:
-            raise ValueError("Population is empty, cannot select parents.")
         fitness_scores = np.array([self._evaluate_fitness(ind, features, labels) for ind in self.population])
         parent_indices = np.argsort(fitness_scores)[:2]
         return self.population[parent_indices]
@@ -57,140 +43,175 @@ class AA_Genome:
         return np.concatenate((parent1[:crossover_point], parent2[crossover_point:]))
 
     def _mutate(self, child):
-        child = child.copy()  # Avoid modifying the original object
         if np.random.rand() < self.mutation_rate:
             mutation_index = np.random.randint(0, self.dimensions)
             child[mutation_index] = np.random.rand()
         return child
 
-    def train_AA_genome_model(self, features=None, labels=None):
+    def train(self, features=None, labels=None):
+        """
+        Run the genetic algorithm optimization process.
+        """
         for generation in range(self.generations):
             parents = self._select_parents(features, labels)
-            new_population = []
-
-            for _ in range(self.pop_size):
-                parent1, parent2 = np.random.permutation(parents)
-                child = self._crossover(parent1, parent2)
-                child = self._mutate(child)
-                new_population.append(child)
-
+            new_population = [self._mutate(self._crossover(parents[0], parents[1])) for _ in range(self.pop_size)]
             self.population = np.array(new_population)
             self.best_solution = self._select_parents(features, labels)[0]
 
     def get_best_solution(self):
         if self.best_solution is None:
-            raise ValueError("Model not trained yet. Call 'train_AA_genome_model' first.")
+            raise ValueError("Model not trained yet. Call 'train' first.")
         return self.best_solution
 
 
-# ---------------------------------------------
-# Keras Neural Network Model
-# ---------------------------------------------
-def create_neurotech_model(input_shape, is_classification=True, num_classes=2, hidden_layers=None, learning_rate=0.001):
-    if not isinstance(input_shape, tuple) or len(input_shape) != 1:
-        raise ValueError("`input_shape` must be a tuple of size 1 (e.g., (n_features,)).")
-    if hidden_layers is None:
-        hidden_layers = [64, 32]
-
-    model = Sequential()
-    model.add(Dense(hidden_layers[0], input_shape=input_shape, activation="relu"))
-    for layer_size in hidden_layers[1:]:
-        model.add(Dense(layer_size, activation="relu"))
-
-    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-
-    if is_classification:
-        model.add(Dense(num_classes, activation="softmax"))
-        model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"])
-    else:
-        model.add(Dense(1, activation="linear"))
-        model.compile(optimizer=optimizer, loss="mse", metrics=["mae"])
-
-    return model
-
-
-# ---------------------------------------------
-# SparkEngine Class
-# ---------------------------------------------
-class SparkEngine:
-    @staticmethod
-    def read_csv(file_path):
+# Spark Engine Class
+class Spark_Engine:
+    def __init__(self, data):
         """
-        Reads a CSV file into a DataFrame.
+        A mock Spark-like data processing engine. Can be extended to use PySpark if needed.
+        :param data: Input data to be processed.
         """
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File not found: {file_path}")
-        return pd.read_csv(file_path)
+        self.data = data
 
-    @staticmethod
-    def preprocess_data(df, feature_cols, label_col=None):
+    def map(self, func):
         """
-        Preprocesses the input data for clustering or training.
+        Mimic the Spark 'map' functionality.
         """
-        if not all(col in df.columns for col in feature_cols):
-            raise ValueError("Some feature columns are missing in the DataFrame.")
-        if label_col and label_col not in df.columns:
-            raise ValueError("The label column is missing in the DataFrame.")
-        # Ensure there are no duplicate columns
-        if len(set(feature_cols)) != len(feature_cols):
-            raise ValueError("Duplicate column names in feature_cols list.")
-        df = df.dropna()
-        X = df[feature_cols]
-        y = df[label_col] if label_col else None
-        return X, y
+        self.data = np.array([func(x) for x in self.data])
+        return self
 
-    @staticmethod
-    def cluster_data(df, num_clusters):
-        numeric_cols = df.select_dtypes(include=["number"]).columns
-        if not len(numeric_cols):
-            raise ValueError("No numeric columns found for clustering.")
-        kmeans = KMeans(n_clusters=num_clusters, random_state=42)
-        df["cluster"] = kmeans.fit_predict(df[numeric_cols])
-        return df
+    def filter(self, func):
+        """
+        Mimic the Spark 'filter' functionality.
+        """
+        self.data = np.array([x for x in self.data if func(x)])
+        return self
 
-    @staticmethod
-    def train_model(X, y, is_classification=True):
+    def collect(self):
         """
-        Trains a Logistic Regression or Linear Regression model.
+        Mimic the Spark 'collect' functionality.
         """
-        if X.empty or y is None or len(X) == 0 or len(y) == 0:
-            raise ValueError("Input data cannot be empty.")
-        if is_classification:
-            model = LogisticRegression()
+        return self.data
+
+    def reduce(self):
+        """
+        Mimic the Spark 'reduce' functionality.
+        """
+        return np.array(self.data).flatten().tolist()
+
+    def __repr__(self):
+        return f"<Spark_Engine data={self.data}>"
+
+
+# Neural Network Class
+class Neurotech_Network:
+    __slots__ = ('is_classification', 'num_classes', 'hidden_layers', 'learning_rate', 'model')
+
+    def __init__(self, input_shape, is_classification=True, num_classes=2, hidden_layers=None, learning_rate=0.001):
+        """
+        Initializes a neural network model using TensorFlow/Keras.
+        :param input_shape: Input shape (number of features).
+        :param is_classification: If True, configure for classification; otherwise, regression.
+        :param num_classes: Number of classes for classification.
+        :param hidden_layers: List of hidden layer sizes.
+        :param learning_rate: Learning rate for optimization.
+        """
+        if not isinstance(input_shape, tuple) or len(input_shape) != 1:
+            raise ValueError("Input shape must be a tuple of size 1 (e.g., `(n_features,)`).")
+        if hidden_layers is None:
+            hidden_layers = [64, 32]
+
+        self.is_classification = is_classification
+        self.num_classes = num_classes
+        self.hidden_layers = hidden_layers
+        self.learning_rate = learning_rate
+
+        self.model = self._build_model(input_shape)
+
+    def _build_model(self, input_shape):
+        """
+        Build the Sequential Keras model.
+        """
+        model = Sequential()
+        model.add(Input(shape=input_shape))  # Use explicit Input layer
+        for layer_size in self.hidden_layers:
+            model.add(Dense(layer_size, activation="relu"))
+
+        optimizer = tf.keras.optimizers.Adam(learning_rate=self.learning_rate)
+
+        if self.is_classification:
+            model.add(Dense(self.num_classes, activation="softmax"))
+            model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"])
         else:
-            model = LinearRegression()
-        model.fit(X, y)
+            model.add(Dense(1, activation="linear"))
+            model.compile(optimizer=optimizer, loss="mse", metrics=["mae"])
+
         return model
 
-    @staticmethod
-    def predict(X, model_path):
+    def train(self, features, labels, epochs=10, batch_size=32):
         """
-        Loads a pre-trained model and predicts results.
+        Train the neural network model.
+        :param features: Training features.
+        :param labels: Training labels.
+        :param epochs: Number of epochs to train for.
+        :param batch_size: Batch size.
         """
-        ext = os.path.splitext(model_path)[1]
-        try:
-            if ext == ".joblib":
-                model = load(model_path)
-            elif ext == ".h5":
-                model = load_model(model_path)
-            else:
-                raise ValueError(f"Unsupported model format: {ext}")
-            return model.predict(X)
-        except Exception as e:
-            raise RuntimeError(f"Failed to load model or execute prediction: {str(e)}")
+        if features is None or labels is None:
+            raise ValueError("Features and labels must not be None.")
+        self.model.fit(features, labels, epochs=epochs, batch_size=batch_size)
 
-    @staticmethod
-    def save_model(model, model_path):
+    def predict(self, features):
         """
-        Saves a given model to the specified path.
+        Predict using the trained model.
+        :param features: Input features for prediction.
         """
-        ext = os.path.splitext(model_path)[1]
-        try:
-            if ext == ".joblib":
-                dump(model, model_path)
-            elif ext == ".h5":
-                model.save(model_path)
-            else:
-                raise ValueError("Unsupported file extension for save_model().")
-        except Exception as e:
-            raise RuntimeError(f"Failed to save model: {str(e)}")
+        return self.model.predict(features)
+
+    def evaluate(self, features, labels):
+        """
+        Evaluate the model on a test set.
+        :param features: Test features.
+        :param labels: Test labels.
+        """
+        return self.model.evaluate(features, labels)
+
+
+# Example usage (you can remove this from your production codebase)
+if __name__ == "__main__":
+    # Example for create_neurotech_model usage
+    neurotech = create_neurotech_model(input_shape=(10,), num_classes=3, hidden_layers=[128, 64])
+    print("Neurotech model created successfully")
+    neurotech.model.summary()
+    aa.train()
+    print("Best solution:", aa.get_best_solution())
+
+    # Example for Spark_Engine
+    spark = Spark_Engine(data=np.array([1, 2, 3, 4, 5]))
+    print("Filtered data:", spark.filter(lambda x: x % 2 == 0).collect())
+
+    # Example for Neurotech_Network
+    # Removed standalone usage of Neurotech_Network direct instantiation
+    nn.model.summary()
+
+
+def create_neurotech_model(input_shape=(10,), is_classification=True, num_classes=2, hidden_layers=None,
+                           learning_rate=0.001):
+    """
+    Factory method to create and return a Neurotech_Network instance.
+    :param input_shape: Input shape (number of features).
+    :param is_classification: If True, configure for classification; otherwise, regression.
+    :param num_classes: Number of classes for classification.
+    :param hidden_layers: List of hidden layer sizes. Defaults to [64, 32].
+    :param learning_rate: Learning rate for optimization.
+    :return: Instance of Neurotech_Network.
+    """
+    try:
+        return Neurotech_Network(
+            input_shape=input_shape,
+            is_classification=is_classification,
+            num_classes=num_classes,
+            hidden_layers=hidden_layers,
+            learning_rate=learning_rate
+        )
+    except Exception as e:
+        raise RuntimeError(f"Error creating Neurotech_Network instance: {str(e)}")

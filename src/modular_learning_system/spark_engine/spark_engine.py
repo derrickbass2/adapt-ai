@@ -1,130 +1,138 @@
-import logging
 import os
-from pathlib import Path
+from uuid import uuid4
 
+from flask import Blueprint, request, jsonify
+from pyspark.ml import Pipeline
+from pyspark.ml.classification import LogisticRegression as SparkLogisticRegression
+from pyspark.ml.clustering import KMeans as SparkKMeans
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.regression import LinearRegression as SparkLinearRegression
 from pyspark.sql import DataFrame
 from pyspark.sql import SparkSession
 
-# Configure logging centrally
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
-logger = logging.getLogger(__name__)
+# Initialize SparkSession
+spark = SparkSession.builder.appName("SparkEngine").getOrCreate()
+
+# Flask Blueprint for Spark operations
+spark_engine_bp = Blueprint("spark_engine", __name__)
 
 
 class SparkEngine:
-    def __init__(self, spark_session: SparkSession = None, app_name: str = 'ADAPTAI'):
+    @staticmethod
+    def read_csv(file_path):
         """
-        Initialize SparkEngine with a Spark session.
-        If no Spark session is provided, a new one is created.
-
-        :param spark_session: Optional SparkSession object. If None, a new session will be created.
-        :param app_name: Application name for the Spark session.
-        """
-        self.spark_session = spark_session or SparkSession.builder.appName(app_name).getOrCreate()
-        logger.info(f"Spark session started with app name '{app_name}'.")
-
-    def get_spark_session(self) -> SparkSession:
-        """
-        Returns the Spark session.
-        """
-        if not self.spark_session:
-            raise Exception("SparkSession has been closed.")
-        return self.spark_session
-
-    def close_spark_session(self):
-        """
-        Closes the Spark session and cleans up resources.
-        """
-        if self.spark_session:
-            self.spark_session.stop()
-            self.spark_session = None
-            logger.info("SparkSession closed successfully.")
-        else:
-            logger.warning("SparkSession is already closed.")
-
-    def read_csv_file(self, file_path: str) -> DataFrame:
-        """
-        Read a CSV file into a DataFrame.
-
-        :param file_path: Path to the CSV file.
-        :return: DataFrame containing the CSV data.
+        Reads a CSV file into a Spark DataFrame.
         """
         if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File {file_path} does not exist.")
-        logger.info(f"Reading CSV file from {file_path}...")
-        return self.spark_session.read.option('header', 'true').csv(file_path)
+            raise FileNotFoundError(f"File not found: {file_path}")
+        return spark.read.csv(file_path, header=True, inferSchema=True)
 
     @staticmethod
-    def write_parquet(df: DataFrame, output_path: str):
+    def preprocess_data(df: DataFrame, feature_cols, label_col=None):
         """
-        Write DataFrame to Parquet format.
+        Preprocesses the input Spark DataFrame for clustering or training.
+        """
+        if not all(col in df.columns for col in feature_cols):
+            raise ValueError("Some feature columns are missing in the DataFrame.")
+        if label_col and label_col not in df.columns:
+            raise ValueError("The label column is missing in the DataFrame.")
 
-        :param df: DataFrame to be written.
-        :param output_path: Path where the Parquet file will be saved.
-        """
-        output_dir = Path(output_path).parent
-        if not output_dir.exists():
-            try:
-                output_dir.mkdir(parents=True)
-            except OSError as e:
-                logger.error(f"Error creating output directory {output_dir}: {e}")
-                raise
-        logger.info(f"Writing DataFrame to Parquet at {output_path}...")
-        df.write.parquet(output_path)
-        logger.info(f"Data successfully written to {output_path}.")
+        assembler = VectorAssembler(inputCols=feature_cols, outputCol="features")
+        if label_col:
+            return assembler.transform(df).select("features", label_col)
+        return assembler.transform(df).select("features")
 
     @staticmethod
-    def preprocess_data(input_data: DataFrame, feature_columns: list, label_column: str = None) -> DataFrame:
+    def cluster_data(df: DataFrame, num_clusters: int):
         """
-        Perform basic data preprocessing like feature selection and handling missing values.
-
-        :param input_data: Input DataFrame to preprocess.
-        :param feature_columns: List of feature column names.
-        :param label_column: Optional label column name.
-        :return: Preprocessed DataFrame.
+        Perform clustering using Spark MLlib's KMeans.
         """
-        logger.info("Preprocessing data...")
+        kmeans = SparkKMeans(k=num_clusters, seed=42, featuresCol="features")
+        model = kmeans.fit(df)
+        return model.transform(df)
 
-        # Validate input types
-        if not isinstance(input_data, DataFrame):
-            raise TypeError("input_data must be a PySpark DataFrame.")
-        if not isinstance(feature_columns, list) or not feature_columns:
-            raise ValueError("feature_columns must be a non-empty list of column names.")
-
-        try:
-            # Ensure all feature columns exist in the DataFrame
-            missing_columns = [col for col in feature_columns if col not in input_data.columns]
-            if missing_columns:
-                raise ValueError(f"Missing required feature columns: {', '.join(missing_columns)}")
-
-            # Check if label column is present, if provided
-            if label_column and label_column not in input_data.columns:
-                raise ValueError(f"Label column '{label_column}' does not exist in the DataFrame.")
-
-            # Count rows before preprocessing (optimization: retrieve once)
-            original_count = input_data.count()
-
-            # Drop rows with missing values in feature and label columns
-            columns_to_check = feature_columns + ([label_column] if label_column else [])
-            preprocessed_data = input_data.dropna(subset=columns_to_check)
-
-            # Count rows after preprocessing
-            reduced_count = preprocessed_data.count()
-            logger.info(f"Data reduced from {original_count} to {reduced_count} rows after preprocessing.")
-
-            return preprocessed_data
-
-        except ValueError as ve:
-            logger.error(f"ValueError in preprocessing: {ve}")
-            raise
-        except Exception as e:
-            logger.error(f"Unexpected error during data preprocessing: {e}")
-            raise
-
-    def __del__(self):
+    @staticmethod
+    def train_model(df: DataFrame, label_col: str, is_classification=True):
         """
-        Clean up Spark session on object destruction
+        Train a Spark-based Machine Learning model (Logistic Regression or Linear Regression).
         """
-        try:
-            self.close_spark_session()
-        except Exception as e:
-            logger.error(f"Error during SparkEngine cleanup: {e}")
+        if is_classification:
+            model = SparkLogisticRegression(featuresCol="features", labelCol=label_col, maxIter=10)
+        else:
+            model = SparkLinearRegression(featuresCol="features", labelCol=label_col)
+
+        pipeline = Pipeline(stages=[model])
+        trained_model = pipeline.fit(df)
+        return trained_model
+
+    @staticmethod
+    def save_model(model, model_path):
+        """
+        Save a given Spark MLlib model.
+        """
+        model.write().overwrite().save(model_path)
+
+
+@spark_engine_bp.route("/preprocess", methods=["POST"])
+def preprocess_data():
+    """
+    Flask endpoint for preprocessing data.
+    """
+    data = request.json
+    try:
+        file_path = data["file_path"]
+        feature_cols = data["feature_cols"]
+        label_col = data.get("label_col", None)
+
+        df = SparkEngine.read_csv(file_path)
+        processed_df = SparkEngine.preprocess_data(df, feature_cols, label_col)
+        output_path = f"/tmp/processed_data-{uuid4().hex}.parquet"
+        processed_df.write.mode("overwrite").parquet(output_path)
+
+        return jsonify({"message": "Data preprocessed successfully", "output_path": output_path}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@spark_engine_bp.route("/cluster", methods=["POST"])
+def cluster_data():
+    """
+    Flask endpoint for clustering.
+    """
+    data = request.json
+    try:
+        file_path = data["file_path"]
+        num_clusters = data["num_clusters"]
+
+        df = SparkEngine.read_csv(file_path)
+        processed_df = SparkEngine.preprocess_data(df, feature_cols=df.columns)
+        clustered_df = SparkEngine.cluster_data(processed_df, num_clusters)
+        output_path = f"/tmp/clustered_data-{uuid4().hex}.parquet"
+        clustered_df.write.mode("overwrite").parquet(output_path)
+
+        return jsonify({"message": "Data clustered successfully", "output_path": output_path}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@spark_engine_bp.route("/train", methods=["POST"])
+def train_model():
+    """
+    Flask endpoint for training a machine learning model.
+    """
+    data = request.json
+    try:
+        file_path = data["file_path"]
+        label_col = data["label_col"]
+        is_classification = data.get("is_classification", True)
+
+        df = SparkEngine.read_csv(file_path)
+        processed_df = SparkEngine.preprocess_data(df, feature_cols=df.columns, label_col=label_col)
+        model = SparkEngine.train_model(processed_df, label_col, is_classification)
+
+        model_path = f"/tmp/model-{uuid4().hex}"
+        SparkEngine.save_model(model, model_path)
+
+        return jsonify({"message": "Model trained successfully", "model_path": model_path}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400

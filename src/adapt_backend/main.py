@@ -5,7 +5,7 @@ from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 
 from .data_processing import preprocess_text, tfidf_transform, engineer_features
-from .models import LRModel, RFModel, SVMModel
+from .database_models import LRModel, RFModel, SVMModel
 from .training import train_and_evaluate
 
 
